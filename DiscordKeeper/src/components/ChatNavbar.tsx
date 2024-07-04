@@ -1,5 +1,6 @@
-import { ClerkLoading, SignedIn, SignedOut } from '@clerk/nextjs';
+import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut } from '@clerk/nextjs';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react'
 // import { FaRegArrowAltCircleRight } from "react-icons/fa";
 import { FaCircleRight } from "react-icons/fa6";
@@ -42,46 +43,51 @@ const ChatNavbar = () => {
 
                 </div>
                 <div className="navbar-center">
-                    <a className="btn btn-ghost text-xl">Select Model</a>
+                    <a className="btn btn-ghost text-xl">Discord Keeper</a>
                 </div>
                 <div className="navbar-end">
-                <ClerkLoading>
-                    <span className="loading loading-ring loading-lg"></span>
-                </ClerkLoading>
+                    <ClerkLoading>
+                        <span className="loading loading-ring loading-lg"></span>
+                    </ClerkLoading>
+                   <ClerkLoaded>
+
                     <SignedIn>
-                        Signed IN
+                        <div className="dropdown dropdown-end">
+                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                <div className="w-10 rounded-full">
+                                    <Image
+                                        src="https://www.mydevify.com/icon.png"
+                                        width={500}
+                                        height={500}
+                                        alt="Picture of the author"
+                                    />
+                                    {/* <img
+                                    alt="Tailwind CSS Navbar component"
+                                    src="https://www.mydevify.com/icon.png" /> */}
+                                </div>
+                            </div>
+                            <ul
+                                tabIndex={0}
+                                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                                <li>
+                                    <a className="justify-between">
+                                        Profile
+                                        <span className="badge">New</span>
+                                    </a>
+                                </li>
+                                <li><a>Settings</a></li>
+                                <li><a>Logout</a></li>
+                            </ul>
+                        </div>
                     </SignedIn>
 
                     <SignedOut>
-                        Signed Out
-                    </SignedOut>
-                    <div className="dropdown dropdown-end">
-                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                            <div className="w-10 rounded-full">
-                                <Image
-                                    src="https://www.mydevify.com/icon.png"
-                                    width={500}
-                                    height={500}
-                                    alt="Picture of the author"
-                                />
-                                {/* <img
-                                    alt="Tailwind CSS Navbar component"
-                                    src="https://www.mydevify.com/icon.png" /> */}
-                            </div>
+                        <div className="flex items-center gap-2 text-sm">
+                            <Image src="/img/login.png" alt="" width={20} height={20} />
+                            <Link href="/sign-in">Login/Register</Link>
                         </div>
-                        <ul
-                            tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            <li>
-                                <a className="justify-between">
-                                    Profile
-                                    <span className="badge">New</span>
-                                </a>
-                            </li>
-                            <li><a>Settings</a></li>
-                            <li><a>Logout</a></li>
-                        </ul>
-                    </div>
+                    </SignedOut>
+                    </ClerkLoaded>
 
                 </div>
 
