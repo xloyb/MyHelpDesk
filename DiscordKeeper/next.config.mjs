@@ -5,7 +5,14 @@ const nextConfig = {
     ppr: 'incremental'
   },
   images: {
-    domains: ['www.mydevify.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'www.mydevify.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
 };
 
