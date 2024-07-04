@@ -1,4 +1,4 @@
-import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut } from '@clerk/nextjs';
+import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
@@ -52,7 +52,7 @@ const ChatNavbar = () => {
                    <ClerkLoaded>
 
                     <SignedIn>
-                        <div className="dropdown dropdown-end">
+                        {/* <div className="dropdown dropdown-end">
                             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                                 <div className="w-10 rounded-full">
                                     <Image
@@ -61,9 +61,9 @@ const ChatNavbar = () => {
                                         height={500}
                                         alt="Picture of the author"
                                     />
-                                    {/* <img
+                                    <img
                                     alt="Tailwind CSS Navbar component"
-                                    src="https://www.mydevify.com/icon.png" /> */}
+                                    src="https://www.mydevify.com/icon.png" />
                                 </div>
                             </div>
                             <ul
@@ -78,7 +78,8 @@ const ChatNavbar = () => {
                                 <li><a>Settings</a></li>
                                 <li><a>Logout</a></li>
                             </ul>
-                        </div>
+                        </div> */}
+                        <UserButton/>
                     </SignedIn>
 
                     <SignedOut>
