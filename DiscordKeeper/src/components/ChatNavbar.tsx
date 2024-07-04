@@ -1,3 +1,5 @@
+import { ClerkLoading, SignedIn, SignedOut } from '@clerk/nextjs';
+import Image from 'next/image';
 import React from 'react'
 // import { FaRegArrowAltCircleRight } from "react-icons/fa";
 import { FaCircleRight } from "react-icons/fa6";
@@ -43,14 +45,28 @@ const ChatNavbar = () => {
                     <a className="btn btn-ghost text-xl">Select Model</a>
                 </div>
                 <div className="navbar-end">
+                <ClerkLoading>
+                    <span className="loading loading-ring loading-lg"></span>
+                </ClerkLoading>
+                    <SignedIn>
+                        Signed IN
+                    </SignedIn>
 
-
+                    <SignedOut>
+                        Signed Out
+                    </SignedOut>
                     <div className="dropdown dropdown-end">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
-                                <img
+                                <Image
+                                    src="https://www.mydevify.com/icon.png"
+                                    width={500}
+                                    height={500}
+                                    alt="Picture of the author"
+                                />
+                                {/* <img
                                     alt="Tailwind CSS Navbar component"
-                                    src="https://www.mydevify.com/icon.png" />
+                                    src="https://www.mydevify.com/icon.png" /> */}
                             </div>
                         </div>
                         <ul
@@ -68,6 +84,7 @@ const ChatNavbar = () => {
                     </div>
 
                 </div>
+
             </div>
         </div>
     )

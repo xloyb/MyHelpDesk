@@ -4,6 +4,9 @@ const nextConfig = {
     reactCompiler: true,
     ppr: 'incremental'
   },
+  images: {
+    domains: ['www.mydevify.com'],
+  },
 };
 
 export default nextConfig;
