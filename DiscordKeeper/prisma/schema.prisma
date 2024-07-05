@@ -13,17 +13,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Test{
-  id Int @id @default(autoincrement())
-  name String @db.VarChar(255)
-  desc String?
-  number Int
-  isPublished Boolean
-}
-
 
 model User {
-  id        Int       @id @default(autoincrement())
+  id        String    @id
   email     String    @unique
   name      String
   tickets   TicketUser[]
@@ -45,7 +37,7 @@ model Ticket {
 
 model TicketUser {
   id        Int     @id @default(autoincrement())
-  userId    Int
+  userId    String
   ticketId  Int
   user      User    @relation(fields: [userId], references: [id])
   ticket    Ticket  @relation(fields: [ticketId], references: [id])
@@ -55,8 +47,8 @@ model TicketUser {
 model Vouch {
   id             Int     @id @default(autoincrement())
   message        String
-  vouchedBy      Int
-  vouchedTo      Int
+  vouchedBy      String
+  vouchedTo      String
   vouchedByUser  User    @relation("VouchesByUser", fields: [vouchedBy], references: [id])
   vouchedToUser  User    @relation("VouchesToUser", fields: [vouchedTo], references: [id])
   createdAt      DateTime @default(now())
@@ -67,7 +59,7 @@ model Comment {
   content   String
   createdAt DateTime  @default(now())
   ticketId  Int
-  userId    Int
+  userId    String
   ticket    Ticket    @relation(fields: [ticketId], references: [id])
   user      User      @relation("UserComments", fields: [userId], references: [id])
 }
