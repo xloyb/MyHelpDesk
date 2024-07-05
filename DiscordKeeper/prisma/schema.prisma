@@ -13,53 +13,55 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-  id        String    @id
-  email     String    @unique
-  username      String
+  id        String       @id
+  email     String       @unique
+  avatar    String?
+  cover     String?
+  name  String
   tickets   TicketUser[]
-  vouchedBy Vouch[]   @relation("VouchesByUser")
-  vouchedTo Vouch[]   @relation("VouchesToUser")
-  comments  Comment[] @relation("UserComments")
+  vouchedBy Vouch[]      @relation("VouchesByUser")
+  vouchedTo Vouch[]      @relation("VouchesToUser")
+  comments  Comment[]    @relation("UserComments")
 }
 
 model Ticket {
-  id        Int       @id @default(autoincrement())
+  id        Int          @id @default(autoincrement())
   title     String
   content   String
-  status    String    // e.g., "open", "closed", "pending"
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  status    String // e.g., "open", "closed", "pending"
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
   users     TicketUser[]
   comments  Comment[]
 }
 
 model TicketUser {
-  id        Int     @id @default(autoincrement())
-  userId    String
-  ticketId  Int
-  user      User    @relation(fields: [userId], references: [id])
-  ticket    Ticket  @relation(fields: [ticketId], references: [id])
+  id       Int    @id @default(autoincrement())
+  userId   String
+  ticketId Int
+  user     User   @relation(fields: [userId], references: [id])
+  ticket   Ticket @relation(fields: [ticketId], references: [id])
+
   @@unique([userId, ticketId])
 }
 
 model Vouch {
-  id             Int     @id @default(autoincrement())
-  message        String
-  vouchedBy      String
-  vouchedTo      String
-  vouchedByUser  User    @relation("VouchesByUser", fields: [vouchedBy], references: [id])
-  vouchedToUser  User    @relation("VouchesToUser", fields: [vouchedTo], references: [id])
-  createdAt      DateTime @default(now())
+  id            Int      @id @default(autoincrement())
+  message       String
+  vouchedBy     String
+  vouchedTo     String
+  vouchedByUser User     @relation("VouchesByUser", fields: [vouchedBy], references: [id])
+  vouchedToUser User     @relation("VouchesToUser", fields: [vouchedTo], references: [id])
+  createdAt     DateTime @default(now())
 }
 
 model Comment {
-  id        Int       @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   content   String
-  createdAt DateTime  @default(now())
+  createdAt DateTime @default(now())
   ticketId  Int
   userId    String
-  ticket    Ticket    @relation(fields: [ticketId], references: [id])
-  user      User      @relation("UserComments", fields: [userId], references: [id])
+  ticket    Ticket   @relation(fields: [ticketId], references: [id])
+  user      User     @relation("UserComments", fields: [userId], references: [id])
 }
