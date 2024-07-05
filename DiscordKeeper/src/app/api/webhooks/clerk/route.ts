@@ -1,6 +1,7 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { WebhookEvent } from '@clerk/nextjs/server'
+import prisma from '@/lib/client'
 
 export async function POST(req: Request) {
 
@@ -51,8 +52,35 @@ export async function POST(req: Request) {
   // For this guide, you simply log the payload to the console
   const { id } = evt.data;
   const eventType = evt.type;
-  console.log(`Webhook with and ID of ${id} and type of ${eventType}`)
-  console.log('Webhook body:', body)
+  // console.log(`Webhook with and ID of ${id} and type of ${eventType}`)
+  // console.log('Webhook body:', body)
+
+
+  if (eventType === "user.created") {
+    try {
+
+      const userData = {
+        id: evt.data.id,
+        email: JSON.parse(body).data.email_addresses[0].email_address,
+        name: JSON.parse(body).data.username,
+        avatar: JSON.parse(body).data.profile_image_url || "/img/noAvatar.png",
+        cover: "/img/noCover.png",
+      };
+      
+      await prisma.user.create({
+        data: userData,
+      });
+      
+    } catch (err) {
+      console.error(err);
+      return new Response("Failed to create this Mother Fucker", {
+        status: 400,
+      });
+    }
+  }
+
+
+
 
   return new Response('', { status: 200 })
 }
