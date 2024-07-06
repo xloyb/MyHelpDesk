@@ -48,32 +48,39 @@ export async function POST(req: Request) {
     })
   }
 
-  // Do something with the payload
-  // For this guide, you simply log the payload to the console
+  // Extract necessary data from the event payload
   const { id } = evt.data;
   const eventType = evt.type;
-  // console.log(`Webhook with and ID of ${id} and type of ${eventType}`)
-  // console.log('Webhook body:', body)
 
-
-  if (eventType === "user.created") {
+  // Handle user created or updated events
+  if (eventType === 'user.created' || eventType === 'user.updated') {
     try {
-
       const userData = {
         id: evt.data.id,
         email: JSON.parse(body).data.email_addresses[0].email_address,
         name: JSON.parse(body).data.username,
-        avatar: JSON.parse(body).data.profile_image_url || "/img/noAvatar.png",
-        cover: "/img/noCover.png",
+        avatar: JSON.parse(body).data.profile_image_url || '/img/noAvatar.png',
+        cover: '/img/noCover.png',
       };
-      
-      await prisma.user.create({
-        data: userData,
-      });
-      
+
+      if (eventType === 'user.created') {
+        await prisma.user.create({
+          data: userData,
+        });
+      } else if (eventType === 'user.updated') {
+        await prisma.user.update({
+          where: { id: evt.data.id },
+          data: {
+            email: userData.email,
+            name: userData.name,
+            avatar: userData.avatar,
+            cover: userData.cover,
+          },
+        });
+      }
     } catch (err) {
-      console.error(err);
-      return new Response("Failed to create this Mother Fucker", {
+      console.error('Error processing webhook event:', err);
+      return new Response('Failed to process webhook event', {
         status: 400,
       });
     }
