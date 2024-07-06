@@ -1,0 +1,72 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+"use client"
+import { checkTokenExists } from '@/lib/actions';
+import React, { useState, useEffect } from 'react';
+import styles from '@/app/main.module.css'
+import Sidebar from '@/components/Sidebar'
+import ChatNavbar from '@/components/ChatNavbar'
+import Chat from '@/components/Chat';
+
+const ChatPage: React.FC = () => {
+  const [isValidToken, setIsValidToken] = useState<boolean | null>(null); 
+  const path = window.location.pathname; 
+  const tokens = path.split('/').filter(Boolean); 
+  const token = tokens.length > 1 ? tokens[1] : '';
+
+  const verifyToken = async () => {
+    try {
+      if (token) {
+        const tokenExists = await checkTokenExists(token);
+        setIsValidToken(tokenExists);
+      } else {
+        setIsValidToken(false);
+      }
+    } catch (error) {
+      console.error('Error verifying token:', error);
+      setIsValidToken(false);
+    }
+  };
+
+  useEffect(() => {
+    verifyToken();
+  }, [verifyToken]); 
+
+  if (isValidToken === null) {
+    return <p>Loading...</p>;
+  }
+
+  return (
+    <>
+    <div>
+      {isValidToken ? (
+        <p>Token {token} is valid!</p>
+      ) : (
+        <p>Token {token} is not valid or does not exist.</p>
+      )}
+    </div>
+
+    <div className={styles.container}>
+      <div className={styles.menu}>
+        <Sidebar/> 
+      </div>
+      <div className={styles.content}>
+
+    <div className='h-screen overflow-hidden sticky top-0  overflow-x-hidden' >
+        <ChatNavbar/>
+        
+<Chat/>
+        
+        {/* <Footer/> */}
+
+      </div>
+
+      </div>
+    </div>
+
+
+    </>
+    
+  );
+};
+
+export default ChatPage;

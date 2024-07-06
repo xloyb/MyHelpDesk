@@ -1,10 +1,10 @@
-import { auth } from '@clerk/nextjs/server'
 import React from 'react'
 import TicketModal from './newticket';
+import { useAuth } from '@clerk/nextjs';
 
 const Sidebar = () => {
 
-  const { userId } = auth();
+  const { userId } = useAuth();
 
   console.log(userId)
 

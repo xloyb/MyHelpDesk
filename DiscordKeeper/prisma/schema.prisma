@@ -32,6 +32,7 @@ model Ticket {
   status    String // e.g., "open", "closed", "pending"
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
+  token     String   @unique
   users     TicketUser[]
   comments  Comment[]
 }
