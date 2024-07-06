@@ -6,6 +6,28 @@ import { auth } from '@clerk/nextjs/server';
 import prisma from './client';
 
 
+
+export const addComment = async (
+  ticketId: number,
+  userId: string,
+  content: string
+): Promise<void> => {
+  console.log("xLoy was here addComment", ticketId, userId,content)
+  try {
+    await prisma.comment.create({
+      data: {
+        content: content,
+        ticketId: ticketId,
+        userId: userId,
+      },
+    });
+  } catch (error) {
+    console.error('Error adding comment:', error);
+    throw new Error('Failed to add comment');
+  }
+};
+
+
 export const createTicket = async (formData: FormData) => {
   const title = formData.get('title') as string;
   const content = formData.get('content') as string;

@@ -2,6 +2,46 @@
 import { Ticket } from "@prisma/client";
 import prisma from "./client";
 
+
+
+export const fetchCommentsByTicketToken = async (token: string) => {
+  try {
+    const ticket = await prisma.ticket.findUnique({
+      where: { token },
+      include: { comments: true },
+    });
+
+    if (!ticket) {
+      throw new Error('Ticket not found');
+    }
+
+    return ticket.comments;
+  } catch (error) {
+    console.error('Error fetching comments:', error);
+    throw new Error('Failed to fetch comments');
+  }
+};
+
+
+export const getTicketIdByToken = async (token: string): Promise<number | null> => {
+  try {
+    const ticket = await prisma.ticket.findUnique({
+      where: {
+        token: token,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    return ticket ? ticket.id : null;
+  } catch (error) {
+    console.error('Error fetching ticket by token:', error);
+    throw new Error('Failed to fetch ticket by token');
+  }
+};
+
+
 export const fetchUserTickets = async (userId: string): Promise<Ticket[]> => {
   console.log("userid in data.ts",userId)
   try {
