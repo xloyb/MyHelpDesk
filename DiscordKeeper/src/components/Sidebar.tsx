@@ -1,5 +1,6 @@
 import { auth } from '@clerk/nextjs/server'
 import React from 'react'
+import TicketModal from './newticket';
 
 const Sidebar = () => {
 
@@ -25,6 +26,7 @@ const Sidebar = () => {
       <li><a>Sidebar Item 1</a></li>
       <li><a>Sidebar Item 2</a></li>
     </div>
+    <TicketModal/>
       <button className="btn btn-outline btn-success mt-auto">New Ticket</button>
   </ul>
 </div>
