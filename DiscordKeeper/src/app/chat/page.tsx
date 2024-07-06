@@ -17,9 +17,6 @@ const Chat = () => {
       <div className={styles.content}>
 
     <div className='h-screen overflow-hidden sticky top-0  overflow-x-hidden' >
-
-
-
         <ChatNavbar/>
 
         <MyChat/> 

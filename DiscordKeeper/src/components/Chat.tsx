@@ -34,8 +34,6 @@ const Chat = () => {
                         <div className="chat-bubble">test test aywa aywa</div>
                         <div className="chat-footer opacity-50">Seen at 12:46</div>
                     </div>
-
-
                 </div>
                 <div className=" bottom-0 left-0 w-full p-4  border-t">
                     <div className="flex">

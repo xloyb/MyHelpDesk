@@ -24,8 +24,8 @@ const TicketModal = () => {
   };
 
   return (
-    <div>
-      <button className="btn" onClick={handleOpenModal}>Open Modal</button>
+    <>
+      <button className="btn btn-outline btn-success mt-auto" onClick={handleOpenModal}>Open Modal</button>
       <dialog id="my_modal_1" className="modal" ref={modalRef}>
         <div className="modal-box">
           <h3 className="font-bold text-lg">Create a Ticket</h3>
@@ -49,7 +49,7 @@ const TicketModal = () => {
           </form>
         </div>
       </dialog>
-    </div>
+    </>
   );
 };
 
