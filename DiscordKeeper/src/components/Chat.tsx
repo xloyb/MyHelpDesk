@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { addComment } from '@/lib/actions';
 import { fetchCommentsByTicketToken } from '@/lib/data';
 import { useAuth } from '@clerk/nextjs';
+import Image from 'next/image';
 
 interface User {
   id: string;
@@ -55,15 +56,20 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
           <div className={`chat ${comment.userId === userId ? 'chat-end' : 'chat-start'}`} key={comment.id}>
             <div className="chat-image avatar">
               <div className="w-10 rounded-full">
-                <img
+                {/* <img
                   alt="User avatar"
                   src={comment.user.avatar || 'https://www.mydevify.com/icon.png'}
-                />
-              </div>
+                /> */}
+                <Image
+                  src={comment.user.avatar || 'https://www.mydevify.com/icon.png'}
+                  width={100}
+                  height={100}
+                  alt={comment.user.name}
+                />              </div>
             </div>
             <div className="chat-header">
               {comment.user.name || comment.userId}
-              <time className="text-xs opacity-50">{new Date(comment.createdAt).toLocaleTimeString()}</time>
+              <time className="text-xs opacity-50 ml-1">{new Date(comment.createdAt).toLocaleTimeString()}</time>
             </div>
             <div className="chat-bubble">{comment.content}</div>
             <div className="chat-footer opacity-50">Delivered</div>

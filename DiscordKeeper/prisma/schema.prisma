@@ -12,17 +12,29 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+
 model User {
   id        String       @id
   email     String       @unique
   avatar    String?
   cover     String?
   name      String?
+  roleId    Int          @default(1) 
+  role      Role         @relation(fields: [roleId], references: [id])
   tickets   TicketUser[]
   vouchedBy Vouch[]      @relation("VouchesByUser")
   vouchedTo Vouch[]      @relation("VouchesToUser")
   comments  Comment[]    @relation("UserComments")
 }
+
+model Role {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  users       User[]
+}
+
 
 model Ticket {
   id        Int          @id @default(autoincrement())
