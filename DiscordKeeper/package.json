@@ -8,15 +8,15 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "prisma:seed": "ts-node --transpile-only --require ts-node/register prisma/migrations/seedRoles.ts"
-  },
+    "lint": "next lint"
+    },
   "dependencies": {
     "@clerk/nextjs": "^5.2.0",
     "@prisma/client": "^5.16.1",
     "@types/dotenv": "^8.2.0",
     "babel-plugin-react-compiler": "^0.0.0-experimental-938cd9a-20240601",
     "dotenv": "^16.4.5",
+    "esm": "^3.2.25",
     "next": "15.0.0-rc.0",
     "prisma": "^5.16.1",
     "react": "19.0.0-rc-f994737d14-20240522",

@@ -20,6 +20,7 @@ model User {
   avatar    String?
   cover     String?
   name      String?
+  userid String?
   roleId    Int          @default(1) 
   role      Role         @relation(fields: [roleId], references: [id])
   tickets   TicketUser[]

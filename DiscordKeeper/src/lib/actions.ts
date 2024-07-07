@@ -49,7 +49,7 @@ export const createTicket = async (formData: FormData) => {
   }
 
   const { userId } = auth();
-
+console.log("userid test",userId)
   if (!userId) throw new Error('User is not authenticated!');
 
   // Generate a secure token
