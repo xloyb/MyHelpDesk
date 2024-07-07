@@ -3,15 +3,24 @@ import { addComment } from '@/lib/actions';
 import { fetchCommentsByTicketToken } from '@/lib/data';
 import { useAuth } from '@clerk/nextjs';
 
+interface User {
+  id: string;
+  email: string;
+  avatar: string | null;
+  cover: string | null;
+  name: string;
+}
+
 interface Comment {
   id: number;
   content: string;
   createdAt: Date;
   ticketId: number;
   userId: string;
+  user: User;
 }
 
-const Chat = ({ token,ticketid }: { token: string, ticketid: number  }) => {
+const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState<string>('');
   const { userId } = useAuth();
@@ -48,12 +57,12 @@ const Chat = ({ token,ticketid }: { token: string, ticketid: number  }) => {
               <div className="w-10 rounded-full">
                 <img
                   alt="User avatar"
-                  src="https://www.mydevify.com/icon.png"
+                  src={comment.user.avatar || 'https://www.mydevify.com/icon.png'}
                 />
               </div>
             </div>
             <div className="chat-header">
-              {comment.userId}
+              {comment.user.name || comment.userId}
               <time className="text-xs opacity-50">{new Date(comment.createdAt).toLocaleTimeString()}</time>
             </div>
             <div className="chat-bubble">{comment.content}</div>

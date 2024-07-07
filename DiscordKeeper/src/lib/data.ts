@@ -4,23 +4,43 @@ import prisma from "./client";
 
 
 
+
 export const fetchCommentsByTicketToken = async (token: string) => {
-  try {
-    const ticket = await prisma.ticket.findUnique({
-      where: { token },
-      include: { comments: true },
-    });
+  const ticket = await prisma.ticket.findUnique({
+    where: { token },
+    include: {
+      comments: {
+        include: {
+          user: true, 
+        },
+      },
+    },
+  });
 
-    if (!ticket) {
-      throw new Error('Ticket not found');
-    }
-
-    return ticket.comments;
-  } catch (error) {
-    console.error('Error fetching comments:', error);
-    throw new Error('Failed to fetch comments');
+  if (!ticket) {
+    throw new Error('Ticket not found');
   }
+
+  return ticket.comments;
 };
+
+// export const fetchCommentsByTicketToken = async (token: string) => {
+//   try {
+//     const ticket = await prisma.ticket.findUnique({
+//       where: { token },
+//       include: { comments: true },
+//     });
+
+//     if (!ticket) {
+//       throw new Error('Ticket not found');
+//     }
+
+//     return ticket.comments;
+//   } catch (error) {
+//     console.error('Error fetching comments:', error);
+//     throw new Error('Failed to fetch comments');
+//   }
+// };
 
 
 export const getTicketIdByToken = async (token: string): Promise<number | null> => {
