@@ -83,101 +83,14 @@ const ModCP = () => {
       <h1>ModCP - Management</h1>
 
 
-<h2>Test User Table</h2>
+<h2>Users:</h2>
 
 <UsersTab users={users} roles={roles} handleUserRoleChange={handleUserRoleChange}/>
 
       <h2>Tickets</h2>
       <TicketsTable tickets={tickets} handleStatusChange={handleStatusChange}/>
-      {/* <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Content</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tickets.map((ticket) => (
-            <tr key={ticket.id}>
-              <td>{ticket.id}</td>
-              <td>{ticket.title}</td>
-              <td>{ticket.content}</td>
-              <td>{ticket.status}</td>
-              <td>
-                <select
-                  value={ticket.status}
-                  onChange={(e) => handleStatusChange(ticket.id, e.target.value)}
-                >
-                  <option value="open">Open</option>
-                  <option value="closed">Closed</option>
-                  <option value="pending">Pending</option>
-                </select>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table> */}
+     
 
-      <h2>Vouches</h2>
-      {/* <VouchesTable vouches={vouches} fetchUserById={function (userId: string): Promise<User | null> {
-        throw new Error('Function not implemented.');
-      } } /> */}
-      {/* <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Message</th>
-            <th>Vouched By</th>
-            <th>Vouched To</th>
-          </tr>
-        </thead>
-        <tbody>
-          {vouches.map((vouch) => (
-            <tr key={vouch.id}>
-              <td>{vouch.id}</td>
-              <td>{vouch.message}</td>
-              <td>{vouch.vouchedByUser.name}</td>
-              <td>{vouch.vouchedToUser.name}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table> */}
-
-      <h2>Users</h2>
-      {/* <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user.id}>
-              <td>{user.id}</td>
-              <td>{user.email}</td>
-              <td>{user.role.name}</td>
-              <td>
-                <select
-                  value={user.roleId}
-                  onChange={(e) => handleUserRoleChange(user.id, Number(e.target.value))}
-                >
-                  {roles.map((role) => (
-                    <option key={role.id} value={role.id}>
-                      {role.name}
-                    </option>
-                  ))}
-                </select>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table> */}
 
      
      
