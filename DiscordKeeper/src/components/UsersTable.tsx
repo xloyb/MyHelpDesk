@@ -23,7 +23,6 @@ interface Props {
               <th>Name</th>
               <th>Email</th>
               <th>Role</th>
-              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -65,9 +64,7 @@ interface Props {
                     ))}
                   </select>
                 </td>
-                <th>
-                  <button className="btn btn-ghost btn-xs">details</button>
-                </th>
+               
               </tr>
             ))}
           </tbody>

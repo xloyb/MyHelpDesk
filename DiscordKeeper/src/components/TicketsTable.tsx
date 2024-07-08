@@ -1,4 +1,6 @@
 import { Ticket } from "@prisma/client";
+import Link from "next/link";
+import { FaLocationArrow } from "react-icons/fa6";
 
   interface Props {
     tickets: Ticket[];
@@ -19,6 +21,7 @@ import { Ticket } from "@prisma/client";
                 <th>Content</th>
                 <th>Status</th>
                 <th>Actions</th>
+                <th>View</th>
               </tr>
             </thead>
             <tbody>
@@ -39,6 +42,12 @@ import { Ticket } from "@prisma/client";
                       <option value="pending">Pending</option>
                     </select>
                   </td>
+                  <th>
+                  <Link href={`/chat/${ticket.token}`}>
+                  <button className="btn btn-ghost btn-xs">View <FaLocationArrow />
+                  </button>
+                  </Link>
+                </th>
                 </tr>
               ))}
             </tbody>

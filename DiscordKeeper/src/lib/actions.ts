@@ -60,7 +60,7 @@ console.log("userid test",userId)
       data: {
         title: validatedTitle.data,
         content: validatedContent.data,
-        status: 'open', // setting default status as 'open'
+        status: 'open', 
         token,
         users: {
           create: {
