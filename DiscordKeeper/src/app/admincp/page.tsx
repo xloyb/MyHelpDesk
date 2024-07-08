@@ -2,8 +2,9 @@
 import { useState, useEffect } from "react";
 import { getAllTickets, updateTicketStatus } from "@/lib/ticket";
 import { getAllVouches, createVouch } from "@/lib/vouch";
-import { getAllUsers, isTeam, updateUserRole } from "@/lib/user";
+import { getAllUsers, isAdmin, updateUserRole } from "@/lib/user";
 import { getAllRoles, createRole } from "@/lib/role";
+import UsersTab from "@/components/UsersTable";
 import TicketsTable from "@/components/TicketsTable";
 import VouchesTable from "@/components/VouchesTable";
 import styles from "@/app/main.module.css";
@@ -11,7 +12,7 @@ import Sidebar from "@/components/Sidebar";
 import ChatNavbar from "@/components/ChatNavbar";
 import { useAuth } from "@clerk/nextjs";
 
-const ModCP = () => {
+const AdminCP = () => {
   const { userId } = useAuth();
 
   const [tickets, setTickets] = useState<any[]>([]);
@@ -19,7 +20,7 @@ const ModCP = () => {
   const [users, setUsers] = useState<any[]>([]);
   const [roles, setRoles] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [isTeamMember, setIsTeamMember] = useState<boolean>(false);
+  const [isAdminMember, setisAdminMember] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,8 +39,8 @@ const ModCP = () => {
 
     const checkUserRole = async () => {
       if (userId) {
-        const isTeamMember = await isTeam(userId);
-        setIsTeamMember(isTeamMember);
+        const isAdminMember = await isAdmin(userId);
+        setisAdminMember(isAdminMember);
       }
     };
 
@@ -90,13 +91,14 @@ const ModCP = () => {
         <div className="h-screen overflow-hidden sticky top-0 overflow-x-hidden">
           <ChatNavbar />
           <div>
-            <h1>ModCP - Management</h1>
-            {isTeamMember ? (
+            <h1>AdminCP - Management</h1>
+            {isAdminMember ? (
               <>
-                <h2>Tickets</h2>
-                <TicketsTable
-                  tickets={tickets}
-                  handleStatusChange={handleStatusChange}
+                <h2>Users:</h2>
+                <UsersTab
+                  users={users}
+                  roles={roles}
+                  handleUserRoleChange={handleUserRoleChange}
                 />
               </>
             ) : (
@@ -109,4 +111,4 @@ const ModCP = () => {
   );
 };
 
-export default ModCP;
+export default AdminCP;
