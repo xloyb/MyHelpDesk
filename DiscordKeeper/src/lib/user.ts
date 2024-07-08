@@ -70,3 +70,23 @@ export const isAdmin = async (userId: string): Promise<boolean> => {
   }
 };
 
+export const hasAccess = async (userId: string, ticketId: number): Promise<boolean> => {
+  try {
+    const user = await fetchUserById(userId);
+    const ticket = await prisma.ticketUser.findFirst({
+      where: {
+        userId: user.id,
+        ticketId: ticketId,
+      },
+    });
+
+    if (ticket) {
+      return true;
+    }
+
+    return await isTeam(userId);
+  } catch (err) {
+    console.error('Error checking access:', err);
+    throw err;
+  }
+};
