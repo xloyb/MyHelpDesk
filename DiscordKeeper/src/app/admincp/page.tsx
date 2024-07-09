@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { getAllTickets, updateTicketStatus } from "@/lib/ticket";
 import { getAllVouches, createVouch } from "@/lib/vouch";
 import { getAllUsers, isAdmin, updateUserRole } from "@/lib/user";
-import { getAllRoles, createRole } from "@/lib/role";
+import { getAllRoles } from "@/lib/role";
 import UsersTab from "@/components/UsersTable";
 import TicketsTable from "@/components/TicketsTable";
 import VouchesTable from "@/components/VouchesTable";
@@ -11,6 +11,7 @@ import styles from "@/app/main.module.css";
 import Sidebar from "@/components/Sidebar";
 import ChatNavbar from "@/components/ChatNavbar";
 import { useAuth } from "@clerk/nextjs";
+import ManageRoles from "@/components/RolesTable";
 
 const AdminCP = () => {
   const { userId } = useAuth();
@@ -73,10 +74,6 @@ const AdminCP = () => {
     setVouches([...vouches, newVouch]);
   };
 
-  const handleCreateRole = async (name: string, description: string) => {
-    const newRole = await createRole(name, description);
-    setRoles([...roles, newRole]);
-  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -100,6 +97,9 @@ const AdminCP = () => {
                   roles={roles}
                   handleUserRoleChange={handleUserRoleChange}
                 />
+
+                <h1>Roles: </h1>
+                <ManageRoles/>
               </>
             ) : (
               <p>You do not have access to this section.</p>

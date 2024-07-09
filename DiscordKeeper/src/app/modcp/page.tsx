@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { getAllTickets, updateTicketStatus } from "@/lib/ticket";
 import { getAllVouches, createVouch } from "@/lib/vouch";
 import { getAllUsers, isTeam, updateUserRole } from "@/lib/user";
-import { getAllRoles, createRole } from "@/lib/role";
+import { getAllRoles } from "@/lib/role";
 import TicketsTable from "@/components/TicketsTable";
 import VouchesTable from "@/components/VouchesTable";
 import styles from "@/app/main.module.css";
@@ -72,10 +72,6 @@ const ModCP = () => {
     setVouches([...vouches, newVouch]);
   };
 
-  const handleCreateRole = async (name: string, description: string) => {
-    const newRole = await createRole(name, description);
-    setRoles([...roles, newRole]);
-  };
 
   if (loading) {
     return <div>Loading...</div>;
