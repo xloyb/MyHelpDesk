@@ -2,17 +2,32 @@
 
 import prisma from "./client";
 
-// Get all roles
+
+// Fetch all roles
 export const getAllRoles = async () => {
-  return prisma.role.findMany();
+  try {
+    const roles = await prisma.role.findMany();
+    return roles;
+  } catch (err) {
+    console.error('Error fetching roles:', err);
+    throw err;
+  }
 };
 
-// Create a new role
-export const createRole = async (name: string, description: string) => {
-  return prisma.role.create({
-    data: {
-      name,
-      description,
-    },
-  });
+
+// Update role name and description
+export const updateRole = async (roleId: number, name: string, description: string) => {
+  try {
+    const updatedRole = await prisma.role.update({
+      where: { id: roleId },
+      data: {
+        name,
+        description,
+      },
+    });
+    return updatedRole;
+  } catch (err) {
+    console.error('Error updating role:', err);
+    throw err;
+  }
 };
