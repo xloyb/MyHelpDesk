@@ -12,6 +12,7 @@ import Sidebar from "@/components/Sidebar";
 import ChatNavbar from "@/components/ChatNavbar";
 import { useAuth } from "@clerk/nextjs";
 import ManageRoles from "@/components/RolesTable";
+import Settings from "@/components/Settings";
 
 const AdminCP = () => {
   const { userId } = useAuth();
@@ -91,6 +92,11 @@ const AdminCP = () => {
             <h1>AdminCP - Management</h1>
             {isAdminMember ? (
               <>
+              <h2>Settings</h2>
+
+<Settings/>
+
+
                 <h2>Users:</h2>
                 <UsersTab
                   users={users}
