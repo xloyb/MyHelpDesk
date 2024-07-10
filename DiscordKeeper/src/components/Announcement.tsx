@@ -18,6 +18,10 @@ const Announcement = () => {
     fetchAnnouncement();
   }, []);
 
+  if (!announcement) {
+    return null;
+  }
+
   return (
     <>
       <div role="alert" className="alert alert-success">
