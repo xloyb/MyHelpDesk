@@ -83,13 +83,12 @@ const ModCP = () => {
         <Sidebar />
       </div>
       <div className={styles.content}>
-        <div className="h-screen overflow-hidden sticky top-0 overflow-x-hidden">
+        <div className="h-screen sticky top-0 overflow-x-auto">
           <ChatNavbar />
           <div>
             <h1>ModCP - Management</h1>
             {isTeamMember ? (
               <>
-                <h2>Tickets</h2>
                 <TicketsTable
                   tickets={tickets}
                   handleStatusChange={handleStatusChange}
