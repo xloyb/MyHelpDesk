@@ -2,8 +2,8 @@ import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, UserButton } from '@cle
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
-// import { FaRegArrowAltCircleRight } from "react-icons/fa";
 import { FaCircleRight } from "react-icons/fa6";
+import Announcement from './Announcement';
 
 
 
@@ -93,6 +93,7 @@ const ChatNavbar = () => {
                 </div>
 
             </div>
+            <Announcement/>
         </div>
     )
 }
