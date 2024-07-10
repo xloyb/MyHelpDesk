@@ -86,15 +86,15 @@ const AdminCP = () => {
         <Sidebar />
       </div>
       <div className={styles.content}>
-        <div className="h-screen overflow-hidden sticky top-0 overflow-x-hidden">
+        <div className="h-screen overflow-hidden sticky top-0 overflow-y-auto">
           <ChatNavbar />
-          <div>
+          <div className="overflow-y-auto">
             <h1>AdminCP - Management</h1>
             {isAdminMember ? (
               <>
-              <h2>Settings</h2>
+                <h2>Settings</h2>
 
-<Settings/>
+                <Settings />
 
 
                 <h2>Users:</h2>
@@ -105,7 +105,7 @@ const AdminCP = () => {
                 />
 
                 <h1>Roles: </h1>
-                <ManageRoles/>
+                <ManageRoles />
               </>
             ) : (
               <p>You do not have access to this section.</p>

@@ -42,29 +42,59 @@ const Settings = () => {
   };
 
   return (
-    <div>
-      <h1>Settings</h1>
-      <div>
-        <label>Sitename:</label>
-        <input name="sitename" value={settings.sitename} onChange={handleChange} />
+    <div className="p-4 max-w-lg mx-auto">
+      <h1 className="text-2xl font-bold mb-4">Settings</h1>
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-2">Sitename:</label>
+        <input 
+          name="sitename" 
+          value={settings.sitename} 
+          onChange={handleChange} 
+          className="input input-bordered w-full" 
+        />
       </div>
-      <div>
-        <label>Announcement:</label>
-        <input name="announcement" value={settings.announcement} onChange={handleChange} />
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-2">Announcement:</label>
+        <input 
+          name="announcement" 
+          value={settings.announcement} 
+          onChange={handleChange} 
+          className="input input-bordered w-full" 
+        />
       </div>
-      <div>
-        <label>Offer:</label>
-        <input name="offer" value={settings.offer} onChange={handleChange} />
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-2">Offer:</label>
+        <input 
+          name="offer" 
+          value={settings.offer} 
+          onChange={handleChange} 
+          className="input input-bordered w-full" 
+        />
       </div>
-      <div>
-        <label>Logo:</label>
-        <input name="logo" value={settings.logo} onChange={handleChange} />
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-2">Logo:</label>
+        <input 
+          name="logo" 
+          value={settings.logo} 
+          onChange={handleChange} 
+          className="input input-bordered w-full" 
+        />
       </div>
-      <div>
-        <label>Theme:</label>
-        <input name="theme" value={settings.theme} onChange={handleChange} />
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-2">Theme:</label>
+        <input 
+          name="theme" 
+          value={settings.theme} 
+          onChange={handleChange} 
+          className="input input-bordered w-full" 
+        />
       </div>
-      <button onClick={handleSave}>Save Settings</button>
+      <button 
+        onClick={handleSave} 
+        className="btn btn-primary w-full"
+      >
+        Save Settings
+      </button>
     </div>
   );
 };
