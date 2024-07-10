@@ -1,6 +1,23 @@
-import React from "react";
+"use client"
+import React, { useEffect, useState } from "react";
 
 const Announcement = () => {
+  const [announcement, setAnnouncement] = useState("");
+
+  useEffect(() => {
+    const fetchAnnouncement = async () => {
+      try {
+        const response = await fetch("/data/settings.json");
+        const data = await response.json();
+        setAnnouncement(data.announcement);
+      } catch (error) {
+        console.error("Error fetching announcement:", error);
+      }
+    };
+
+    fetchAnnouncement();
+  }, []);
+
   return (
     <>
       <div role="alert" className="alert alert-success">
@@ -17,7 +34,7 @@ const Announcement = () => {
             d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
           />
         </svg>
-        <span>xLoy is testing this shit</span>
+        <span>{announcement}</span>
       </div>
     </>
   );
