@@ -6,6 +6,7 @@ import { auth } from "@clerk/nextjs/server";
 import prisma from "./client";
 import { revalidatePath } from "next/cache";
 import { sendTicketNotification } from "../../utils/sendTicketNotification";
+import { fetchUserById } from "./user";
 
 export const addComment = async (
   ticketId: number,
@@ -48,6 +49,11 @@ export const createTicket = async (formData: FormData) => {
   }
 
   const { userId } = auth();
+  if (!userId) {
+    throw new Error("User is not authenticated!");
+  }
+  
+  const user = await fetchUserById(userId);  
   //console.log("userid test",userId)
   if (!userId) throw new Error("User is not authenticated!");
 
@@ -68,7 +74,11 @@ export const createTicket = async (formData: FormData) => {
         },
       },
     });
-    const author = "xLoy"; 
+    const author = user.name; 
+    if (!author) {
+      throw new Error("User is not authenticated!");
+    }
+    
     await sendTicketNotification({ author, title: validatedTitle.data, content: validatedContent.data,ticketLink: token });
     console.log("Ticket created successfully:", newTicket);
     revalidatePath(`/chat/${newTicket.token}`);
