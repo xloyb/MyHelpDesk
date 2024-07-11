@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { CiSettings } from "react-icons/ci";
 import { IoLockClosedOutline } from "react-icons/io5";
 import { FaHeartCirclePlus } from "react-icons/fa6";
+import VouchModal from './Vouch';
 
 
 
@@ -96,6 +97,7 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
           <button className="btn btn-neutral mr-2"> <CiSettings /></button>
           <button className="btn btn-neutral mr-2"> <IoLockClosedOutline /></button>
           <button className="btn btn-neutral mr-2"> <FaHeartCirclePlus /> </button>
+          <VouchModal/>
         </div>
       </div>
     </div>
