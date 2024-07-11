@@ -24,8 +24,6 @@ model User {
   roleId    Int          @default(1) 
   role      Role         @relation(fields: [roleId], references: [id])
   tickets   TicketUser[]
-  vouchedBy Vouch[]      @relation("VouchesByUser")
-  vouchedTo Vouch[]      @relation("VouchesToUser")
   comments  Comment[]    @relation("UserComments")
 }
 
@@ -64,8 +62,6 @@ model Vouch {
   message       String?
   vouchedBy     String?
   vouchedTo     String?
-  vouchedByUser User?     @relation("VouchesByUser", fields: [vouchedBy], references: [id])
-  vouchedToUser User?     @relation("VouchesToUser", fields: [vouchedTo], references: [id])
   createdAt     DateTime? @default(now())
 }
 
