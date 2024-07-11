@@ -1,4 +1,4 @@
-import { BOT_TOKEN, DISCORD_CHANNEL_ID, DOMAIN } from "../config";
+import { BOT_TOKEN, DISCORD_VOUCHES_CHANNEL_ID, DOMAIN } from "../config";
 import { sendDiscordMessage } from "./sendDiscordMessage";
 
 interface VouchNotificationParams {
@@ -16,5 +16,5 @@ export const sendVouchNotification = async ({ vouchedBy, vouchedTo, message }: V
     }],
   };
 
-  await sendDiscordMessage(DISCORD_CHANNEL_ID, embedContent, BOT_TOKEN);
+  await sendDiscordMessage(DISCORD_VOUCHES_CHANNEL_ID, embedContent, BOT_TOKEN);
 };
