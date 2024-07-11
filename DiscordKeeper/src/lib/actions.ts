@@ -5,6 +5,7 @@ import crypto from "crypto";
 import { auth } from "@clerk/nextjs/server";
 import prisma from "./client";
 import { revalidatePath } from "next/cache";
+import { sendTicketNotification } from "../../utils/sendTicketNotification";
 
 export const addComment = async (
   ticketId: number,
@@ -67,6 +68,8 @@ export const createTicket = async (formData: FormData) => {
         },
       },
     });
+    const author = "xLoy"; 
+    await sendTicketNotification({ author, title: validatedTitle.data, content: validatedContent.data,ticketLink: token });
     console.log("Ticket created successfully:", newTicket);
     revalidatePath(`/chat/${newTicket.token}`);
   } catch (err) {
