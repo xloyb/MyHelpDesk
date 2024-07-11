@@ -3,6 +3,13 @@ import { addComment } from '@/lib/actions';
 import { fetchCommentsByTicketToken } from '@/lib/data';
 import { useAuth } from '@clerk/nextjs';
 import Image from 'next/image';
+import { CiSettings } from "react-icons/ci";
+import { IoLockClosedOutline } from "react-icons/io5";
+import { FaHeartCirclePlus } from "react-icons/fa6";
+
+
+
+// import { Comment, User } from '@prisma/client';
 
 interface User {
   id: string;
@@ -85,7 +92,10 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
           />
-          <button className="btn btn-primary" onClick={handleAddComment}>Send</button>
+          <button className="btn btn-primary mr-2" onClick={handleAddComment}>Send</button>
+          <button className="btn btn-neutral mr-2"> <CiSettings /></button>
+          <button className="btn btn-neutral mr-2"> <IoLockClosedOutline /></button>
+          <button className="btn btn-neutral mr-2"> <FaHeartCirclePlus /> </button>
         </div>
       </div>
     </div>
