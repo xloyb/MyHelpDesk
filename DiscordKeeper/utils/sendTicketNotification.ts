@@ -1,4 +1,4 @@
-import { BOT_TOKEN, DISCORD_CHANNEL_ID, DOMAIN } from "../config";
+import { BOT_TOKEN, DISCORD_TICKETS_CHANNEL_ID, DOMAIN } from "../config";
 import { sendDiscordMessage } from "./sendDiscordMessage";
 
 interface TicketNotificationParams {
@@ -30,5 +30,5 @@ export const sendTicketNotification = async ({ author, title, content, ticketLin
     ],
   };
 
-  await sendDiscordMessage(DISCORD_CHANNEL_ID, embedContent, BOT_TOKEN);
+  await sendDiscordMessage(DISCORD_TICKETS_CHANNEL_ID, embedContent, BOT_TOKEN);
 };
