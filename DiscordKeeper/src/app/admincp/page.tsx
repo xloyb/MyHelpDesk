@@ -4,7 +4,6 @@ import { getAllTickets, updateTicketStatus } from "@/lib/ticket";
 import { getAllUsers, isAdmin, updateUserRole } from "@/lib/user";
 import { getAllRoles } from "@/lib/role";
 import UsersTab from "@/components/UsersTable";
-import styles from "@/app/main.module.css";
 import Sidebar from "@/components/Sidebar";
 import ChatNavbar from "@/components/ChatNavbar";
 import { useAuth } from "@clerk/nextjs";
@@ -22,7 +21,7 @@ const AdminCP = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const [tickets,  users, roles] = await Promise.all([
+      const [tickets, users, roles] = await Promise.all([
         getAllTickets(),
         getAllUsers(),
         getAllRoles(),
@@ -60,44 +59,37 @@ const AdminCP = () => {
     setUsers(updatedUsers);
   };
 
-
-
-
   if (loading) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.menu}>
+    <div className="flex flex-col md:flex-row min-h-screen">
+      <div className="w-full md:w-1/4">
         <Sidebar />
       </div>
-      <div className={styles.content}>
-        <div className="h-screen overflow-hidden sticky top-0 overflow-y-auto">
+      <div className="flex-1 flex flex-col">
+        <div className="sticky top-0 z-10">
           <ChatNavbar />
-          <div className="overflow-y-auto">
-            <h1>AdminCP - Management</h1>
-            {isAdminMember ? (
-              <>
-                <h2>Settings</h2>
-
-                <Settings />
-
-
-                <h2>Users:</h2>
-                <UsersTab
-                  users={users}
-                  roles={roles}
-                  handleUserRoleChange={handleUserRoleChange}
-                />
-
-                <h1>Roles: </h1>
-                <ManageRoles />
-              </>
-            ) : (
-              <p>You do not have access to this section.</p>
-            )}
-          </div>
+        </div>
+        <div className="flex-1 overflow-y-auto p-4">
+          <h1 className="text-2xl font-bold mb-4">AdminCP - Management</h1>
+          {isAdminMember ? (
+            <>
+              <h2 className="text-xl font-semibold mb-2">Settings</h2>
+              <Settings />
+              <h2 className="text-xl font-semibold mt-4 mb-2">Users</h2>
+              <UsersTab
+                users={users}
+                roles={roles}
+                handleUserRoleChange={handleUserRoleChange}
+              />
+              <h2 className="text-xl font-semibold mt-4 mb-2">Roles</h2>
+              <ManageRoles />
+            </>
+          ) : (
+            <p>You do not have access to this section.</p>
+          )}
         </div>
       </div>
     </div>
