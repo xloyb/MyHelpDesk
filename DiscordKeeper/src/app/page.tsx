@@ -15,9 +15,9 @@ const Homepage = () => {
 
 
 
+          <Rectangular/>
   <div className="py-20">
       <div className="container mx-auto px-6 md:px-12 justify-center">
-          <Rectangular/>
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 lg:w-2/3">
           

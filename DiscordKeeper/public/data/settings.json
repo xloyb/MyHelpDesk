@@ -1,7 +1,27 @@
 {
   "sitename": "Discord Keeper",
   "announcement": "",
-  "offer": "Special offer available!2",
-  "logo": "mydevify.com//images/logo.png",
-  "theme": "dark2"
+  "offer": "Special offer available!",
+  "logo": "mydevify.com/images/logo.png",
+  "theme": "dark",
+  "services": [
+    {
+      "image": "path/to/image1.png",
+      "title": "Service 1",
+      "description": "Description of Service 1",
+      "price": 10.99
+    },
+    {
+      "image": "path/to/image2.png",
+      "title": "Service 2",
+      "description": "Description of Service 2",
+      "price": 20.99
+    },
+    {
+      "image": "test",
+      "title": "dsfdsf",
+      "description": "dsfsdf",
+      "price": "3424"
+    }
+  ]
 }
