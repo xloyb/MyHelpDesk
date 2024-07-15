@@ -90,3 +90,13 @@ export const hasAccess = async (userId: string, ticketId: number): Promise<boole
     throw err;
   }
 };
+
+export const getUserRoleId = async (userId: string): Promise<number | null> => {
+  try {
+    const user = await fetchUserById(userId);
+    return user.roleId || null;
+  } catch (err) {
+    console.error('Error fetching user role ID:', err);
+    throw err;
+  }
+};
