@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React from 'react'
 import { FaCircleRight } from "react-icons/fa6";
 import Announcement from './Announcement';
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
 
 
 
@@ -46,6 +47,14 @@ const ChatNavbar = () => {
                     <a className="btn btn-ghost text-xl">Discord Keeper</a>
                 </div>
                 <div className="navbar-end">
+                <div className="dropdown dropdown-end">
+  <div tabIndex={0} role="button" className="mr-4"><MdOutlineAdminPanelSettings size={40} />
+  </div>
+  <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+    <li><a>Item 1</a></li>
+    <li><a>Item 2</a></li>
+  </ul>
+</div>
                     <ClerkLoading>
                         <span className="loading loading-ring loading-lg"></span>
                     </ClerkLoading>
