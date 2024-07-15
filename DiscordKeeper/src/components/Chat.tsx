@@ -59,7 +59,7 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
   };
 
   return (
-    <div className="flex flex-col h-4/5">
+    <div className="flex bg-base-200 flex-col h-4/5">
       <div className="flex-1 overflow-y-auto p-4">
         {comments.map((comment) => (
           <div className={`chat ${comment.userId === userId ? 'chat-end' : 'chat-start'}`} key={comment.id}>

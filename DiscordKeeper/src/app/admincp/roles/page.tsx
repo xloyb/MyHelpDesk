@@ -42,7 +42,7 @@ const AdminCPRoles = () => {
         <Sidebar />
       </div>
       <div className={styles.content}>
-        <div className="h-screen overflow-hidden sticky top-0 overflow-y-auto">
+        <div className="h-screen bg-base-200 overflow-hidden sticky top-0 overflow-y-auto">
           <ChatNavbar />
           <div className="overflow-y-auto">
             <h1>AdminCP - Roles</h1>

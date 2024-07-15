@@ -64,7 +64,7 @@ const AdminCP = () => {
   }
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen">
+    <div className="flex bg-base-200 flex-col md:flex-row min-h-screen">
       <div className="w-full md:w-1/4">
         <Sidebar />
       </div>

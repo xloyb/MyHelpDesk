@@ -16,7 +16,7 @@ const Chat = () => {
       </div>
       <div className={styles.content}>
 
-    <div className='h-screen overflow-hidden sticky top-0  overflow-x-hidden' >
+    <div className='h-screen bg-base-200 overflow-hidden sticky top-0  overflow-x-hidden' >
 
 
 

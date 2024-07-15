@@ -71,7 +71,7 @@ const ModCP = () => {
         <Sidebar />
       </div>
       <div className={styles.content}>
-        <div className="h-screen sticky top-0 overflow-x-auto">
+        <div className="h-screen bg-base-200 sticky top-0 overflow-x-auto">
           <ChatNavbar />
           <div>
             <h1>ModCP - Management</h1>

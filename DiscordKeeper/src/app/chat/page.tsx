@@ -6,12 +6,12 @@ import ChatNavbar from "@/components/ChatNavbar";
 
 const Chat = () => {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} >
       <div className={styles.menu}>
         <Sidebar />
       </div>
       <div className={styles.content}>
-        <div className="h-screen overflow-hidden sticky top-0  overflow-x-hidden">
+        <div className="h-screen overflow-hidden sticky top-0  overflow-x-hidden bg-base-200">
           <ChatNavbar />
 
           <MyChat />

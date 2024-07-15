@@ -2,7 +2,7 @@ import React from 'react'
 
 const MyChat = () => {
     return (
-            <div className="flex flex-col h-4/5">
+            <div className="flex bg-base-100 flex-col h-4/5">
                 <div className="flex-1 overflow-y-auto p-4">
                     <div className="chat chat-start">
                         <div className="chat-image avatar">
