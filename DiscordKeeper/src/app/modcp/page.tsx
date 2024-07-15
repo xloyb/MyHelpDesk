@@ -74,7 +74,6 @@ const ModCP = () => {
         <div className="h-screen bg-base-200 sticky top-0 overflow-x-auto">
           <ChatNavbar />
           <div>
-            <h1>ModCP - Management</h1>
             {isTeamMember ? (
               <>
                 <TicketsTable

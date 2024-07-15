@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { getAllRoles, updateRole } from '@/lib/role';
-import { Role } from '@prisma/client';
+import React, { useState, useEffect } from "react";
+import { getAllRoles, updateRole } from "@/lib/role";
+import { Role } from "@prisma/client";
 
 const ManageRoles = () => {
   const [roles, setRoles] = useState<Role[]>([]);
@@ -14,7 +14,7 @@ const ManageRoles = () => {
         setRoles(rolesData);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching roles:', error);
+        console.error("Error fetching roles:", error);
       }
     };
 
@@ -23,10 +23,14 @@ const ManageRoles = () => {
 
   const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setEditRole((prevEditRole) => prevEditRole ? ({
-      ...prevEditRole,
-      [name]: value,
-    }) : null);
+    setEditRole((prevEditRole) =>
+      prevEditRole
+        ? {
+            ...prevEditRole,
+            [name]: value,
+          }
+        : null
+    );
   };
 
   const handleEdit = (role: Role) => {
@@ -39,14 +43,18 @@ const ManageRoles = () => {
         const updatedRole = await updateRole(
           editRole.id,
           editRole.name,
-          editRole.description ?? '' // Convert null to an empty string
+          editRole.description ?? "" // Convert null to an empty string
         );
-        setRoles((prevRoles) => prevRoles.map((role) => (role.id === editRole.id ? updatedRole : role)));
+        setRoles((prevRoles) =>
+          prevRoles.map((role) =>
+            role.id === editRole.id ? updatedRole : role
+          )
+        );
         setEditRole(null);
-        alert('Role updated successfully!');
+        alert("Role updated successfully!");
       } catch (error) {
-        console.error('Error updating role:', error);
-        alert('Failed to update role');
+        console.error("Error updating role:", error);
+        alert("Failed to update role");
       }
     }
   };
@@ -56,10 +64,13 @@ const ManageRoles = () => {
   }
 
   return (
-    <div className="p-4 max-w-lg mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Manage Roles</h1>
+    <div className="bg-base-100 card mx-6 mt-5 md:pt-4 px-6">
+      <div className="text-xl font-semibold inline-block">Manage Roles </div>
+
+      <div className="divider mt-2"></div>
+
       {roles.map((role) => (
-        <div key={role.id} className="mb-4 p-4 border rounded">
+        <div key={role.id} className="mb-4 p-4 ">
           <div className="mb-2">
             <strong>Name:</strong> {role.name}
           </div>
@@ -72,7 +83,7 @@ const ManageRoles = () => {
         </div>
       ))}
       {editRole && (
-        <div className="p-4 border rounded mt-4">
+        <div className="p-4  mt-4">
           <h2 className="text-xl font-bold mb-2">Edit Role</h2>
           <div className="mb-2">
             <label className="block text-sm font-medium mb-2">Name:</label>
@@ -85,11 +96,13 @@ const ManageRoles = () => {
             />
           </div>
           <div className="mb-2">
-            <label className="block text-sm font-medium mb-2">Description:</label>
+            <label className="block text-sm font-medium mb-2">
+              Description:
+            </label>
             <input
               type="text"
               name="description"
-              value={editRole.description ?? ''}
+              value={editRole.description ?? ""}
               onChange={handleEditChange}
               className="input input-bordered w-full"
             />

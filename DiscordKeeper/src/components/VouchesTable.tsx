@@ -23,8 +23,10 @@ const VouchesTable: React.FC<Props> = ({ vouches, fetchUserById }) => {
 
   return (
     <div>
-      <h2>Vouches</h2>
-      <div className="overflow-x-auto">
+       <div className="bg-base-100 card mx-6 mt-5 md:pt-4 px-6">
+      <div className="text-xl font-semibold inline-block">Vouches </div>
+
+      <div className="divider mt-2"></div>
         <table className="table">
           {/* head */}
           <thead>

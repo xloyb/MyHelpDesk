@@ -86,8 +86,10 @@ const Settings = () => {
   };
 
   return (
-    <div className="p-4 max-w-lg mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Settings</h1>
+    <div className="bg-base-100 card mx-6 mt-5 md:pt-4 px-6">
+      <div className="text-xl font-semibold inline-block">Manage Settings </div>
+
+      <div className="divider mt-2"></div>
       <div className="mb-4">
         <label className="block text-sm font-medium mb-2">Sitename:</label>
         <input 
