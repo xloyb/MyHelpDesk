@@ -1,11 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import { getAllTickets, updateTicketStatus } from "@/lib/ticket";
-import { getAllVouches, createVouch } from "@/lib/vouch";
 import { getAllUsers, isTeam, updateUserRole } from "@/lib/user";
 import { getAllRoles } from "@/lib/role";
 import TicketsTable from "@/components/TicketsTable";
-import VouchesTable from "@/components/VouchesTable";
 import styles from "@/app/main.module.css";
 import Sidebar from "@/components/Sidebar";
 import ChatNavbar from "@/components/ChatNavbar";
@@ -23,14 +21,12 @@ const ModCP = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const [tickets, vouches, users, roles] = await Promise.all([
+      const [tickets, users, roles] = await Promise.all([
         getAllTickets(),
-        getAllVouches(),
         getAllUsers(),
         getAllRoles(),
       ]);
       setTickets(tickets);
-      setVouches(vouches);
       setUsers(users);
       setRoles(roles);
       setLoading(false);
@@ -63,14 +59,6 @@ const ModCP = () => {
     setUsers(updatedUsers);
   };
 
-  const handleCreateVouch = async (
-    vouchedBy: string,
-    vouchedTo: string,
-    message: string
-  ) => {
-    const newVouch = await createVouch(vouchedBy, vouchedTo, message);
-    setVouches([...vouches, newVouch]);
-  };
 
 
   if (loading) {
