@@ -5,28 +5,31 @@ import React, { useEffect, useState } from 'react'
 import { FaCircleRight } from "react-icons/fa6";
 import Announcement from './Announcement';
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
-import { getUserRoleId } from '@/lib/user';
+import { getUserRoleId, isTeam } from '@/lib/user';
 
 
 
 const ChatNavbar = () => {
     const { userId } = useAuth();
     const [roleId, setRoleId] = useState<number | null>(null);
+    const [isTeamMember, setIsTeamMember] = useState<boolean>(false);
 
 
     useEffect(() => {
-        const fetchRoleId = async () => {
+        const fetchRoleAndTeamStatus = async () => {
           if (userId) {
             try {
               const role = await getUserRoleId(userId);
+              const teamStatus = await isTeam(userId);
               setRoleId(role);
+              setIsTeamMember(teamStatus);
             } catch (error) {
-              console.error('Error fetching user role ID:', error);
+              console.error('Error fetching user role ID or team status:', error);
             }
           }
         };
     
-        fetchRoleId();
+        fetchRoleAndTeamStatus();
       }, [userId]);
     
       if (roleId === null) {
@@ -72,13 +75,38 @@ const ChatNavbar = () => {
                 </div>
                 <div className="navbar-end">
                 <div className="dropdown dropdown-end">
-  <div tabIndex={0} role="button" className="mr-4"><MdOutlineAdminPanelSettings size={40} />
-  </div>
+  <div tabIndex={0} role="button" className="mr-4"><MdOutlineAdminPanelSettings size={40} /></div>
   <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
     <li><a>Item 1</a></li>
     <li><a>Item 2</a></li>
   </ul>
 </div>
+
+
+{isTeamMember && (
+        <>
+        <div className="dropdown dropdown-end">
+  <div tabIndex={0} role="button" className="mr-4"><MdOutlineAdminPanelSettings size={40} /></div>
+  <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+   
+          {roleId === 2 && (
+            <li><a>role 2</a></li>
+
+          )}
+          {roleId === 3 && (
+            <li><a>role 3</a></li>
+
+          )}
+          {(roleId === 2 || roleId === 3) && (
+            <li><a>role 2 & 3</a></li>
+
+          )}
+          </ul>
+          </div>
+        </>
+      )}
+
+
                     <ClerkLoading>
                         <span className="loading loading-ring loading-lg"></span>
                     </ClerkLoading>
