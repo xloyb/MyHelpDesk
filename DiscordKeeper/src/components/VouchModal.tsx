@@ -4,6 +4,7 @@ import { useAuth } from '@clerk/nextjs';
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import Settings from './Settings';
+import { FaHeartCirclePlus } from 'react-icons/fa6';
 
 const VouchModal = () => {
   const [settings, setSettings] = useState({
@@ -58,9 +59,11 @@ const VouchModal = () => {
 
   return (
     <>
-      <button className="btn btn-outline btn-success mt-auto" onClick={handleOpenModal}>
+      {/* <button className="btn btn-outline btn-success mt-auto" onClick={handleOpenModal}>
         Open Vouch Modal
-      </button>
+      </button> */}
+      <button className="btn btn-neutral mr-2" onClick={handleOpenModal}> <FaHeartCirclePlus /> </button>
+
       <dialog id="vouch_modal" className="modal" ref={modalRef}>
         <div className="modal-box">
           <h3 className="font-bold text-lg">Create a Vouch</h3>

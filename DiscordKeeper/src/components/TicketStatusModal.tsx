@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { updateTicketStatusByToken } from '@/lib/ticket';
 import { useAuth } from '@clerk/nextjs';
+import { IoLockClosedOutline } from 'react-icons/io5';
 
 const TicketStatusModal = ({ token }: { token: string }) => {
   const [status, setStatus] = useState<string>('');
@@ -28,9 +29,11 @@ const TicketStatusModal = ({ token }: { token: string }) => {
 
   return (
     <>
-      <button className="btn btn-outline btn-success mt-auto" onClick={handleOpenModal}>
+      {/* <button className="btn btn-outline btn-success mt-auto" onClick={handleOpenModal}>
         Open Status Modal
-      </button>
+      </button> */}
+      <button className="btn btn-neutral mr-2" onClick={handleOpenModal}> <IoLockClosedOutline /></button>
+
       <dialog id="ticket_status_modal" className="modal" ref={modalRef}>
         <div className="modal-box">
           <h3 className="font-bold text-lg">Update Ticket Status</h3>

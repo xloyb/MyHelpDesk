@@ -96,8 +96,8 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
           />
           <button className="btn btn-primary mr-2" onClick={handleAddComment}>Send</button>
           <button className="btn btn-neutral mr-2"> <CiSettings /></button>
-          <button className="btn btn-neutral mr-2"> <IoLockClosedOutline /></button>
-          <button className="btn btn-neutral mr-2"> <FaHeartCirclePlus /> </button>
+          {/* <button className="btn btn-neutral mr-2"> <IoLockClosedOutline /></button> */}
+          {/* <button className="btn btn-neutral mr-2"> <FaHeartCirclePlus /> </button> */}
           <VouchModal/>
           <TicketStatusModal token={token}/>
         </div>
