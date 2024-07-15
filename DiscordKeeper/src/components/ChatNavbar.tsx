@@ -1,14 +1,38 @@
-import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
+import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, useAuth, UserButton } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaCircleRight } from "react-icons/fa6";
 import Announcement from './Announcement';
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import { getUserRoleId } from '@/lib/user';
 
 
 
 const ChatNavbar = () => {
+    const { userId } = useAuth();
+    const [roleId, setRoleId] = useState<number | null>(null);
+
+
+    useEffect(() => {
+        const fetchRoleId = async () => {
+          if (userId) {
+            try {
+              const role = await getUserRoleId(userId);
+              setRoleId(role);
+            } catch (error) {
+              console.error('Error fetching user role ID:', error);
+            }
+          }
+        };
+    
+        fetchRoleId();
+      }, [userId]);
+    
+      if (roleId === null) {
+        return null; // Show l3asba
+      }
+
     return (
         <div>
             <div className=" navbar bg-base-100">
