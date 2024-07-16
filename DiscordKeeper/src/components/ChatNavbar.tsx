@@ -1,3 +1,4 @@
+"use client"
 import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, useAuth, UserButton } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -74,13 +75,13 @@ const ChatNavbar = () => {
                     <a className="btn btn-ghost text-xl">Discord Keeper</a>
                 </div>
                 <div className="navbar-end">
-                <div className="dropdown dropdown-end">
+                {/* <div className="dropdown dropdown-end">
   <div tabIndex={0} role="button" className="mr-4"><MdOutlineAdminPanelSettings size={40} /></div>
   <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
     <li><a>Item 1</a></li>
     <li><a>Item 2</a></li>
   </ul>
-</div>
+</div> */}
 
 
 {isTeamMember && (
@@ -90,16 +91,46 @@ const ChatNavbar = () => {
   <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
    
           {roleId === 2 && (
-            <li><a>role 2</a></li>
+            <li>
+                <li>Support Team</li>
+            <ul className='menu menu-compact'>
+                <li><Link href='/modcp'>View Tickets</Link> </li>
+            </ul>
+            </li>
 
           )}
           {roleId === 3 && (
-            <li><a>role 3</a></li>
-
+           <li>
+           <li>Support Team</li>
+       <ul className='menu menu-compact'>
+           <li><Link href='/modcp'>View Tickets</Link> </li>
+       </ul>
+       <li>Moderators</li>
+       <ul className='menu menu-compact'>
+           <li><Link href='/modcp'>Moderators Controle Panel</Link> </li>
+       </ul>
+       </li>
           )}
-          {(roleId === 2 || roleId === 3) && (
-            <li><a>role 2 & 3</a></li>
+          {(roleId === 4) && (
+           <li>
+           <li>Support Team</li>
+       <ul className='menu menu-compact'>
+           <li><Link href='/modcp'>View Tickets</Link> </li>
+       </ul>
+       <li>Moderators</li>
+       <ul className='menu menu-compact'>
+           <li><Link href='/modcp'>Moderators Controle Panel</Link> </li>
+       </ul>
+       <li>Admins</li>
+       <ul className='menu menu-compact'>
+       <li><Link href='/admincp'>Admins Controle Panel</Link> </li>
+       <li><Link href='/admincp/settings'>Manage Settings</Link> </li>
+       <li><Link href='/admincp/users'>Manage Users</Link> </li>
+       <li><Link href='/admincp/roles'>Manage Roles</Link> </li>
+       </ul>
 
+       </li>
+       
           )}
           </ul>
           </div>
