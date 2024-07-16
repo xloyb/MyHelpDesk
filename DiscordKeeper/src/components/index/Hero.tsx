@@ -1,9 +1,12 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
+import Rectangular from './Rectangular'
 
 const Hero = () => {
   return (
     <>
     <div className="py-20 bg-base-100 card mx-6 mt-5 md:pt-4 px-6">
+        <Rectangular/>
       <div className="container mx-auto px-6 md:px-12 justify-center">
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 lg:w-2/3">

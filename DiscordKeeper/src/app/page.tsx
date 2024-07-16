@@ -1,38 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
-import styles from '@/app/main.module.css'
-import Hero from '@/components/index/Hero'
-import IndexNav from '@/components/index/IndexNav'
-import Rectangular from '@/components/index/Rectangular'
-import Services from '@/components/index/Services'
-import Link from 'next/link'
-
+import styles from "@/app/main.module.css";
+import Hero from "@/components/index/Hero";
+import IndexNav from "@/components/index/IndexNav";
+import Services from "@/components/index/Services";
 
 const Homepage = () => {
   return (
     <div className={styles.container}>
-      <div className='bg-base-200'>
-        <IndexNav/>
+      <div className="bg-base-200">
+        <IndexNav />
 
+        <Hero />
 
-
-
-          <Rectangular/>
-  
-
-
-<Hero/>
-
-
-<Services/>
-
-
-
-
-
-
+        <Services />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Homepage
+export default Homepage;
