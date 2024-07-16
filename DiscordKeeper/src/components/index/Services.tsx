@@ -50,7 +50,7 @@ const Services = () => {
 
   return (
       <div
-        className={`content-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 `}
+        className={`content-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-base-100 `}
       >
         {services.map((service, index) => (
         <div key={index}

@@ -2,7 +2,6 @@ import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, UserButton } from '@cle
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
-import { FaCircleRight } from "react-icons/fa6";
 
 
 const IndexNav = () => {
@@ -28,13 +27,11 @@ const IndexNav = () => {
                         <ul
                             tabIndex={0}
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            <li><a href='/'>Homepage</a></li>
+                            <li><a href='/'>Home</a></li>
                             <li><a href='/chat'>Dashboard</a></li>
                             <li><a>About</a></li>
                         </ul>
                     </div>
-
-                  
 
                 </div>
                 <div className="navbar-center">
