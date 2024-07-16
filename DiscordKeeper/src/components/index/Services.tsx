@@ -50,11 +50,11 @@ const Services = () => {
 
   return (
       <div
-        className={`content-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-base-100 `}
+        className={`content-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-base-200 card mx-6 mt-5 md:pt-4 px-6 `}
       >
         {services.map((service, index) => (
         <div key={index}
-      className="mt-6 card card-compact bg-base-100 shadow-xl w-auto m-2" 
+      className="mt-6 card card-compact shadow-xl w-auto m-2 bg-base-100 " 
     >
       <figure>
         {/* <Image src={service.image} alt={service.title} width={100} height={100} /> */}

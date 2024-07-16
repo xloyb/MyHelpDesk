@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 import React, { useEffect, useState } from 'react';
 import TicketModal from './newticket';
@@ -40,6 +41,11 @@ const Sidebar = () => {
         <div className="drawer-side">
           <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
           <ul className="menu bg-base-100 text-base-content min-h-full w-80 p-4 flex flex-col justify-between">
+          <li className="mb-2 font-semibold text-xl">
+                    
+                    <Link href={'/chat'}>
+                    <img className="mask mask-squircle w-10" src="/icon.png" alt="Discord Keeper Logo"/>DK</Link>
+                     </li>
             {/* Sidebar content here */}
             <>
             {tickets.map(ticket => (
