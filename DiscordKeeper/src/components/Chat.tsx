@@ -59,7 +59,7 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
   };
 
   return (
-    <div className="flex bg-base-200 flex-col h-4/5">
+    <div className="flex bg-base-200 flex-col h-[90vh]">
       <div className="flex-1 overflow-y-auto p-4">
         {comments.map((comment) => (
           <div className={`chat ${comment.userId === userId ? 'chat-end' : 'chat-start'}`} key={comment.id}>
@@ -85,7 +85,9 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
           </div>
         ))}
       </div>
-      <div className="bottom-0 left-0 w-full p-4 border-t">
+      <div className="divider mt-2"></div>
+
+      <div className="bottom-0 left-0 w-full p-4">
         <div className="flex">
           <input
             type="text"
