@@ -34,6 +34,8 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState<string>('');
   const { userId } = useAuth();
+  const [cooldown, setCooldown] = useState(false);
+
 
   useEffect(() => {
     const loadComments = async () => {
@@ -51,6 +53,8 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
     try {
       await addComment(ticketid, userId || '', newComment);
       setNewComment('');
+      setCooldown(true);
+      setTimeout(() => setCooldown(false), 1500); 
       const fetchedComments = await fetchCommentsByTicketToken(token);
       setComments(fetchedComments);
     } catch (error) {
@@ -58,7 +62,7 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
     }
   };
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && !cooldown) {
       handleAddComment();
     }
   };
