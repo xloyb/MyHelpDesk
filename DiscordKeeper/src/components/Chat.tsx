@@ -57,6 +57,12 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
       console.error('Failed to add comment:', error);
     }
   };
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleAddComment();
+    }
+  };
+
 
   return (
     <div className="flex bg-base-200 flex-col h-[90vh]">
@@ -95,6 +101,7 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
             className="input input-bordered w-full mr-2"
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
           <button className="btn btn-primary mr-2" onClick={handleAddComment}>Send</button>
           <button className="btn btn-neutral mr-2"> <CiSettings /></button>
