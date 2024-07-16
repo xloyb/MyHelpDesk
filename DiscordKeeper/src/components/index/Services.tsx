@@ -57,7 +57,15 @@ const Services = () => {
       className="mt-6 card card-compact bg-base-100 shadow-xl w-auto m-2" 
     >
       <figure>
-        <Image src={service.image} alt={service.title} />
+        {/* <Image src={service.image} alt={service.title} width={100} height={100} /> */}
+        <div style={{ width: '100%', position: 'relative', paddingBottom: '56.25%' }}>
+    <Image
+      src={service.image}
+      alt={service.title}
+      layout="fill"
+      objectFit="contain" // Ensures the image scales properly within the container
+    />
+  </div>
       </figure>
       <div className="card-body">
         <h2 className="card-title">{service.title}</h2>
