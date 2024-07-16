@@ -49,7 +49,6 @@ const AdminCPRoles = () => {
                 <>
 
               <ManageRoles />
-            <div className="flex flex-col items-center justify-center h-screen">test</div>
                 </>
             ) : (
               <p>You do not have access to this section.</p>
