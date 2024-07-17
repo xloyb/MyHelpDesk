@@ -8,6 +8,7 @@ import styles from "@/app/main.module.css";
 import Sidebar from "@/components/Sidebar";
 import ChatNavbar from "@/components/ChatNavbar";
 import { useAuth } from "@clerk/nextjs";
+import StatsComponent from "@/components/mod/stats";
 
 const ModCP = () => {
   const { userId } = useAuth();
@@ -76,6 +77,7 @@ const ModCP = () => {
           <div>
             {isTeamMember ? (
               <>
+              <StatsComponent/>
                 <TicketsTable
                   tickets={tickets}
                   handleStatusChange={handleStatusChange}

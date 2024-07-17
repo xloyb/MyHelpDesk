@@ -93,6 +93,8 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
           </div>
         ))}
       </div>
+
+
       <div className="divider mt-2"></div>
 
       <div className="bottom-0 left-0 w-full p-4">
@@ -112,8 +114,9 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
           <VouchModal/>
           <TicketStatusModal token={token}/>
         </div>
+        </div>
+
       </div>
-    </div>
   );
 };
 

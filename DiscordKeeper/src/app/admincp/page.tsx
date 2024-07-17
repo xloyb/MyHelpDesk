@@ -9,6 +9,8 @@ import ChatNavbar from "@/components/ChatNavbar";
 import { useAuth } from "@clerk/nextjs";
 import ManageRoles from "@/components/RolesTable";
 import Settings from "@/components/Settings";
+import styles from "@/app/main.module.css";
+
 
 const AdminCP = () => {
   const { userId } = useAuth();
@@ -64,11 +66,11 @@ const AdminCP = () => {
   }
 
   return (
-    <div className="flex bg-base-200 flex-col md:flex-row min-h-screen">
-      <div className="w-full md:w-1/4">
+    <div className={styles.container}>
+      <div className={styles.menu}>
         <Sidebar />
       </div>
-      <div className="flex-1 flex flex-col">
+      <div className={styles.content}>
         <div className="sticky top-0 z-10">
           <ChatNavbar />
         </div>
