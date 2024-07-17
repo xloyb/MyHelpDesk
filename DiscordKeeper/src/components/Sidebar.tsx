@@ -9,7 +9,8 @@ import Link from 'next/link';
 
 const Sidebar = () => {
   const { userId } = useAuth();
-  console.log(userId)
+  //console.log(userId)
+  
   const [tickets, setTickets] = useState<Ticket[]>([]);
 
   useEffect(() => {
