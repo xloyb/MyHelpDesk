@@ -83,3 +83,22 @@ export const getTicketByToken = async (token: string) => {
   }
 };
 
+
+export const isClosed = async (token: string): Promise<boolean> => {
+  try {
+    const ticket = await prisma.ticket.findUnique({
+      where: { token },
+      select: { status: true },
+    });
+
+    if (!ticket || ticket.status === null) {
+      throw new Error('Ticket not found or status is null');
+    }
+
+    return ticket.status.toLowerCase() === 'closed';
+  } catch (error) {
+    console.error('Error checking if ticket is closed:', error);
+    throw error;
+  }
+};
+
