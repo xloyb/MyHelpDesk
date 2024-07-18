@@ -135,6 +135,7 @@ import VouchModal from './VouchModal';
 import TicketStatusModal from './TicketStatusModal';
 import DownloadChatComponent from './DownloadChat';
 import CopyUrlComponent from './ShareTicketLink';
+import BanModal from './mod/BanModal';
 
 interface User {
   id: string;
@@ -228,6 +229,7 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
             onKeyDown={handleKeyDown}
           />
           <button className="btn btn-primary mr-2" onClick={handleAddComment} disabled={cooldown}>Send</button>
+          <BanModal token={token}/>
           <CopyUrlComponent/>
           <DownloadChatComponent token={token} />
           <VouchModal />

@@ -101,19 +101,21 @@ export const getUserRoleId = async (userId: string): Promise<number | null> => {
   }
 };
 
-async function createBan() {
-  const ban = await prisma.ban.create({
-    data: {
-      userId: 'user-id',
-      staffId: 'staff-id',
-      reason: 'Violation of rules',
-    },
-  });
+export async function createBan(userId: string, staffId: string, reason: string) {
+  try {
+    const ban = await prisma.ban.create({
+      data: {
+        userId: userId,
+        staffId: staffId,
+        reason: reason,
+      },
+    });
 
-  console.log(ban);
+    console.log('Ban created:', ban);
+    return ban;
+  } catch (error) {
+    console.error('Error creating ban:', error);
+    throw new Error('Failed to create ban');
+  }
 }
 
-createBan().catch(e => {
-  console.error(e);
-  prisma.$disconnect();
-});
