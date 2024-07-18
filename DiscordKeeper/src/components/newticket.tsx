@@ -1,13 +1,30 @@
-
 "use client"
 import { createTicket } from '@/lib/actions';
-import React, { useRef } from 'react';
+import { isBanned } from '@/lib/ban'; 
+import { useAuth } from '@clerk/nextjs';
+import React, { useRef, useState } from 'react';
 
 const TicketModal = () => {
+  const [banned, setBanned] = useState<boolean>(false); 
   const modalRef = useRef<HTMLDialogElement>(null);
+  const bannedModalRef = useRef<HTMLDialogElement>(null); 
+  const { userId } = useAuth();
 
-  const handleOpenModal = () => {
-    modalRef.current?.showModal();
+  const handleOpenModal = async () => {
+    try {
+      if (!userId) throw new Error('User is not authenticated');
+
+      const userBanned = await isBanned(userId);
+      setBanned(userBanned);
+
+      if (userBanned) {
+        bannedModalRef.current?.showModal();
+      } else {
+        modalRef.current?.showModal();
+      }
+    } catch (error) {
+      console.error('Failed to check ban status:', error);
+    }
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -25,8 +42,11 @@ const TicketModal = () => {
 
   return (
     <>
-      <button className="btn btn-outline btn-success mt-auto" onClick={handleOpenModal}>Open Modal</button>
-      <dialog id="my_modal_1" className="modal" ref={modalRef}>
+      <button className="btn btn-outline btn-success mt-auto" onClick={handleOpenModal}>
+        Open Modal
+      </button>
+
+      <dialog id="ticket_modal" className="modal" ref={modalRef}>
         <div className="modal-box">
           <h3 className="font-bold text-lg">Create a Ticket</h3>
           <form onSubmit={handleSubmit}>
@@ -47,6 +67,18 @@ const TicketModal = () => {
               <button type="button" className="btn" onClick={() => modalRef.current?.close()}>Close</button>
             </div>
           </form>
+        </div>
+      </dialog>
+
+      <dialog id="banned_modal" className="modal" ref={bannedModalRef}>
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">You are banned</h3>
+          <p>You cannot create a ticket because you are banned.</p>
+          <div className="modal-action">
+            <button type="button" className="btn" onClick={() => bannedModalRef.current?.close()}>
+              Close
+            </button>
+          </div>
         </div>
       </dialog>
     </>
