@@ -3,11 +3,10 @@ import { useAuth } from '@clerk/nextjs';
 import { getTicketByToken } from '@/lib/ticket';
 import { createBan } from '@/lib/user';
 
-
 const BanModal = ({ token }: { token: string }) => {
   const [ticket, setTicket] = useState<any>(null); 
   const [reason, setReason] = useState<string>('');
-  const { userId } = useAuth();
+  const { userId: staffId } = useAuth(); 
   const modalRef = useRef<HTMLDialogElement>(null);
 
   const handleOpenModal = async () => {
@@ -23,13 +22,13 @@ const BanModal = ({ token }: { token: string }) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      console.log('User ID:', userId);
+      console.log('Staff ID:', staffId);
       console.log('Ticket:', ticket);
       console.log('Reason:', reason);
-      await createBan()
+
+      await createBan(ticket?.users[0].userId, staffId || '', reason); // Assuming the first user is the one to be banned
+
       modalRef.current?.close();
-
-
     } catch (error) {
       console.error('Error banning user:', error);
     }
@@ -37,7 +36,8 @@ const BanModal = ({ token }: { token: string }) => {
 
   return (
     <>
-      <button className="btn btn-neutral mr-2" onClick={handleOpenModal}>open modal </button>
+      <button className="btn btn-neutral mr-2" onClick={handleOpenModal}>
+open modal      </button>
 
       <dialog id="ban_modal" className="modal" ref={modalRef}>
         <div className="modal-box">
