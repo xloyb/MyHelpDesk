@@ -48,3 +48,17 @@ export async function createBan(userId: string, staffId: string, reason: string)
       throw new Error('Failed to check ban status');
     }
   };
+
+
+  export const unbanUser = async (userId: string): Promise<void> => {
+    try {
+      await prisma.ban.deleteMany({
+        where: {
+          userId,
+        },
+      });
+    } catch (error) {
+      console.error('Error unbanning user:', error);
+      throw new Error('Failed to unban user');
+    }
+  };
