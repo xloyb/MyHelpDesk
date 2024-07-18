@@ -82,3 +82,9 @@ export async function createBan(userId: string, staffId: string, reason: string)
       throw new Error('Failed to fetch ban details');
     }
   };
+
+
+  export const isSelfBanAttempt = async (modId: string, userId: string): Promise<boolean> => {
+    return modId === userId;
+  };
+  
