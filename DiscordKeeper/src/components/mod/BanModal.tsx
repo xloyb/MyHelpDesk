@@ -1,13 +1,16 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAuth } from '@clerk/nextjs';
 import { getTicketByToken } from '@/lib/ticket';
-import { createBan } from '@/lib/user';
+import { createBan } from '@/lib/ban';
 
 const BanModal = ({ token }: { token: string }) => {
   const [ticket, setTicket] = useState<any>(null); 
   const [reason, setReason] = useState<string>('');
   const { userId: staffId } = useAuth(); 
   const modalRef = useRef<HTMLDialogElement>(null);
+
+
+
 
   const handleOpenModal = async () => {
     try {
@@ -26,7 +29,7 @@ const BanModal = ({ token }: { token: string }) => {
       console.log('Ticket:', ticket);
       console.log('Reason:', reason);
 
-      await createBan(ticket?.users[0].userId, staffId || '', reason); // Assuming the first user is the one to be banned
+      await createBan(ticket?.users[0].userId, staffId || '', reason); 
 
       modalRef.current?.close();
     } catch (error) {

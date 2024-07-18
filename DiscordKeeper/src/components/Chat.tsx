@@ -136,6 +136,8 @@ import TicketStatusModal from './TicketStatusModal';
 import DownloadChatComponent from './DownloadChat';
 import CopyUrlComponent from './ShareTicketLink';
 import BanModal from './mod/BanModal';
+import { CanBan } from '@/lib/ban';
+import { getTicketIdByToken } from '@/lib/ticket';
 
 interface User {
   id: string;
@@ -161,21 +163,23 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
   const [cooldown, setCooldown] = useState(false);
   const [ShowBanModal, setShowBanModal] = useState(false);
 
-
-
-
   useEffect(() => {
     const loadComments = async () => {
       try {
         const fetchedComments = await fetchCommentsByTicketToken(token);
         setComments(fetchedComments);
+        const ticketId = await getTicketIdByToken(token);
+        if (ticketId && userId) {
+          const canBan = await CanBan(userId); 
+          setShowBanModal(canBan);
+        }
       } catch (error) {
         console.error('Failed to load comments:', error);
       }
     };
-    loadComments();
-  }, [token]);
 
+    loadComments();
+  }, [token, userId]);
   const handleAddComment = async () => {
     try {
       await addComment(ticketid, userId || '', newComment);
@@ -233,7 +237,11 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
             onKeyDown={handleKeyDown}
           />
           <button className="btn btn-primary mr-2" onClick={handleAddComment} disabled={cooldown}>Send</button>
-          <BanModal token={token}/>
+          {ShowBanModal && (
+        <BanModal
+          token={token} 
+        />
+      )}
           <CopyUrlComponent/>
           <DownloadChatComponent token={token} />
           <VouchModal />
