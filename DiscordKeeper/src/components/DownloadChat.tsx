@@ -54,11 +54,9 @@ const DownloadChatComponent: React.FC<DownloadChatComponentProps> = ({ token }) 
   };
 
   return (
-    <div className="my-4">
       <button onClick={handleDownload} className="btn btn-neutral mr-2">
       <FaDownload />
       </button>
-    </div>
   );
 };
 
