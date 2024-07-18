@@ -103,3 +103,32 @@ export const checkTokenExists = async (token: string): Promise<boolean> => {
     await prisma.$disconnect();
   }
 };
+
+export const getDashboardStats = async () => {
+  try {
+    const totalTickets = await prisma.ticket.count();
+    const totalPendingTickets = await prisma.ticket.count({
+      where: { status: 'pending' },
+    });
+    const totalClosedTickets = await prisma.ticket.count({
+      where: { status: 'closed' },
+    });
+    const totalOpenedTickets = await prisma.ticket.count({
+      where: { status: 'open' },
+    });
+    const totalUsers = await prisma.user.count();
+    const totalVouches = await prisma.vouch.count();
+
+    return {
+      totalTickets,
+      totalPendingTickets,
+      totalClosedTickets,
+      totalOpenedTickets,
+      totalUsers,
+      totalVouches,
+    };
+  } catch (error) {
+    console.error('Error fetching dashboard stats:', error);
+    throw new Error('Failed to fetch dashboard stats');
+  }
+};
