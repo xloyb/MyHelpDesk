@@ -134,6 +134,7 @@ import Image from 'next/image';
 import VouchModal from './VouchModal';
 import TicketStatusModal from './TicketStatusModal';
 import DownloadChatComponent from './DownloadChat';
+import CopyUrlComponent from './ShareTicketLink';
 
 interface User {
   id: string;
@@ -226,7 +227,8 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
             onChange={(e) => setNewComment(e.target.value)}
             onKeyDown={handleKeyDown}
           />
-          <button className="btn btn-primary mr-2" onClick={handleAddComment} disabled={cooldown}>Send</button>
+          <button className="btn btn-primary mr" onClick={handleAddComment} disabled={cooldown}>Send</button>
+          <CopyUrlComponent/>
           <DownloadChatComponent token={token} />
           <VouchModal />
           <TicketStatusModal token={token} />
