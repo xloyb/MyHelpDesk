@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useAuth } from '@clerk/nextjs';
 import { getTicketByToken } from '@/lib/ticket';
-import { createBan, banDetails, isBanned, unbanUser } from '@/lib/ban';
+import { createBan, banDetails, isBanned, unbanUser, isSelfBanAttempt } from '@/lib/ban';
 
 const BanModal = ({ token }: { token: string }) => {
   const [ticket, setTicket] = useState<any>(null); 
   const [reason, setReason] = useState<string>('');
   const [banned, setBanned] = useState<boolean>(false);
   const [banInfo, setBanInfo] = useState<any>(null);
+  const [SelfBan, setSelfBan] = useState<boolean>(false);
+
   const { userId: staffId } = useAuth(); 
   const modalRef = useRef<HTMLDialogElement>(null);
 
@@ -20,6 +22,10 @@ const BanModal = ({ token }: { token: string }) => {
 
       const userId = fetchedTicket?.users[0]?.userId;
       if (!userId) throw new Error('User ID is undefined');
+      if (!staffId) throw new Error('Staff ID is undefined');
+      const isSelfBan = await isSelfBanAttempt(staffId, ticket.users[0].userId);
+      setSelfBan(isSelfBan);
+
 
       const userBanned = await isBanned(userId);
       setBanned(userBanned);
@@ -40,6 +46,11 @@ const BanModal = ({ token }: { token: string }) => {
     try {
       if (!staffId) throw new Error('Staff ID is undefined');
       if (!ticket?.users[0]?.userId) throw new Error('User ID is undefined');
+
+      // const isSelfBan = await isSelfBanAttempt(staffId, ticket.users[0].userId);
+      // if (isSelfBan) {
+      //   throw new Error('You cannot ban yourself!');
+      // }
 
       await createBan(ticket?.users[0].userId, staffId, reason); 
 
@@ -71,7 +82,8 @@ const BanModal = ({ token }: { token: string }) => {
       <dialog id="ban_modal" className="modal" ref={modalRef}>
         <div className="modal-box">
           <h3 className="font-bold text-lg">Ban User</h3>
-          {banned ? (
+{SelfBan ? (<div>selfban true</div>) : (<div> selfban false</div>)}
+          {/* {banned ? (
             <>
               <p className="text-red-500">This user is already banned.</p>
               <p><strong>Banned User:</strong> {banInfo?.user?.name}</p>
@@ -103,7 +115,8 @@ const BanModal = ({ token }: { token: string }) => {
                 </button>
               </div>
             </form>
-          )}
+          )} */}
+
         </div>
       </dialog>
     </>
