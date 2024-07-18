@@ -7,6 +7,7 @@ import { FaCircleRight } from "react-icons/fa6";
 import Announcement from './Announcement';
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { getUserRoleId, isTeam } from '@/lib/user';
+import ThemeToggle from './ThemeToggle';
 
 
 
@@ -14,6 +15,7 @@ const ChatNavbar = () => {
     const { userId } = useAuth();
     const [roleId, setRoleId] = useState<number | null>(null);
     const [isTeamMember, setIsTeamMember] = useState<boolean>(false);
+
 
 
     useEffect(() => {
@@ -36,6 +38,7 @@ const ChatNavbar = () => {
       if (roleId === null) {
         return null; // Show l3asba
       }
+      
 
     return (
         <div>
@@ -76,6 +79,9 @@ const ChatNavbar = () => {
                     <a className="btn btn-ghost text-xl">Discord Keeper</a>
                 </div>
                 <div className="navbar-end">
+
+<ThemeToggle/>
+
                 {/* <div className="dropdown dropdown-end">
   <div tabIndex={0} role="button" className="mr-4"><MdOutlineAdminPanelSettings size={40} /></div>
   <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
