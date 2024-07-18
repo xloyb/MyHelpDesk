@@ -100,3 +100,20 @@ export const getUserRoleId = async (userId: string): Promise<number | null> => {
     throw err;
   }
 };
+
+async function createBan() {
+  const ban = await prisma.ban.create({
+    data: {
+      userId: 'user-id',
+      staffId: 'staff-id',
+      reason: 'Violation of rules',
+    },
+  });
+
+  console.log(ban);
+}
+
+createBan().catch(e => {
+  console.error(e);
+  prisma.$disconnect();
+});
