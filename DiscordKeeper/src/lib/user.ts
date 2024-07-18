@@ -119,3 +119,12 @@ export async function createBan(userId: string, staffId: string, reason: string)
   }
 }
 
+export const CanBan = async (userId: string): Promise<boolean> => {
+  try {
+    const user = await fetchUserById(userId);
+    return [3, 4].includes(user.roleId);
+  } catch (err) {
+    console.error('Error checking if user Can access to ban: ', err);
+    throw err;
+  }
+};
