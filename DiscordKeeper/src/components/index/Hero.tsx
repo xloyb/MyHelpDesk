@@ -11,7 +11,7 @@ const Hero = () => {
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 lg:w-2/3">
           
-            <h1 className="text-4xl md:text-6xl lg:text-7xl text-white font-bold mb-6">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
               Welcome to our <br className="hidden md:block" />
               <span className="text-primary">Discord</span> Store
             </h1>

@@ -2,6 +2,7 @@ import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, UserButton } from '@cle
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
+import ThemeToggle from '../ThemeToggle';
 
 
 const IndexNav = () => {
@@ -38,6 +39,7 @@ const IndexNav = () => {
                     <a className="btn btn-ghost text-xl">Discord Keeper</a>
                 </div>
                 <div className="navbar-end">
+                    <ThemeToggle/>
                     <ClerkLoading>
                         <span className="loading loading-ring loading-lg"></span>
                     </ClerkLoading>
