@@ -93,7 +93,7 @@ const BanModal = ({ token }: { token: string }) => {
 
   return (
     <>
-      <button className="btn btn-neutral mr-2" onClick={handleOpenModal}>
+      <button className="btn btn-neutral border-red-600 mr-2" onClick={handleOpenModal}>
         <FaBookDead />
       </button>
 
