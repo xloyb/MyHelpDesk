@@ -227,7 +227,7 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
             onChange={(e) => setNewComment(e.target.value)}
             onKeyDown={handleKeyDown}
           />
-          <button className="btn btn-primary mr" onClick={handleAddComment} disabled={cooldown}>Send</button>
+          <button className="btn btn-primary mr-2" onClick={handleAddComment} disabled={cooldown}>Send</button>
           <CopyUrlComponent/>
           <DownloadChatComponent token={token} />
           <VouchModal />
