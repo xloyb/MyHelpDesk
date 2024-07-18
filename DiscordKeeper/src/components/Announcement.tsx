@@ -1,11 +1,9 @@
 "use client"
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 
 const Announcement = () => {
   const [announcement, setAnnouncement] = useState("");
   const [isChatPage, setIsChatPage] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
     const fetchAnnouncement = async () => {
@@ -23,9 +21,9 @@ const Announcement = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setIsChatPage(router.pathname.includes("chat"));
+      setIsChatPage(window.location.pathname.includes("chat"));
     }
-  }, [router.pathname]);
+  }, []);
 
   if (!announcement) {
     return null;
@@ -34,7 +32,7 @@ const Announcement = () => {
   return (
     <div
       role="alert"
-      className={`alert alert-success ${isChatPage ? 'fixed top-0 left-0 w-full z-50' : 'top-auto'}`}
+      className={`alert alert-success ${isChatPage ? 'z-10 fixed' : ''}`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
