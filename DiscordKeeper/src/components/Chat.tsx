@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { CiSettings } from "react-icons/ci";
 import VouchModal from './VouchModal';
 import TicketStatusModal from './TicketStatusModal';
+import DownloadChatComponent from './DownloadChat';
 
 
 
@@ -108,7 +109,8 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
             onKeyDown={handleKeyDown}
           />
           <button className="btn btn-primary mr-2" onClick={handleAddComment}>Send</button>
-          <button className="btn btn-neutral mr-2"> <CiSettings /></button>
+          <DownloadChatComponent token={token}/>
+          {/* <button className="btn btn-neutral mr-2"> <CiSettings /></button> */}
           {/* <button className="btn btn-neutral mr-2"> <IoLockClosedOutline /></button> */}
           {/* <button className="btn btn-neutral mr-2"> <FaHeartCirclePlus /> </button> */}
           <VouchModal/>
