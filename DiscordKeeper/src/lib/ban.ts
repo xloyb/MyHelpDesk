@@ -62,3 +62,23 @@ export async function createBan(userId: string, staffId: string, reason: string)
       throw new Error('Failed to unban user');
     }
   };
+
+
+  export const banDetails = async (userId: string) => {
+    try {
+      const ban = await prisma.ban.findFirst({
+        where: {
+          userId,
+        },
+        include: {
+          user: true,
+          staff: true,
+        },
+      });
+  
+      return ban; 
+    } catch (error) {
+      console.error('Error fetching ban details:', error);
+      throw new Error('Failed to fetch ban details');
+    }
+  };
