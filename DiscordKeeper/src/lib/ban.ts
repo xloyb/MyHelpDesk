@@ -2,6 +2,7 @@
 "use server"
 
 import prisma from "./client";
+import { fetchUserById } from "./user";
 
 
 export async function createBan(userId: string, staffId: string, reason: string) {

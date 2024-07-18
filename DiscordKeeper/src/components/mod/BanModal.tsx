@@ -9,9 +9,6 @@ const BanModal = ({ token }: { token: string }) => {
   const { userId: staffId } = useAuth(); 
   const modalRef = useRef<HTMLDialogElement>(null);
 
-
-
-
   const handleOpenModal = async () => {
     try {
       const fetchedTicket = await getTicketByToken(token);
