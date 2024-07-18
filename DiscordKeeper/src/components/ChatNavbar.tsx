@@ -39,7 +39,7 @@ const ChatNavbar = () => {
 
     return (
         <div>
-            <div className=" navbar bg-base-100">
+            <div className="navbar bg-base-100">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
@@ -58,7 +58,8 @@ const ChatNavbar = () => {
                         </div>
                         <ul
                             tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow" style={{ zIndex: 20 }}
+>
                             <li><a href='/'>Home</a></li>
                             <li><a href='/chat'>Dashboard</a></li>
                             <li><a>About</a></li>
@@ -88,7 +89,7 @@ const ChatNavbar = () => {
         <>
         <div className="dropdown dropdown-end">
   <div tabIndex={0} role="button" className="mr-4"><MdOutlineAdminPanelSettings size={40} /></div>
-  <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+  <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow" style={{ zIndex: 20 }}>
    
           {roleId === 2 && (
             <li>
