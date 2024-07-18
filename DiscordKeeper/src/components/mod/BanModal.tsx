@@ -126,11 +126,13 @@ const BanModal = ({ token }: { token: string }) => {
                     <strong>Reason:</strong> {banInfo?.reason}
                   </p>
                   <button
-                    className="btn btn-warning mt-2"
+                    className="btn btn-warning mt-2 mr-2"
                     onClick={handleUnban}
                   >
                     Unban User
                   </button>
+                  <button type="button" className="btn" onClick={() => modalRef.current?.close()}>Close</button>
+
                 </>
               ) : (
                 <form onSubmit={handleSubmit}>

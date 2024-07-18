@@ -1,9 +1,9 @@
 import { fetchUserById } from '@/lib/user';
 import { createVouch } from '@/lib/vouch';
+import { isBanned } from '@/lib/ban'; 
 import { useAuth } from '@clerk/nextjs';
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
-import Settings from './Settings';
 import { FaHeartCirclePlus } from 'react-icons/fa6';
 
 const VouchModal = () => {
@@ -14,6 +14,10 @@ const VouchModal = () => {
     logo: '',
     theme: ''
   });
+
+  const [banned, setBanned] = useState<boolean>(false); 
+  const modalRef = useRef<HTMLDialogElement>(null);
+  const bannedModalRef = useRef<HTMLDialogElement>(null); 
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -28,17 +32,26 @@ const VouchModal = () => {
     fetchSettings();
   }, []);
 
-  const modalRef = useRef<HTMLDialogElement>(null);
-
-  const handleOpenModal = () => {
-    modalRef.current?.showModal();
-  };
-
   const { userId } = useAuth();
 
   if (!userId) {
     throw new Error("User is not authenticated!");
   }
+
+  const handleOpenModal = async () => {
+    try {
+      const userBanned = await isBanned(userId);
+      setBanned(userBanned);
+
+      if (userBanned) {
+        bannedModalRef.current?.showModal();
+      } else {
+        modalRef.current?.showModal();
+      }
+    } catch (error) {
+      console.error('Failed to check ban status:', error);
+    }
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -59,10 +72,9 @@ const VouchModal = () => {
 
   return (
     <>
-      {/* <button className="btn btn-outline btn-success mt-auto" onClick={handleOpenModal}>
-        Open Vouch Modal
-      </button> */}
-      <button className="btn btn-neutral mr-2" onClick={handleOpenModal}> <FaHeartCirclePlus /> </button>
+      <button className="btn btn-neutral mr-2" onClick={handleOpenModal}>
+        <FaHeartCirclePlus />
+      </button>
 
       <dialog id="vouch_modal" className="modal" ref={modalRef}>
         <div className="modal-box">
@@ -79,6 +91,16 @@ const VouchModal = () => {
               <button type="button" className="btn" onClick={() => modalRef.current?.close()}>Close</button>
             </div>
           </form>
+        </div>
+      </dialog>
+
+      <dialog id="banned_modal" className="modal" ref={bannedModalRef}>
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">You are banned</h3>
+          <p>You cannot vouch because you are banned.</p>
+          <div className="modal-action">
+            <button type="button" className="btn" onClick={() => bannedModalRef.current?.close()}>Close</button>
+          </div>
         </div>
       </dialog>
     </>
