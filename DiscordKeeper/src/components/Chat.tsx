@@ -159,6 +159,10 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
   const [newComment, setNewComment] = useState<string>('');
   const { userId } = useAuth();
   const [cooldown, setCooldown] = useState(false);
+  const [ShowBanModal, setShowBanModal] = useState(false);
+
+
+
 
   useEffect(() => {
     const loadComments = async () => {
