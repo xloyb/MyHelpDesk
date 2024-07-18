@@ -85,7 +85,7 @@ const BanModal = ({ token }: { token: string }) => {
           <h3 className="font-bold text-lg">Ban User</h3>
           {selfBan ? (
             <div>
-            <p>You cannot ban yourself!</p>
+            <p>You cannot ban yourself Mother Fucker!</p>
             <button type="button" className="btn" onClick={() => modalRef.current?.close()}>
               Close
             </button>
