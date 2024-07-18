@@ -3,30 +3,25 @@ import { addComment } from '@/lib/actions';
 import { fetchCommentsByTicketToken } from '@/lib/data';
 import { useAuth } from '@clerk/nextjs';
 import Image from 'next/image';
-import { CiSettings } from "react-icons/ci";
 import VouchModal from './VouchModal';
 import TicketStatusModal from './TicketStatusModal';
 import DownloadChatComponent from './DownloadChat';
-
-
-
-// import { Comment, User } from '@prisma/client';
 
 interface User {
   id: string;
   email: string;
   avatar: string | null;
   cover: string | null;
-  name: string;
+  name: string | null;
 }
 
 interface Comment {
   id: number;
-  content: string;
-  createdAt: Date;
-  ticketId: number;
-  userId: string;
-  user: User;
+  content: string | null;
+  createdAt: Date | null;
+  ticketId: number | null;
+  userId: string | null;
+  user: User | null;
 }
 
 const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
@@ -34,7 +29,6 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
   const [newComment, setNewComment] = useState<string>('');
   const { userId } = useAuth();
   const [cooldown, setCooldown] = useState(false);
-
 
   useEffect(() => {
     const loadComments = async () => {
@@ -53,19 +47,19 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
       await addComment(ticketid, userId || '', newComment);
       setNewComment('');
       setCooldown(true);
-      setTimeout(() => setCooldown(false), 1500); 
+      setTimeout(() => setCooldown(false), 1500);
       const fetchedComments = await fetchCommentsByTicketToken(token);
       setComments(fetchedComments);
     } catch (error) {
       console.error('Failed to add comment:', error);
     }
   };
+
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && !cooldown) {
       handleAddComment();
     }
   };
-
 
   return (
     <div className="flex bg-base-200 flex-col h-[90vh] z-20">
@@ -74,27 +68,23 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
           <div className={`chat ${comment.userId === userId ? 'chat-end' : 'chat-start'}`} key={comment.id}>
             <div className="chat-image avatar">
               <div className="w-10 rounded-full">
-                {/* <img
-                  alt="User avatar"
-                  src={comment.user.avatar || 'https://www.mydevify.com/icon.png'}
-                /> */}
                 <Image
-                  src={comment.user.avatar || 'https://www.mydevify.com/icon.png'}
+                  src={comment.user?.avatar || 'https://www.mydevify.com/icon.png'}
                   width={100}
                   height={100}
-                  alt={comment.user.name}
-                />              </div>
+                  alt={comment.user?.name || 'User avatar'}
+                />
+              </div>
             </div>
             <div className="chat-header">
-              {comment.user.name || comment.userId}
-              <time className="text-xs opacity-50 ml-1">{new Date(comment.createdAt).toLocaleTimeString()}</time>
+              {comment.user?.name || comment.userId}
+              <time className="text-xs opacity-50 ml-1">{comment.createdAt ? new Date(comment.createdAt).toLocaleTimeString() : 'Unknown Time'}</time>
             </div>
-            <div className="chat-bubble">{comment.content}</div>
+            <div className="chat-bubble">{comment.content || 'No Content'}</div>
             <div className="chat-footer opacity-50">Delivered</div>
           </div>
         ))}
       </div>
-
 
       <div className="divider mt-2"></div>
 
@@ -108,17 +98,13 @@ const Chat = ({ token, ticketid }: { token: string; ticketid: number }) => {
             onChange={(e) => setNewComment(e.target.value)}
             onKeyDown={handleKeyDown}
           />
-          <button className="btn btn-primary mr-2" onClick={handleAddComment}>Send</button>
-          <DownloadChatComponent token={token}/>
-          {/* <button className="btn btn-neutral mr-2"> <CiSettings /></button> */}
-          {/* <button className="btn btn-neutral mr-2"> <IoLockClosedOutline /></button> */}
-          {/* <button className="btn btn-neutral mr-2"> <FaHeartCirclePlus /> </button> */}
-          <VouchModal/>
-          <TicketStatusModal token={token}/>
+          <button className="btn btn-primary mr-2" onClick={handleAddComment} disabled={cooldown}>Send</button>
+          <DownloadChatComponent token={token} />
+          <VouchModal />
+          <TicketStatusModal token={token} />
         </div>
-        </div>
-
       </div>
+    </div>
   );
 };
 
