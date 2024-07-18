@@ -25,6 +25,8 @@ model User {
   role      Role         @relation(fields: [roleId], references: [id])
   tickets   TicketUser[]
   comments  Comment[]    @relation("UserComments")
+  banned    Ban[]        @relation("BannedUser")
+  issuedBans Ban[]       @relation("BanningStaff")
 }
 
 model Role {
@@ -73,4 +75,16 @@ model Comment {
   userId    String?
   ticket    Ticket?   @relation(fields: [ticketId], references: [id])
   user      User?     @relation("UserComments", fields: [userId], references: [id])
+}
+
+model Ban {
+  id           Int      @id @default(autoincrement())
+  userId       String
+  staffId      String
+  reason       String?
+  createdAt    DateTime @default(now())
+  user         User     @relation("BannedUser", fields: [userId], references: [id])
+  staff        User     @relation("BanningStaff", fields: [staffId], references: [id])
+
+  @@unique([userId, staffId])
 }
