@@ -39,7 +39,7 @@
 
 import { APIInteractionResponse, InteractionType, APIChatInputApplicationCommandInteraction, APIApplicationCommandInteractionDataOption } from "discord-api-types/v10";
 import { NextResponse } from "next/server";
-import { PUBLIC_KEY, BOT_TOKEN, DISCORD_CHANNEL_ID } from "../../../../../config";
+import { PUBLIC_KEY, BOT_TOKEN, DISCORD_TICKETS_CHANNEL_ID } from "../../../../../config";
 import getCommands from "../../../../../utils/getCommands";
 import { verifyInteractionRequest } from "../../../../../utils/verify-discord-request";
 import { sendDiscordMessage } from "../../../../../utils/sendDiscordMessage";
@@ -83,7 +83,7 @@ export async function POST(req: Request) {
           }]
         };
 
-        await sendDiscordMessage(DISCORD_CHANNEL_ID, embedContent, BOT_TOKEN);
+        await sendDiscordMessage(DISCORD_TICKETS_CHANNEL_ID, embedContent, BOT_TOKEN);
       }
     }
 
