@@ -10,6 +10,7 @@ interface Vouch {
 }
 
 export const sendAllVouchesToDiscord = async (vouches: Vouch[]) => {
+    //console.log("im inside sendAllVouchesToDiscord")
   for (const vouch of vouches) {
     const embedContent = {
       embeds: [{
