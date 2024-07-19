@@ -14,9 +14,7 @@ const ModCP = () => {
   const { userId } = useAuth();
 
   const [tickets, setTickets] = useState<any[]>([]);
-  const [vouches, setVouches] = useState<any[]>([]);
   const [users, setUsers] = useState<any[]>([]);
-  const [roles, setRoles] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [isTeamMember, setIsTeamMember] = useState<boolean>(false);
 
@@ -29,7 +27,6 @@ const ModCP = () => {
       ]);
       setTickets(tickets);
       setUsers(users);
-      setRoles(roles);
       setLoading(false);
     };
 
