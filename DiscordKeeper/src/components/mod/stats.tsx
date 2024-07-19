@@ -24,6 +24,9 @@ const StatsComponent = () => {
 
   return (
     <div className="bg-base-100 card mx-6 mt-5 md:pt-4 px-6">
+      <div className="text-xl font-semibold inline-block">Stats </div>
+
+      <div className="divider mt-2"></div>
       <div className="content-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
         <div className="stat flex justify-between items-center shadow-lg p-4 rounded-lg">
           <div>
