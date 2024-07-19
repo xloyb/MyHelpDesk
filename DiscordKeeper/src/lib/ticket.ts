@@ -1,5 +1,6 @@
 "use server"
 
+import { sendTicketSetupNotification } from "../../utils/ticketSetup";
 import prisma from "./client";
 
 // Get all tickets
@@ -102,3 +103,18 @@ export const isClosed = async (token: string): Promise<boolean> => {
   }
 };
 
+
+export const setupTicketsChannel = async () => {
+  try {
+    const notificationParams = {
+      title: 'Welcome to the Tickets Channel!',
+      description: 'To open a ticket, click the button below:',
+    };
+
+    await sendTicketSetupNotification(notificationParams);
+
+    console.log('Tickets channel setup notification sent successfully!');
+  } catch (error) {
+    console.error('Failed to send tickets channel setup notification:', error);
+  }
+};
