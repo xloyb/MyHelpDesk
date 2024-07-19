@@ -1,4 +1,5 @@
 import { getDashboardStats } from "@/lib/actions";
+import { setupTicketsChannel } from "@/lib/ticket";
 import { SendAllVouchesToDiscord } from "@/lib/vouch";
 import React, { useEffect, useState } from "react";
 import { FaUser, FaTicketAlt } from "react-icons/fa";
@@ -21,7 +22,7 @@ const DiscordInfoPage = () => {
 
   const handleSetupTicketsChannel = async () => {
     try {
-    //   await setupTicketsChannel(); 
+       await setupTicketsChannel()
       alert("Tickets channel setup successfully!");
     } catch (error) {
       console.error("Failed to setup tickets channel:", error);
