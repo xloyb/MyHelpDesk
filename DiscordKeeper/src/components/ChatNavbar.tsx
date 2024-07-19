@@ -131,9 +131,10 @@ const ChatNavbar = () => {
        <li>Admins</li>
        <ul className='menu menu-compact'>
        <li><Link href='/admincp'>Admins Controle Panel</Link> </li>
-       <li><Link href='/admincp/settings'>Manage Settings</Link> </li>
-       <li><Link href='/admincp/users'>Manage Users</Link> </li>
-       <li><Link href='/admincp/roles'>Manage Roles</Link> </li>
+       <li><Link href='/admincp/settings'>Settings</Link> </li>
+       <li><Link href='/admincp/users'>Users</Link> </li>
+       <li><Link href='/admincp/roles'>Roles</Link> </li>
+       <li><Link href='/admincp/discord'>Discord</Link> </li>
        </ul>
 
        </li>
