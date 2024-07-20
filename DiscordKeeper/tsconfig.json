@@ -36,7 +36,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "src/app/api/socket/route.ts"  ],
+, "src/app/api/socket/route.ts", "socket-server.js"  ],
   "exclude": [
     "node_modules"
   ]
