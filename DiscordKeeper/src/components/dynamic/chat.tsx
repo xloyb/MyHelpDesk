@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useAuth } from '@clerk/nextjs';
 
 interface Comment {
   id: number;
@@ -16,6 +17,7 @@ interface ChatProps {
 }
 
 const Chatd: React.FC<ChatProps> = ({ ticketId }) => {
+  const { userId } = useAuth();
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState('');
   const [ws, setWs] = useState<WebSocket | null>(null);
@@ -70,8 +72,8 @@ const Chatd: React.FC<ChatProps> = ({ ticketId }) => {
     try {
       const response = await axios.post('/api/comments', {
         content: newComment,
-        ticketId: parseInt(ticketId, 10), // Convert ticketId to integer
-        userId: 'user_2jQTiKPD26Qq6MUXtOBqtCNuBAG', // Replace with the actual user ID
+        ticketId: parseInt(ticketId, 10), 
+        userId: userId, 
       });
 
       const newCommentData = response.data;
