@@ -8,7 +8,7 @@ const Chat = dynamic(() => import('@/components/Chat'), { ssr: false });
 
 const ChatPage = () => {
   // const { ticketId } = router.query;
-  const  ticketId  = "1";
+  const  ticketId  = "4";
 
 
   if (!ticketId) {
