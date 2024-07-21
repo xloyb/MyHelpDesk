@@ -1,5 +1,6 @@
-// src/components/Chat.tsx
+"use client";
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 interface Comment {
   id: number;
@@ -23,10 +24,8 @@ const Chatd: React.FC<ChatProps> = ({ ticketId }) => {
     // Fetch initial comments
     const fetchComments = async () => {
       try {
-        const response = await fetch(`/api/comments?ticketId=${ticketId}`);
-        if (!response.ok) throw new Error('Failed to fetch comments');
-        const data = await response.json();
-        setComments(data);
+        const response = await axios.get(`/api/comments?ticketId=${ticketId}`);
+        setComments(response.data);
       } catch (error) {
         console.error('Error fetching comments:', error);
       }
@@ -41,10 +40,15 @@ const Chatd: React.FC<ChatProps> = ({ ticketId }) => {
       console.log('Connected to WebSocket server');
     };
 
-    websocket.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      if (message.ticketId === ticketId) {
-        setComments((prevComments) => [...prevComments, message]);
+    websocket.onmessage = async (event) => {
+      try {
+        const text = await event.data.text();
+        const message = JSON.parse(text);
+        if (message.ticketId === parseInt(ticketId, 10)) {
+          setComments((prevComments) => [...prevComments, message]);
+        }
+      } catch (error) {
+        console.error('Error parsing WebSocket message:', error);
       }
     };
 
@@ -64,22 +68,17 @@ const Chatd: React.FC<ChatProps> = ({ ticketId }) => {
     if (!newComment.trim()) return;
 
     try {
-      const response = await fetch('/api/comments', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          content: newComment,
-          ticketId,
-          userId: 'user-id-here', // Replace with the actual user ID
-        }),
+      const response = await axios.post('/api/comments', {
+        content: newComment,
+        ticketId: parseInt(ticketId, 10), // Convert ticketId to integer
+        userId: 'user_2jQTiKPD26Qq6MUXtOBqtCNuBAG', // Replace with the actual user ID
       });
 
-      if (!response.ok) throw new Error('Failed to post comment');
-      
+      const newCommentData = response.data;
+
       setNewComment('');
-      ws?.send(JSON.stringify({ content: newComment, ticketId }));
+      ws?.send(JSON.stringify(newCommentData));
+      setComments((prevComments) => [...prevComments, newCommentData]); // Update chat directly
     } catch (error) {
       console.error('Error posting comment:', error);
     }

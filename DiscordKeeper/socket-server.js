@@ -10,6 +10,7 @@ wss.on('connection', (ws) => {
 
   ws.on('message', (message) => {
     console.log('Received message:', message);
+
     // Broadcast message to all connected clients
     wss.clients.forEach((client) => {
       if (client.readyState === client.OPEN) {
