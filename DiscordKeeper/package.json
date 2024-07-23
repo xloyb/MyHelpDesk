@@ -5,7 +5,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "concurrently \"node socket-server.js\" \"wscat -c ws://localhost:3001\" \"next dev --turbo\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
