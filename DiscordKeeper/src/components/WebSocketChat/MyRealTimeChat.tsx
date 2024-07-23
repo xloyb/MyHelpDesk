@@ -218,7 +218,7 @@ interface Comment {
 }
 
 interface ChatProps {
-  ticketId: string;
+  ticketId: number;
   token: string;
 
 }
@@ -269,7 +269,7 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
         // Ensure message is a valid JSON string
         if (messageData.trim()) {
           const message = JSON.parse(messageData);
-          if (message.ticketId === parseInt(ticketId, 10)) {
+          if (message.ticketId === ticketId) {
             setComments((prevComments) => [...prevComments, message]);
           }
         }
@@ -304,7 +304,7 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
     try {
       const response = await axios.post('/api/comments', {
         content: newComment,
-        ticketId: parseInt(ticketId, 10),
+        ticketId: ticketId,
         userId: userId,
       });
 
