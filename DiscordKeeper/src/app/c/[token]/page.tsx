@@ -66,9 +66,9 @@ const ChatPage = () => {
     verifyToken();
   }, [userId, token]);
 
-  if (isValidToken === null || accessGranted === null) {
-    return <span className="loading loading-ring loading-lg"></span>;
-  }
+//   if (isValidToken === null || accessGranted === null) {
+//     return <span className="loading loading-ring loading-lg"></span>;
+//   }
 
   return (
     <>
