@@ -6,12 +6,15 @@ import Sidebar from '@/components/Sidebar';
 import styles from '@/app/main.module.css';
 import { checkTokenExists } from '@/lib/actions';
 import { useState } from 'react';
+import { hasAccess } from '@/lib/user';
 
 
 const Chat = dynamic(() => import('@/components/Chat'), { ssr: false });
 
 const ChatPage = () => {
     const [isValidToken, setIsValidToken] = useState<boolean | null>(null);
+    const [accessGranted, setAccessGranted] = useState<boolean | null>(null);
+
 
   const path = window.location.pathname;
   const tokens = path.split('/').filter(Boolean);
@@ -29,6 +32,16 @@ const ChatPage = () => {
     } catch (error) {
       console.error('Error verifying token:', error);
       setIsValidToken(false);
+    }
+  };
+
+  const checkAccess = async (userId: string, ticketId: number) => {
+    try {
+      const access = await hasAccess(userId, ticketId);
+      setAccessGranted(access);
+    } catch (error) {
+      console.error('Error checking access:', error);
+      setAccessGranted(false);
     }
   };
 
