@@ -1,6 +1,6 @@
 import React from 'react'
 
-const DeniedAcceddMotherFucker = () => {
+const DeniedAccessMotherFucker = () => {
   return (
     <>
     <section className="bg-base-100 dark:bg-gray-900">
@@ -46,4 +46,4 @@ const DeniedAcceddMotherFucker = () => {
   )
 }
 
-export default DeniedAcceddMotherFucker
+export default DeniedAccessMotherFucker
