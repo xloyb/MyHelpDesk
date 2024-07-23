@@ -1,40 +1,32 @@
-"use client";
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '@clerk/nextjs';
 import Image from 'next/image';
 import { CanBan } from '@/lib/ban';
-import { getTicketIdByToken, isClosed } from '@/lib/ticket';
-import CopyUrlComponent from '../ShareTicketLink';
-import DownloadChatComponent from '../DownloadChat';
-import VouchModal from '../VouchModal';
-import TicketStatusModal from '../TicketStatusModal';
-import BanModal from '../mod/BanModal';
-
+import { isClosed } from '@/lib/ticket';
 
 interface User {
-    id: string;
-    email: string;
-    avatar: string | null;
-    cover: string | null;
-    name: string | null;
-  }
-  
-  interface Comment {
-    id: number;
-    content: string | null;
-    createdAt: Date | null;
-    ticketId: number | null;
-    userId: string | null;
-    user: User | null;
-  }
+  id: string;
+  email: string;
+  avatar: string | null;
+  cover: string | null;
+  name: string | null;
+}
 
+interface Comment {
+  id: number;
+  content: string | null;
+  createdAt: Date | null;
+  ticketId: number | null;
+  userId: string | null;
+  user: User | null;
+}
 
 interface ChatProps {
   ticketId: string;
 }
 
-const RealTimeChat: React.FC<ChatProps> = ({ ticketId }) => {
+const Chat: React.FC<ChatProps> = ({ ticketId }) => {
   const { userId } = useAuth();
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState('');
@@ -50,8 +42,7 @@ const RealTimeChat: React.FC<ChatProps> = ({ ticketId }) => {
         const response = await axios.get(`/api/comments?ticketId=${ticketId}`);
         setComments(response.data);
 
-        const ticketIdNum = parseInt(ticketId, 10);
-        const ticketClosed = await isClosed(ticketId);
+        const ticketClosed = await isClosed("f27fd93fe4b0ac4b0923ce417926bcd6275d51fbd2a4ad8c772dc0b30fb626f7");
         setIsTicketClosed(ticketClosed);
 
         if (userId) {
@@ -65,19 +56,25 @@ const RealTimeChat: React.FC<ChatProps> = ({ ticketId }) => {
 
     fetchComments();
 
-    // Setup WebSocket connection
     const websocket = new WebSocket('ws://localhost:3001');
 
     websocket.onopen = () => {
       console.log('Connected to WebSocket server');
     };
 
-    websocket.onmessage = async (event) => {
+    websocket.onmessage = (event) => {
+      console.log('WebSocket message received:', event.data);
+
+      // Check if the message is binary and convert it to text
+      const messageData = typeof event.data === 'string' ? event.data : new TextDecoder().decode(new Uint8Array(event.data));
+
       try {
-        const text = await event.data.text();
-        const message = JSON.parse(text);
-        if (message.ticketId === parseInt(ticketId, 10)) {
-          setComments((prevComments) => [...prevComments, message]);
+        // Ensure message is a valid JSON string
+        if (messageData.trim()) {
+          const message = JSON.parse(messageData);
+          if (message.ticketId === parseInt(ticketId, 10)) {
+            setComments((prevComments) => [...prevComments, message]);
+          }
         }
       } catch (error) {
         console.error('Error parsing WebSocket message:', error);
@@ -86,6 +83,10 @@ const RealTimeChat: React.FC<ChatProps> = ({ ticketId }) => {
 
     websocket.onclose = () => {
       console.log('WebSocket connection closed');
+    };
+
+    websocket.onerror = (error) => {
+      console.error('WebSocket error:', error);
     };
 
     setWs(websocket);
@@ -113,11 +114,12 @@ const RealTimeChat: React.FC<ChatProps> = ({ ticketId }) => {
       const newCommentData = response.data;
 
       setNewComment('');
-      ws?.send(JSON.stringify(newCommentData));
+      console.log('Sending comment through WebSocket:', newCommentData);
+      ws?.send(JSON.stringify(newCommentData)); // Send the comment through WebSocket
       setComments((prevComments) => [...prevComments, newCommentData]);
 
       setCooldown(true);
-      setTimeout(() => setCooldown(false), 1500); 
+      setTimeout(() => setCooldown(false), 1500); // Cooldown period of 1.5 seconds
     } catch (error) {
       console.error('Error posting comment:', error);
     }
@@ -172,7 +174,6 @@ const RealTimeChat: React.FC<ChatProps> = ({ ticketId }) => {
           >
             Send
           </button>
-          {showBanModal && <BanModal token={ticketId} />}
           {showClosedModal && (
             <dialog open className="modal">
               <div className="modal-box">
@@ -184,14 +185,10 @@ const RealTimeChat: React.FC<ChatProps> = ({ ticketId }) => {
               </div>
             </dialog>
           )}
-          <CopyUrlComponent />
-          <DownloadChatComponent token={ticketId} />
-          <VouchModal />
-          <TicketStatusModal token={ticketId} />
         </div>
       </div>
     </div>
   );
 };
 
-export default RealTimeChat;
+export default Chat;
