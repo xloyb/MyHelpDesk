@@ -50,7 +50,7 @@ const Sidebar = () => {
             {/* Sidebar content here */}
             <>
             {tickets.map(ticket => (
-              <Link key={ticket.id} href={`/chat/${ticket.token}`}>
+              <Link key={ticket.id} href={`/c/${ticket.token}`}>
               <li>
                     <p>{ticket.title}</p>
                   </li>
