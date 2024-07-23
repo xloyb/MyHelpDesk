@@ -293,33 +293,67 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
     };
   }, [ticketId, userId, token]);
 
+  // const handleSend = async () => {
+  //   if (isTicketClosed) {
+  //     setShowClosedModal(true);
+  //     return;
+  //   }
+
+  //   if (!newComment.trim()) return;
+
+  //   try {
+  //     const response = await axios.post('/api/comments', {
+  //       content: newComment,
+  //       ticketId: ticketId,
+  //       userId: userId,
+  //     });
+
+  //     const newCommentData = response.data;
+
+  //     setNewComment('');
+  //     console.log('Sending comment through WebSocket:', newCommentData);
+  //     ws?.send(JSON.stringify(newCommentData)); // Send the comment through WebSocket
+
+  //     setCooldown(true);
+  //     setTimeout(() => setCooldown(false), 1500); // Cooldown period of 1.5 seconds
+  //   } catch (error) {
+  //     console.error('Error posting comment:', error);
+  //   }
+  // };
+
   const handleSend = async () => {
     if (isTicketClosed) {
       setShowClosedModal(true);
       return;
     }
-
+  
     if (!newComment.trim()) return;
-
+  
     try {
       const response = await axios.post('/api/comments', {
         content: newComment,
         ticketId: ticketId,
         userId: userId,
       });
-
+  
       const newCommentData = response.data;
-
+  
       setNewComment('');
       console.log('Sending comment through WebSocket:', newCommentData);
-      ws?.send(JSON.stringify(newCommentData)); // Send the comment through WebSocket
-
+  
+      if (ws?.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify(newCommentData)); // Send the comment through WebSocket
+      } else {
+        console.error('WebSocket is not open. Cannot send message.');
+      }
+  
       setCooldown(true);
       setTimeout(() => setCooldown(false), 1500); // Cooldown period of 1.5 seconds
     } catch (error) {
       console.error('Error posting comment:', error);
     }
   };
+  
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === 'Enter' && !cooldown) {
