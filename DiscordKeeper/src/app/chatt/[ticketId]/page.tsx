@@ -16,7 +16,7 @@ const ChatPage = () => {
   }
 
   // return <Chatd ticketId={ticketId as string} />;
-  return <RealTimeChat  ticketId={ticketId as string} />;
+  return <RealTimeChat  ticketId={ticketId as string} token={'dsfg'} />;
 
 
 };

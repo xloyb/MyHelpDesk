@@ -219,9 +219,11 @@ interface Comment {
 
 interface ChatProps {
   ticketId: string;
+  token: string;
+
 }
 
-const Chat: React.FC<ChatProps> = ({ ticketId }) => {
+const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
   const { userId } = useAuth();
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState('');
@@ -237,7 +239,7 @@ const Chat: React.FC<ChatProps> = ({ ticketId }) => {
         const response = await axios.get(`/api/comments?ticketId=${ticketId}`);
         setComments(response.data);
 
-        const ticketClosed = await isClosed("f27fd93fe4b0ac4b0923ce417926bcd6275d51fbd2a4ad8c772dc0b30fb626f7");
+        const ticketClosed = await isClosed(token);
         setIsTicketClosed(ticketClosed);
 
         if (userId) {
@@ -289,7 +291,7 @@ const Chat: React.FC<ChatProps> = ({ ticketId }) => {
     return () => {
       websocket.close();
     };
-  }, [ticketId, userId]);
+  }, [ticketId, userId, token]);
 
   const handleSend = async () => {
     if (isTicketClosed) {

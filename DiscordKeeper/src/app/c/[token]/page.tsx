@@ -9,6 +9,11 @@ import styles from '@/app/main.module.css';
 const Chat = dynamic(() => import('@/components/Chat'), { ssr: false });
 
 const ChatPage = () => {
+
+  const path = window.location.pathname;
+  const tokens = path.split('/').filter(Boolean);
+  const token = tokens.length > 1 ? tokens[1] : '';
+
   const  ticketId  = "4";
 
 
@@ -25,7 +30,7 @@ const ChatPage = () => {
             <div className={styles.content}>
               <div className='h-screen bg-base-200 overflow-hidden sticky top-0 overflow-x-hidden'>
                 <ChatNavbar />
-                <RealTimeChat  ticketId={ticketId as string} />
+                <RealTimeChat  ticketId={ticketId as string} token={token as string}  />
                 </div>
             </div>
           </div>
