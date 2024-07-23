@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import { hasAccess } from "@/lib/user";
 import { getTicketIdByToken } from "@/lib/ticket";
 import { useAuth } from "@clerk/nextjs";
+import DeniedAccessMotherFucker from "@/components/CustomPages/403";
+import NotFoundBitch from "@/components/CustomPages/404";
 
 const Chat = dynamic(() => import("@/components/Chat"), { ssr: false });
 
@@ -77,10 +79,29 @@ const ChatPage = () => {
         <div className={styles.content}>
           <div className="h-screen bg-base-200 overflow-hidden sticky top-0 overflow-x-hidden">
             <ChatNavbar />
-            <RealTimeChat
+            
+            
+            {isValidToken ? (
+  accessGranted ? (
+    <>
+ <RealTimeChat
               ticketId={(ticketid ?? "") as string}
               token={token as string}
-            />
+            />    </>
+  ) : (
+    <>
+    <DeniedAccessMotherFucker/>
+    </>
+  )
+) : (
+  <>
+  <NotFoundBitch/>
+  </>
+)}
+
+            
+            
+           
           </div>
         </div>
       </div>
