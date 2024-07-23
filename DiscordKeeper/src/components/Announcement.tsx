@@ -21,7 +21,7 @@ const Announcement = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setIsChatPage(window.location.pathname.includes("chat"));
+      setIsChatPage(window.location.pathname.includes("/c/"));
     }
   }, []);
 
