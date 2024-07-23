@@ -1,7 +1,5 @@
 "use client"
-// src/pages/chat/[ticketId].tsx
 import dynamic from 'next/dynamic';
-import Chatd from '@/components/dynamic/chat';
 import RealTimeChat from '@/components/WebSocketChat/MyRealTimeChat';
 
 const Chat = dynamic(() => import('@/components/Chat'), { ssr: false });
