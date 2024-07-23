@@ -83,13 +83,17 @@ const ChatPage = () => {
             <ChatNavbar />
             
             
-            {/* {isValidToken ? (
+            {isValidToken ? (
   accessGranted ? (
     <>
- <RealTimeChat
-              ticketId={(ticketid ?? "") as string}
+ {ticketid ? (<>
+                <RealTimeChat
+              ticketId={ticketid}
               token={token as string}
-            />    </>
+            />  
+              </>):(<>
+                <span className="loading loading-ring loading-lg"></span>
+              </>)} </>
   ) : (
     <>
     <DeniedAccessMotherFucker/>
@@ -99,19 +103,11 @@ const ChatPage = () => {
   <>
   <NotFoundBitch/>
   </>
-)} */}
+)}
 
-
-<RealTimeChat
-              // ticketId={(ticketid ?? "") as string}
-              ticketId="4"
-              token={token as string}
-            />        
-  
 
             
             
-           
           </div>
         </div>
       </div>
