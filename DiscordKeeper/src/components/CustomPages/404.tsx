@@ -1,6 +1,6 @@
 import React from 'react'
 
-const NotFoundPage = () => {
+const NotFoundBitch = () => {
   return (
     <>
     <section className="bg-base-100 dark:bg-gray-900">
@@ -46,4 +46,4 @@ const NotFoundPage = () => {
   )
 }
 
-export default NotFoundPage
+export default NotFoundBitch
