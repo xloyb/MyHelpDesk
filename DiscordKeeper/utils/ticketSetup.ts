@@ -1,4 +1,4 @@
-import { BOT_TOKEN, DISCORD_TICKETS_CHANNEL_ID, DOMAIN } from "../config";
+import { BOT_TOKEN, DISCORD_NEW_TICKET_EMBED_ID, DOMAIN } from "../config";
 import { sendDiscordMessage } from "./sendDiscordMessage";
 
 interface TicketSetupNotificationParams {
@@ -16,7 +16,7 @@ export const sendTicketSetupNotification = async ({ title, description }: Ticket
             type: 2,
             style: 5, 
             label: 'Open a Ticket',
-            url: `${DOMAIN}/chat`, 
+            url: `${DOMAIN}/c`, 
           },
         ],
       },
@@ -32,5 +32,5 @@ export const sendTicketSetupNotification = async ({ title, description }: Ticket
     ...buttonComponent,
   };
 
-  await sendDiscordMessage(DISCORD_TICKETS_CHANNEL_ID, embedContent, BOT_TOKEN);
+  await sendDiscordMessage(DISCORD_NEW_TICKET_EMBED_ID, embedContent, BOT_TOKEN);
 };
