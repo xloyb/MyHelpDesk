@@ -5,7 +5,7 @@ if (!process.env.DOMAIN) throw new Error("DOMAIN is not set");
 if (!process.env.DISCORD_TICKETS_CHANNEL_ID) throw new Error("DISCORD_TICKETS_CHANNEL_ID is not set");
 if (!process.env.DISCORD_VOUCHES_CHANNEL_ID) throw new Error("DISCORD_VOUCHES_CHANNEL_ID is not set");
 if (!process.env.DISCORD_NEW_TICKET_EMBED_ID) throw new Error("DISCORD_NEW_TICKET_EMBED_ID is not set");
-if (!process.env.WEBSOCKETDOMAIN) throw new Error("WEBSOCKETDOMAIN is not set");
+// if (!process.env.WEBSOCKETDOMAIN) throw new Error("WEBSOCKETDOMAIN is not set");
 
 
 export const CLIENT_APPLICATION_ID = process.env.NEXT_PUBLIC_CLIENT_APPLICATION_ID!;
