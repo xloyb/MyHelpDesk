@@ -45,7 +45,7 @@ import { FaLocationArrow } from "react-icons/fa6";
                     </select>
                   </td>
                   <th>
-                  <Link href={`/chat/${ticket.token}`}>
+                  <Link href={`/c/${ticket.token}`}>
                   <button className="btn btn-ghost btn-xs">View <FaLocationArrow />
                   </button>
                   </Link>
