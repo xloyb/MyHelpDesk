@@ -100,3 +100,60 @@ export const getUserRoleId = async (userId: string): Promise<number | null> => {
     throw err;
   }
 };
+
+
+
+export const getUserStats = async (userId: string) => {
+  const totalTickets = await prisma.ticketUser.count({
+    where: {
+      userId: userId,
+    },
+  });
+
+  const totalVouches = await prisma.vouch.count({
+    where: {
+      vouchedBy: userId,
+    },
+  });
+
+  const pendingTickets = await prisma.ticket.count({
+    where: {
+      users: {
+        some: {
+          userId: userId,
+        },
+      },
+      status: 'pending',
+    },
+  });
+
+  const closedTickets = await prisma.ticket.count({
+    where: {
+      users: {
+        some: {
+          userId: userId,
+        },
+      },
+      status: 'closed',
+    },
+  });
+
+  const openedTickets = await prisma.ticket.count({
+    where: {
+      users: {
+        some: {
+          userId: userId,
+        },
+      },
+      status: 'open',
+    },
+  });
+
+  return {
+    totalTickets,
+    totalVouches,
+    pendingTickets,
+    closedTickets,
+    openedTickets,
+  };
+};
