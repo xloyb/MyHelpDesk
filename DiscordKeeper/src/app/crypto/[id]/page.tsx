@@ -9,13 +9,13 @@ interface CryptoData {
   symbol: string;
   market_cap_rank: number;
   market_data: {
-    market_cap: { inr: number };
-    current_price: { inr: number };
+    market_cap: { usd: number };
+    current_price: { usd: number };
     total_supply: number;
     market_cap_change_percentage_24h: number;
-    high_24h: { inr: number };
-    low_24h: { inr: number };
-    total_volume: { inr: number };
+    high_24h: { usd: number };
+    low_24h: { usd: number };
+    total_volume: { usd: number };
     circulating_supply: number;
   };
   description: { en: string };
@@ -66,10 +66,10 @@ const CryptoDetails: React.FC = () => {
             <b>Rank:</b> {cryptoData.market_cap_rank}
           </p>
           <p className="card-text">
-            <b>Market Cap:</b> ₹{cryptoData.market_data.market_cap.inr.toLocaleString('en-US')}
+            <b>Market Cap:</b> $ {cryptoData.market_data.market_cap.usd.toLocaleString('en-US')}
           </p>
           <p className="card-text">
-            <b>Current Price:</b> ₹{cryptoData.market_data.current_price.inr.toFixed(2)}
+            <b>Current Price:</b> $ {cryptoData.market_data.current_price.usd.toFixed(2)}
           </p>
           <p className="card-text">
             <b>Total Supply:</b> {cryptoData.market_data.total_supply.toLocaleString('en-US')}
@@ -78,13 +78,13 @@ const CryptoDetails: React.FC = () => {
             <b>Market Cap Change (24h):</b> {cryptoData.market_data.market_cap_change_percentage_24h.toFixed(2)}%
           </p>
           <p className="card-text">
-            <b>High (24h):</b> ₹{cryptoData.market_data.high_24h.inr.toFixed(2)}
+            <b>High (24h):</b> $ {cryptoData.market_data.high_24h.usd.toFixed(2)}
           </p>
           <p className="card-text">
-            <b>Low (24h):</b> ₹{cryptoData.market_data.low_24h.inr.toFixed(2)}
+            <b>Low (24h):</b> $ {cryptoData.market_data.low_24h.usd.toFixed(2)}
           </p>
           <p className="card-text">
-            <b>Total Volume (24h):</b> ₹{cryptoData.market_data.total_volume.inr.toLocaleString('en-US')}
+            <b>Total Volume (24h):</b> $ {cryptoData.market_data.total_volume.usd.toLocaleString('en-US')}
           </p>
           <p className="card-text">
             <b>Circulating Supply:</b> {cryptoData.market_data.circulating_supply.toLocaleString('en-US')}
