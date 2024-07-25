@@ -6,6 +6,7 @@ import MyChat from "@/components/MyChat";
 import ChatNavbar from "@/components/ChatNavbar";
 import MyStats from "@/components/User/UserStats";
 import { useAuth } from "@clerk/nextjs";
+import CryptoTracker from "@/components/CryptoList";
 
 const Chat = () => {
   const { userId } = useAuth();
@@ -24,6 +25,7 @@ const Chat = () => {
           <ChatNavbar />
           
           <MyStats userId={userId} />
+          <CryptoTracker/>
           {/* <MyChat /> */}
 
           {/* <Footer/> */}
