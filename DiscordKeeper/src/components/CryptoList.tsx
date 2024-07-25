@@ -83,8 +83,8 @@ const CryptoTracker: React.FC = () => {
                     </div>
                   </td>
                   <td>{crypto.symbol.toUpperCase()}</td>
-                  <td>₹{crypto.current_price.toFixed(2)}</td>
-                  <td>₹{crypto.market_cap.toLocaleString('en-US')}</td>
+                  <td>$ {crypto.current_price.toFixed(2)}</td>
+                  <td>$ {crypto.market_cap.toLocaleString('en-US')}</td>
                   <td className={crypto.price_change_percentage_1h_in_currency < 0 ? 'text-red-600' : 'text-green-600'}>
                     {crypto.price_change_percentage_1h_in_currency.toFixed(2)}%
                   </td>
