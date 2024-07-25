@@ -78,7 +78,7 @@ const CryptoTracker: React.FC = () => {
                         className="w-8 h-8 rounded-full"
                       />
                       <Link href={`/crypto/${crypto.id}`}>
-                        <a className="link link-hover">{crypto.name}</a>
+                        <span className="link link-hover">{crypto.name}</span>
                       </Link>
                     </div>
                   </td>
