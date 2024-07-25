@@ -69,9 +69,9 @@ const ModCP = () => {
         <Sidebar />
       </div>
       <div className={styles.content}>
-        <div className="h-screen bg-base-200 sticky top-0 overflow-x-auto">
+      <div className="h-screen overflow-hidden sticky top-0 overflow-x-hidden bg-base-200">
           <ChatNavbar />
-          <div>
+          <div className="h-screen bg-base-200 sticky top-0 overflow-x-auto">
             {isTeamMember ? (
               <>
               <StatsComponent/>
