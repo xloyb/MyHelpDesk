@@ -16,8 +16,6 @@ const AdminCPRoles = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const roles = await getAllRoles();
-      setRoles(roles);
       setLoading(false);
     };
 

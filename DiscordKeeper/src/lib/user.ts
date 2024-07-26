@@ -60,10 +60,27 @@ export const isMod = async (userId: string): Promise<boolean> => {
 };
 
 // Check if the user is an admin
+// export const isAdmin = async (userId: string): Promise<boolean> => {
+//   try {
+//     const user = await fetchUserById(userId);
+//     // return user.roleId === 4;
+//     return user.role.id === 4; 
+
+//   } catch (err) {
+//     console.error('Error checking if user is an admin:', err);
+//     throw err;
+//   }
+// };
+
+
 export const isAdmin = async (userId: string): Promise<boolean> => {
   try {
     const user = await fetchUserById(userId);
-    return user.roleId === 4;
+    console.log('Fetched user:', user);
+    console.log('Role ID:', user.role.id);
+    // return user.role.id === 4; 
+
+    return user.role.id === 4; 
   } catch (err) {
     console.error('Error checking if user is an admin:', err);
     throw err;
