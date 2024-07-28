@@ -1,3 +1,4 @@
+"use client"
 import CryptoTracker from "@/components/CryptoList";
 import React from "react";
 import styles from "@/app/main.module.css";
