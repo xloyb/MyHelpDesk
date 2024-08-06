@@ -118,3 +118,19 @@ export const setupTicketsChannel = async () => {
     console.error('Failed to send tickets channel setup notification:', error);
   }
 };
+
+
+
+export const getAllTicketsNotes = async () => {
+  return prisma.ticket.findMany({
+    include: {
+      comments: true,          
+      users: {                 
+        include: {
+          user: true
+        }
+      },
+      StaffTicketNote: true   
+    },
+  });
+};

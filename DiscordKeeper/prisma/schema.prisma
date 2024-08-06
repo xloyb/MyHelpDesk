@@ -95,11 +95,10 @@ model Ban {
 
 model StaffTicketNote {
   id        Int      @id @default(autoincrement())
-  content   String   // The note content
-  createdAt DateTime @default(now()) // Timestamp when the note was created
-  updatedAt DateTime @updatedAt // Timestamp when the note was last updated
-  staffId   String  // ID of the staff member who created the note
-  ticketId  Int     // ID of the ticket associated with the note
+  content   String   
+  createdAt DateTime @default(now()) 
+  staffId   String  
+  ticketId  Int
 
   staff     User    @relation(fields: [staffId], references: [id])
   ticket    Ticket  @relation(fields: [ticketId], references: [id])
