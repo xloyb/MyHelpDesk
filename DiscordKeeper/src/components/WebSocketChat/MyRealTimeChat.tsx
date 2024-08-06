@@ -2070,6 +2070,7 @@ import DownloadChatComponent from '../DownloadChat';
 import VouchModal from '../VouchModal';
 import TicketStatusModal from '../TicketStatusModal';
 import { NEXT_PUBLIC_WEBSOCKETDOMAIN } from '../../../config';
+import StaffNoteDrawer from './StaffNoteDrawer';
 
 interface User {
   id: string;
@@ -2244,6 +2245,7 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
   return (
     <div className="flex bg-base-200 flex-col h-[90vh] z-20">
       <div className="flex-1 overflow-y-auto p-4 mt-12">
+      <StaffNoteDrawer/>
         {comments.map((comment) => (
           <div className={`chat ${comment.userId === userId ? 'chat-end' : 'chat-start'}`} key={comment.id}>
             <div className="chat-image avatar">
