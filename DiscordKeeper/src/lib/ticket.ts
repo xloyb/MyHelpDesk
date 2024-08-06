@@ -121,6 +121,9 @@ export const setupTicketsChannel = async () => {
 
 
 
+
+
+
 export const getTicketNotes = async (ticketId: number) => {
   try {
     const notes = await prisma.staffTicketNote.findMany({
@@ -128,7 +131,7 @@ export const getTicketNotes = async (ticketId: number) => {
         ticketId,
       },
       include: {
-        staff: true,
+        staff: true, 
       },
       orderBy: {
         createdAt: 'asc', 
@@ -140,7 +143,6 @@ export const getTicketNotes = async (ticketId: number) => {
     throw new Error('Unable to fetch ticket notes');
   }
 };
-
 export const addStaffTicketNote = async (data: {
   content: string;
   staffId: string;
