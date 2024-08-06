@@ -134,3 +134,20 @@ export const getAllTicketsNotes = async () => {
     },
   });
 };
+
+
+export const addStaffTicketNote = async (data: {
+  content: string;
+  staffId: string;
+  ticketId: number;
+}) => {
+  const { content, staffId, ticketId } = data;
+  
+  return prisma.staffTicketNote.create({
+    data: {
+      content,
+      staffId,
+      ticketId,
+    },
+  });
+};
