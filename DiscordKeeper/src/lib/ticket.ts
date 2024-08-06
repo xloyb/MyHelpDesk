@@ -151,3 +151,22 @@ export const addStaffTicketNote = async (data: {
     },
   });
 };
+
+
+
+export const updateStaffTicketNote = async (id: number, data: {
+  content?: string;
+  staffId?: string;
+  ticketId?: number;
+}) => {
+  const { content, staffId, ticketId } = data;
+  
+  return prisma.staffTicketNote.update({
+    where: { id },
+    data: {
+      content,
+      staffId,
+      ticketId,
+    },
+  });
+};
