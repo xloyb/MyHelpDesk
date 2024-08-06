@@ -2069,6 +2069,7 @@ import CopyUrlComponent from '../ShareTicketLink';
 import DownloadChatComponent from '../DownloadChat';
 import VouchModal from '../VouchModal';
 import TicketStatusModal from '../TicketStatusModal';
+import { NEXT_PUBLIC_WEBSOCKETDOMAIN } from '../../../config';
 
 interface User {
   id: string;
@@ -2130,7 +2131,9 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
 
     if (typeof window !== 'undefined') {
       const connectWebSocket = () => {
-        ws.current = new WebSocket('ws://localhost:3001');
+        // ws.current = new WebSocket('ws://localhost:3001');
+        ws.current = new WebSocket(NEXT_PUBLIC_WEBSOCKETDOMAIN);
+
 
         ws.current.onopen = () => {
           console.log('Connected to WebSocket server');
