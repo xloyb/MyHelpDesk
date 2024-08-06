@@ -121,20 +121,25 @@ export const setupTicketsChannel = async () => {
 
 
 
-export const getAllTicketsNotes = async () => {
-  return prisma.ticket.findMany({
-    include: {
-      comments: true,          
-      users: {                 
-        include: {
-          user: true
-        }
+export const getTicketNotes = async (ticketId: number) => {
+  try {
+    const notes = await prisma.staffTicketNote.findMany({
+      where: {
+        ticketId,
       },
-      StaffTicketNote: true   
-    },
-  });
+      include: {
+        staff: true,
+      },
+      orderBy: {
+        createdAt: 'asc', 
+      },
+    });
+    return notes;
+  } catch (error) {
+    console.error('Error fetching ticket notes:', error);
+    throw new Error('Unable to fetch ticket notes');
+  }
 };
-
 
 export const addStaffTicketNote = async (data: {
   content: string;
