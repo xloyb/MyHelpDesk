@@ -170,3 +170,14 @@ export const updateStaffTicketNote = async (id: number, data: {
     },
   });
 };
+
+export const deleteStaffTicketNote = async (noteId: number): Promise<void> => {
+  try {
+    await prisma.staffTicketNote.delete({
+      where: { id: noteId },
+    });
+  } catch (error) {
+    console.error('Error deleting staff ticket note:', error);
+    throw new Error('Failed to delete note');
+  }
+};
