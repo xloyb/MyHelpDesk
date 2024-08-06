@@ -123,9 +123,9 @@
 import WebSocket, { WebSocketServer } from 'ws';
 
 // Use environment variable for port or fallback to 3001
-const port = process.env.WEBSOCKET_SERVER_PORT ? parseInt(process.env.WEBSOCKET_SERVER_PORT, 10) : 3001;
+ const port = process.env.WEBSOCKET_SERVER_PORT;
 
-const wss = new WebSocketServer({ port });
+const wss = new WebSocketServer({ port : 3001 });
 
 wss.on('connection', (ws) => {
   console.log('Client connected');
