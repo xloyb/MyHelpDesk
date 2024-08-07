@@ -94,7 +94,7 @@ const BanModal = ({ token }: { token: string }) => {
   return (
     <>
       <button className="btn btn-outline btn-error mt-2" onClick={handleOpenModal}>
-        <FaBookDead />
+        <FaBookDead /> Ban
       </button>
 
       <dialog id="ban_modal" className="modal" ref={modalRef}>

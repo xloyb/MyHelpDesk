@@ -153,6 +153,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { addStaffTicketNote, updateStaffTicketNote, deleteStaffTicketNote, getTicketNotes } from '@/lib/ticket';
+import { FaNoteSticky } from 'react-icons/fa6';
 
 interface StaffNoteDrawerProps {
   userId: string | null | undefined;
@@ -243,8 +244,11 @@ const StaffNoteDrawer: React.FC<StaffNoteDrawerProps> = ({ userId, ticketId }) =
     <>
       <div className="z-50 drawer drawer-end">
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+          <label htmlFor="my-drawer-4" className="drawer-button btn btn-outline btn-error mt-2">
+              <FaNoteSticky /> Keep Note
+            
+          </label>
         <div className="drawer-content">
-          <label htmlFor="my-drawer-4" className="drawer-button btn btn-outline btn-error mt-2">Open drawer</label>
         </div>
         <div className="drawer-side">
           <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
