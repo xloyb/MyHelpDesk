@@ -235,17 +235,17 @@
 
 //   useEffect(() => {
 //       const websocket = new WebSocket('ws://localhost:3001');
-  
+
 //       websocket.onopen = () => {
 //         console.log('Connected to WebSocket server');
 //       };
-  
+
 //       websocket.onmessage = (event) => {
 //         console.log('WebSocket message received:', event.data);
-  
+
 //         // Check if the message is binary and convert it to text
 //         const messageData = typeof event.data === 'string' ? event.data : new TextDecoder().decode(new Uint8Array(event.data));
-  
+
 //         try {
 //           // Ensure message is a valid JSON string
 //           if (messageData.trim()) {
@@ -258,23 +258,23 @@
 //           console.error('Error parsing WebSocket message:', error);
 //         }
 //       };
-  
+
 //       websocket.onclose = () => {
 //         console.log('WebSocket connection closed');
 //       };
-  
+
 //       websocket.onerror = (error) => {
 //         console.error('WebSocket error:', error);
 //       };
-  
+
 //       setWs(websocket);
-  
+
 //       return () => {
 //         websocket.close();
 //       };
-    
+
 //   }, [ticketId, userId, token]);
-  
+
 
 
 //   const handleSend = async () => {
@@ -282,34 +282,34 @@
 //       setShowClosedModal(true);
 //       return;
 //     }
-  
+
 //     if (!newComment.trim()) return;
-  
+
 //     try {
 //       const response = await axios.post('/api/comments', {
 //         content: newComment,
 //         ticketId: ticketId,
 //         userId: userId,
 //       });
-  
+
 //       const newCommentData = response.data;
-  
+
 //       setNewComment('');
 //       console.log('Sending comment through WebSocket:', newCommentData);
-  
+
 //       if (ws?.readyState === WebSocket.OPEN) {
 //         ws.send(JSON.stringify(newCommentData)); // Send the comment through WebSocket
 //       } else {
 //         console.error('WebSocket is not open. Cannot send message.');
 //       }
-  
+
 //       setCooldown(true);
 //       setTimeout(() => setCooldown(false), 1500); // Cooldown period of 1.5 seconds
 //     } catch (error) {
 //       console.error('Error posting comment:', error);
 //     }
 //   };
-  
+
 
 //   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
 //     if (event.key === 'Enter' && !cooldown) {
@@ -877,34 +877,34 @@
 //       setShowClosedModal(true);
 //       return;
 //     }
-  
+
 //     if (!newComment.trim()) return;
-  
+
 //     try {
 //       const response = await axios.post('/api/comments', {
 //         content: newComment,
 //         ticketId: ticketId,
 //         userId: userId,
 //       });
-  
+
 //       const newCommentData = response.data;
-  
+
 //       setNewComment('');
 //       console.log('Sending comment through WebSocket:', newCommentData);
-  
+
 //       if (ws?.readyState === WebSocket.OPEN) {
 //         ws.send(JSON.stringify(newCommentData)); // Send the comment through WebSocket
 //       } else {
 //         console.error('WebSocket is not open. Cannot send message.');
 //       }
-  
+
 //       setCooldown(true);
 //       setTimeout(() => setCooldown(false), 1500); // Cooldown period of 1.5 seconds
 //     } catch (error) {
 //       console.error('Error posting comment:', error);
 //     }
 //   };
-  
+
 //   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
 //     if (event.key === 'Enter' && !cooldown) {
 //       handleSend();
@@ -1086,34 +1086,34 @@
 //       setShowClosedModal(true);
 //       return;
 //     }
-  
+
 //     if (!newComment.trim()) return;
-  
+
 //     try {
 //       const response = await axios.post('/api/comments', {
 //         content: newComment,
 //         ticketId: ticketId,
 //         userId: userId,
 //       });
-  
+
 //       const newCommentData = response.data;
-  
+
 //       setNewComment('');
 //       console.log('Sending comment through WebSocket:', newCommentData);
-  
+
 //       if (ws?.readyState === WebSocket.OPEN) {
 //         ws.send(JSON.stringify(newCommentData)); // Send the comment through WebSocket
 //       } else {
 //         console.error('WebSocket is not open. Cannot send message.');
 //       }
-  
+
 //       setCooldown(true);
 //       setTimeout(() => setCooldown(false), 1500); // Cooldown period of 1.5 seconds
 //     } catch (error) {
 //       console.error('Error posting comment:', error);
 //     }
 //   };
-  
+
 
 //   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
 //     if (event.key === 'Enter' && !cooldown) {
@@ -2197,7 +2197,7 @@
 //         return;
 //       }
 //       }
-    
+
 
 //     if (isTicketClosed) {
 //       setShowClosedModal(true);
@@ -2329,7 +2329,7 @@
 // export default Chat;
 
 
-
+// That Shit is working 
 "use client"
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import axios from 'axios';
@@ -2397,9 +2397,11 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
       setIsTicketClosed(ticketClosed);
 
       if (userId) {
-          const team =  await isTeam(userId);
-          setTeam(team);
-        
+        const team = await isTeam(userId);
+        setTeam(team);
+
+      } else {
+        return <span className="loading loading-ring loading-lg"></span>;
       }
 
     } catch (error) {
@@ -2407,9 +2409,9 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
     }
   }, [ticketId, token, userId]);
 
-  useEffect(()  =>  {
+  useEffect(() => {
     fetchComments();
-   
+
 
     if (typeof window !== 'undefined') {
       const connectWebSocket = () => {
@@ -2471,14 +2473,14 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
 
   const handleSend = async () => {
 
-    if(userId){
+    if (userId) {
       const isbanned = await isBanned(userId);
-      if(isbanned){
+      if (isbanned) {
         setshowBannedModal(true)
         return;
       }
-      }
-    
+    }
+
 
     if (isTicketClosed) {
       setShowClosedModal(true);
@@ -2526,7 +2528,7 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
   return (
     <div className="flex bg-base-200 flex-col h-[90vh] z-20">
       <div className="flex-1 overflow-y-auto p-4 mt-12">
-      {comments.map((comment) => (
+        {comments.map((comment) => (
           <div className={`chat ${comment.userId === userId ? 'chat-end' : 'chat-start'}`} key={comment.id}>
             <div className="chat-image avatar">
               <div className="w-10 rounded-full">
@@ -2550,12 +2552,12 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
       </div>
 
       <div className="divider mt-2"></div>
-      {Team && <StaffNoteDrawer userId={userId} ticketId={ticketId}/> }
+      {Team && <StaffNoteDrawer userId={userId} ticketId={ticketId} />}
 
       <div className="bottom-0 left-0 w-full p-4">
         <div className="flex">
           <textarea
-          disabled={Disab}
+            disabled={Disab}
             placeholder="Type a message"
             className="textarea textarea-bordered w-full mr-2"
             value={newComment}
@@ -2570,7 +2572,7 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
             <BsSendFill /> Send
           </button>
 
-<ChatActionButtons token={token} userId={userId} ticketId={ticketId} />
+          <ChatActionButtons token={token} userId={userId} ticketId={ticketId} />
 
           {showClosedModal && (
             <dialog open className="modal">
@@ -2584,7 +2586,7 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
             </dialog>
           )}
 
-{showBannedModal && (
+          {showBannedModal && (
             <dialog open className="modal">
               <div className="modal-box">
                 <h3 className="font-bold text-lg">You are banned</h3>
@@ -2595,7 +2597,7 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
               </div>
             </dialog>
           )}
-          
+
         </div>
       </div>
     </div>

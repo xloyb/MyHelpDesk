@@ -97,7 +97,7 @@ const ThemeToggle = () => {
   }, [theme]);
 
   return (
-    <div className="cursor-pointer grid place-items-center mr-4" onClick={toggleTheme}>
+    <div className="cursor-pointer grid place-items-center mr-2" onClick={toggleTheme}>
       {theme === "dark" ? (
         <MdSunny className="" size={24} />
       ) : (

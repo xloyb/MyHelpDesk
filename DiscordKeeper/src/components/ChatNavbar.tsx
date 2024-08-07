@@ -45,7 +45,7 @@ const ChatNavbar = () => {
             <div className="navbar bg-base-100">
                 <div className="navbar-start">
                     <div className="dropdown">
-                        <div tabIndex={0} role="button">
+                        <div tabIndex={0} role="button" className='mr-2'>
                             <svg 
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-5 w-5"
@@ -87,7 +87,7 @@ const ChatNavbar = () => {
 {isTeamMember && (
         <>
         <div className="dropdown dropdown-end">
-  <div tabIndex={0} role="button" className="mr-4"> <MdOutlineAdminPanelSettings className='h-7 w-7' /></div>
+  <div tabIndex={0} role="button" className="mr-2"> <MdOutlineAdminPanelSettings className='h-7 w-7' /></div>
   <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow" style={{ zIndex: 20 }}>
    
           {roleId === 2 && (
