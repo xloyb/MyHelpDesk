@@ -244,7 +244,7 @@ const StaffNoteDrawer: React.FC<StaffNoteDrawerProps> = ({ userId, ticketId }) =
     <>
       <div className="z-50 drawer drawer-end">
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-          <label htmlFor="my-drawer-4" className="drawer-button btn btn-outline btn-error mt-2">
+          <label htmlFor="my-drawer-4" className="drawer-button btn btn-outline btn-error mt-2 btn-xs sm:btn-sm md:btn-md">
               <FaNoteSticky /> Keep Note
             
           </label>
