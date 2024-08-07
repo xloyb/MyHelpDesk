@@ -45,7 +45,7 @@ const ChatNavbar = () => {
             <div className="navbar bg-base-100">
                 <div className="navbar-start">
                     <div className="dropdown">
-                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+                        <div tabIndex={0} role="button">
                             <svg 
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-5 w-5"
@@ -69,32 +69,25 @@ const ChatNavbar = () => {
                         </ul>
                     </div>
 
-                    <label htmlFor="my-drawer-2" className=" btn-neutral drawer-button lg:hidden">
+                    <label htmlFor="my-drawer-2" className=" drawer-button lg:hidden">
                         {/* <FaRegArrowAltCircleRight /> */}
                         <FaCircleRight />
                     </label>
 
                 </div>
                 <div className="navbar-center">
-                    <a className="btn btn-ghost text-xl">Discord Keeper</a>
+                    <a className="btn btn-ghost text-xl">Keeper</a>
                 </div>
                 <div className="navbar-end">
 
 <ThemeToggle/>
 
-                {/* <div className="dropdown dropdown-end">
-  <div tabIndex={0} role="button" className="mr-4"><MdOutlineAdminPanelSettings size={40} /></div>
-  <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-    <li><a>Item 1</a></li>
-    <li><a>Item 2</a></li>
-  </ul>
-</div> */}
 
 
 {isTeamMember && (
         <>
         <div className="dropdown dropdown-end">
-  <div tabIndex={0} role="button" className="mr-4"><MdOutlineAdminPanelSettings size={40} /></div>
+  <div tabIndex={0} role="button" className="mr-4"> <MdOutlineAdminPanelSettings className='h-7 w-7' /></div>
   <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow" style={{ zIndex: 20 }}>
    
           {roleId === 2 && (
