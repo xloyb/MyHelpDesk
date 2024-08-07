@@ -260,7 +260,7 @@ const StaffNoteDrawer: React.FC<StaffNoteDrawerProps> = ({ userId, ticketId }) =
                 placeholder="Add a new note"
                 className="textarea textarea-bordered w-full mb-2"
               ></textarea>
-              <button onClick={handleAddNote} className="btn btn-primary w-full">Add Note</button>
+              <button onClick={handleAddNote} className="btn btn-primary btn-xs sm:btn-sm md:btn-md">Add Note</button>
             </li>
             {notes.map((note) => (
               <li key={note.id} className="flex flex-col mb-2">
@@ -271,8 +271,8 @@ const StaffNoteDrawer: React.FC<StaffNoteDrawerProps> = ({ userId, ticketId }) =
                       onChange={(e) => setEditingNoteContent(e.target.value)}
                       className="textarea textarea-bordered w-full mb-2"
                     ></textarea>
-                    <button onClick={handleEditNote} className="btn btn-secondary w-full mb-1">Save</button>
-                    <button onClick={() => setEditingNoteId(null)} className="btn btn-ghost w-full">Cancel</button>
+                    <button onClick={handleEditNote} className="btn btn-secondary w-full mb-1 btn-xs sm:btn-sm md:btn-md">Save</button>
+                    <button onClick={() => setEditingNoteId(null)} className="btn btn-ghost  btn-xs sm:btn-sm md:btn-md">Cancel</button>
                   </>
                 ) : (
                   <>
@@ -294,8 +294,8 @@ const StaffNoteDrawer: React.FC<StaffNoteDrawerProps> = ({ userId, ticketId }) =
                       <div className="chat-bubble">{note.content}</div>
                       {/* <div className="chat-footer opacity-50">Delivered</div> */}
                     </div>
-                    <button onClick={() => { setEditingNoteId(note.id); setEditingNoteContent(note.content); }} className="btn btn-secondary w-full mb-1">Edit</button>
-                    <button onClick={() => handleDeleteNote(note.id)} className="btn btn-error w-full">Delete</button>
+                    <button onClick={() => { setEditingNoteId(note.id); setEditingNoteContent(note.content); }} className="btn btn-secondary mb-1 btn-xs sm:btn-sm md:btn-md">Edit</button>
+                    <button onClick={() => handleDeleteNote(note.id)} className="btn btn-error btn-xs sm:btn-sm md:btn-md">Delete</button>
                   </>
                 )}
               </li>

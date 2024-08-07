@@ -2563,7 +2563,7 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
             onKeyDown={handleKeyDown}
           />
           <button
-            className="btn btn-primary mr-2 btn-xs sm:btn-sm md:btn-md"
+            className="btn btn-primary mt-2 mr-2 btn-xs sm:btn-sm md:btn-md"
             onClick={handleSend}
             disabled={cooldown || Disab}
           >
