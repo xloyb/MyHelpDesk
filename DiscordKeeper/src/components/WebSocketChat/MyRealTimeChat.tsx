@@ -2826,7 +2826,7 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
           <input
             disabled={Disab}
             placeholder="Type a message"
-            className="input input-bordered w-full mr-2"
+            className="input input-bordered w-full mr-2 mt-2"
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             onKeyDown={handleKeyDown}
