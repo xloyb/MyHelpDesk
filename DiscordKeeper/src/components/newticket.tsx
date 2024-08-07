@@ -3,6 +3,8 @@ import { createTicket } from '@/lib/actions';
 import { isBanned } from '@/lib/ban'; 
 import { useAuth } from '@clerk/nextjs';
 import React, { useRef, useState } from 'react';
+import { GrContact } from "react-icons/gr";
+
 
 const TicketModal = () => {
   const [banned, setBanned] = useState<boolean>(false); 
@@ -42,8 +44,9 @@ const TicketModal = () => {
 
   return (
     <>
-      <button className="btn btn-outline btn-success mt-auto" onClick={handleOpenModal}>
-        Open Modal
+      <button className="btn btn-outline btn-success mt-auto btn-xs sm:btn-sm md:btn-md" onClick={handleOpenModal}>
+      <GrContact />
+      New Ticket
       </button>
 
       <dialog id="ticket_modal" className="modal" ref={modalRef}>
