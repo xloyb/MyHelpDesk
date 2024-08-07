@@ -2346,6 +2346,8 @@ import { NEXT_PUBLIC_WEBSOCKETDOMAIN } from '../../../config';
 import StaffNoteDrawer from './StaffNoteDrawer';
 import ChatActionButtons from './ChatActionsButtons';
 import { isTeam } from '@/lib/user';
+import { BsSendFill } from "react-icons/bs";
+
 
 interface User {
   id: string;
@@ -2561,11 +2563,11 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
             onKeyDown={handleKeyDown}
           />
           <button
-            className="btn btn-primary mr-2"
+            className="btn btn-primary mr-2 btn-xs sm:btn-sm md:btn-md"
             onClick={handleSend}
             disabled={cooldown || Disab}
           >
-            Send
+            <BsSendFill /> Send
           </button>
 
 <ChatActionButtons token={token} userId={userId} ticketId={ticketId} />
