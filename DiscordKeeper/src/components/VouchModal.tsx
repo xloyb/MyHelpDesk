@@ -72,7 +72,7 @@ const VouchModal = () => {
 
   return (
     <>
-      <button className="btn btn-outline btn-success mt-2" onClick={handleOpenModal}>
+      <button className="btn btn-outline btn-success mt-2 btn-xs sm:btn-sm md:btn-md" onClick={handleOpenModal}>
         <FaHeartCirclePlus />
       </button>
 

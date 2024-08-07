@@ -17,7 +17,7 @@ const CopyUrlComponent: React.FC = () => {
   };
 
   return (
-      <button onClick={handleCopy} className="btn btn-outline btn-success mt-2">
+      <button onClick={handleCopy} className="btn btn-outline btn-success mt-2 btn-xs sm:btn-sm md:btn-md">
         {copied ? <MdOutlineDoneOutline /> : <FaShareFromSquare />}
       </button>
   );
