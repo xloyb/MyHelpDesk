@@ -32,7 +32,7 @@ const Announcement = () => {
   return (
     <div
       role="alert"
-      className={`alert alert-success ${isChatPage ? 'z-10 fixed' : ''}`}
+      className={`alert alert-success flex ${isChatPage ? 'z-10 fixed' : ''}`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
