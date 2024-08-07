@@ -2345,6 +2345,7 @@ import TicketStatusModal from '../TicketStatusModal';
 import { NEXT_PUBLIC_WEBSOCKETDOMAIN } from '../../../config';
 import StaffNoteDrawer from './StaffNoteDrawer';
 import ChatActionButtons from './ChatActionsButtons';
+import { isTeam } from '@/lib/user';
 
 interface User {
   id: string;
@@ -2376,9 +2377,11 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
   const [Disab, setDisab] = useState(false);
 
   const [isTicketClosed, setIsTicketClosed] = useState(false);
-  const [showBanModal, setShowBanModal] = useState(false);
+  // const [showBanModal, setShowBanModal] = useState(false);
   const [showClosedModal, setShowClosedModal] = useState(false);
   const [showBannedModal, setshowBannedModal] = useState(false);
+  const [Team, setTeam] = useState(false);
+
 
   const bottomRef = useRef<HTMLDivElement>(null);
   const ws = useRef<WebSocket | null>(null);
@@ -2392,8 +2395,9 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
       setIsTicketClosed(ticketClosed);
 
       if (userId) {
-        const canBan = await CanBan(userId);
-        setShowBanModal(canBan);
+          const team =  await isTeam(userId);
+          setTeam(team);
+        
       }
 
     } catch (error) {
@@ -2401,8 +2405,9 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
     }
   }, [ticketId, token, userId]);
 
-  useEffect(() => {
+  useEffect(()  =>  {
     fetchComments();
+   
 
     if (typeof window !== 'undefined') {
       const connectWebSocket = () => {
@@ -2519,7 +2524,6 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
   return (
     <div className="flex bg-base-200 flex-col h-[90vh] z-20">
       <div className="flex-1 overflow-y-auto p-4 mt-12">
-      <StaffNoteDrawer userId={userId} ticketId={ticketId} />
       {comments.map((comment) => (
           <div className={`chat ${comment.userId === userId ? 'chat-end' : 'chat-start'}`} key={comment.id}>
             <div className="chat-image avatar">
@@ -2544,6 +2548,7 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
       </div>
 
       <div className="divider mt-2"></div>
+      {Team && <StaffNoteDrawer userId={userId} ticketId={ticketId}/> }
 
       <div className="bottom-0 left-0 w-full p-4">
         <div className="flex">
@@ -2563,7 +2568,7 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
             Send
           </button>
 
-<ChatActionButtons token={token} userId={userId}/>
+<ChatActionButtons token={token} userId={userId} ticketId={ticketId} />
 
           {showClosedModal && (
             <dialog open className="modal">
