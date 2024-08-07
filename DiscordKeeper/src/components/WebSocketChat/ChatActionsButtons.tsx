@@ -7,6 +7,7 @@ import VouchModal from '../VouchModal';
 import TicketStatusModal from '../TicketStatusModal';
 import { isTeam } from '@/lib/user';
 import StaffNoteDrawer from './StaffNoteDrawer';
+import { IoSettings } from 'react-icons/io5';
 
 interface ActionButtonsProps {
   token: string;
@@ -31,21 +32,23 @@ const ChatActionButtons: React.FC<ActionButtonsProps> = ({ token, userId, ticket
     }, [userId]);
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="dropdown dropdown-top dropdown-end">
-        <div tabIndex={0} role="button" className="btn m-1">Click</div>
-        <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box w-52 p-2 shadow z-30">
+    <div className="">
+    <div className="dropdown dropdown-top dropdown-end">
+      <div tabIndex={0} role="button" className="btn btn-outline btn-warning"><IoSettings />      </div>
+      <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box w-52 p-2 shadow z-50">
+       
         {showBanModal && <BanModal token={token} />}
         {/* {Team && <StaffNoteDrawer userId={userId} ticketId={ticketId}/> } */}
-
-      <CopyUrlComponent />
-     <DownloadChatComponent token={token} />
-       <VouchModal />
-     <TicketStatusModal token={token} />
-     {/* <li><a>Item 1</a></li> */}
-        </ul>
-      </div>
+  
+        <CopyUrlComponent />
+        <DownloadChatComponent token={token} />
+        <VouchModal />
+        <TicketStatusModal token={token} />
+        {/* <li><a>Item 1</a></li> */}
+      </ul>
     </div>
+  </div>
+  
   );
 };
 
