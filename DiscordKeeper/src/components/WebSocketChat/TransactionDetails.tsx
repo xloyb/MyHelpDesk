@@ -341,6 +341,139 @@
 // export default TransactionDetails;
 
 
+// import React, { useState } from 'react';
+// import axios from 'axios';
+
+// interface TransactionDetailsProps {}
+
+// interface Transaction {
+//   txid: string;
+//   fee: number;
+//   vin: Array<{ txid: string; vout: number; value: number }>;
+//   vout: Array<{ scriptpubkey_address: string; value: number }>;
+// }
+
+// const TransactionDetails: React.FC<TransactionDetailsProps> = () => {
+//   const [transactionId, setTransactionId] = useState<string>('');
+//   const [coinType, setCoinType] = useState<string>('BTC');
+//   const [transaction, setTransaction] = useState<Transaction | null>(null);
+//   const [error, setError] = useState<string | null>(null);
+
+//   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+//     event.preventDefault();
+//     try {
+//       const apiUrl = getApiUrl(coinType);
+//       if (!apiUrl) {
+//         setError('Invalid coin type selected');
+//         return;
+//       }
+
+//       const response = await axios.get(`${apiUrl}/api/tx/${transactionId}`);
+//       const data = response.data;
+
+//       if (data && data.txid && data.vin && data.vout) {
+//         setTransaction(data);
+//         setError(null); 
+//       } else {
+//         setError('Invalid transaction');
+//         setTransaction(null); 
+//       }
+//     } catch (err) {
+//       setError('Failed to fetch transaction details');
+//       setTransaction(null); 
+//     }
+//   };
+
+//   const getApiUrl = (coinType: string) => {
+//     switch (coinType) {
+//       case 'BTC':
+//         return 'https://btcscan.org';
+//       case 'ETH':
+//         return 'https://etherscan.io';
+//       case 'Litecoin':
+//         return 'https://litecoinblockexplorer.net';
+//       default:
+//         return null;
+//     }
+//   };
+
+//   const amount = transaction?.vout.reduce((acc, output) => acc + output.value, 0);
+//   const sender = transaction?.vin.map(input => input.txid).join(', ');
+//   const receiver = transaction?.vout.map(output => output.scriptpubkey_address).join(', ');
+
+//   const openModal = () => {
+//     const modal = document.getElementById('my_modal_4') as HTMLDialogElement;
+//     if (modal) {
+//       modal.showModal();
+//     }
+//   };
+
+//   const closeModal = () => {
+//     const modal = document.getElementById('my_modal_4') as HTMLDialogElement;
+//     if (modal) {
+//       modal.close();
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <button className="btn" onClick={openModal}>
+//         Open Modal
+//       </button>
+
+//       <dialog id="my_modal_4" className="modal">
+//         <form method="dialog" onSubmit={handleFormSubmit} className="modal-box w-11/12 max-w-5xl">
+//           <h3 className="font-bold text-lg">Transaction Details</h3>
+//           <div className="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
+//             <div className="flex-1">
+//               <label className="block text-sm font-medium">Transaction ID</label>
+//               <input
+//                 type="Transaction id here..."
+//                 className="mt-1 block input input-bordered w-full max-w-xs"
+//                 value={transactionId}
+//                 onChange={(e) => setTransactionId(e.target.value)}
+//                 required
+//               />
+//             </div>
+//             <div className="flex-1">
+//               <label className="block text-sm font-medium">Coin Type</label>
+//               <select
+//                 className="select w-full max-w-xs"
+//                 value={coinType}
+//                 onChange={(e) => setCoinType(e.target.value)}
+//               >
+//                 <option value="BTC">Bitcoin (BTC)</option>
+//                 <option value="ETH">Ethereum (ETH)</option>
+//                 <option value="Litecoin">Litecoin (LTC)</option>
+//               </select>
+//             </div>
+//           </div>
+//           <div className="modal-action">
+//             <button type="submit" className="btn">Fetch Transaction</button>
+//             <button type="button" className="btn" onClick={closeModal}>Close</button>
+//           </div>
+//         </form>
+//       </dialog>
+
+//       {transaction && (
+//         <div>
+//           <h2>Transaction Details</h2>
+//           <p><strong>Transaction ID:</strong> {transaction.txid}</p>
+//           <p><strong>Amount:</strong> {amount} satoshis</p>
+//           <p><strong>Sender:</strong> {sender}</p>
+//           <p><strong>Receiver:</strong> {receiver}</p>
+//           <p><strong>Fee:</strong> {transaction.fee} satoshis</p>
+//         </div>
+//       )}
+
+//       {error && <div>{error}</div>}
+//     </div>
+//   );
+// };
+
+// export default TransactionDetails;
+
+
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -373,14 +506,14 @@ const TransactionDetails: React.FC<TransactionDetailsProps> = () => {
 
       if (data && data.txid && data.vin && data.vout) {
         setTransaction(data);
-        setError(null); // Clear previous errors if any
+        setError(null); 
       } else {
         setError('Invalid transaction');
-        setTransaction(null); // Clear previous transaction data if invalid
+        setTransaction(null); 
       }
     } catch (err) {
       setError('Failed to fetch transaction details');
-      setTransaction(null); // Clear previous transaction data if error occurs
+      setTransaction(null); 
     }
   };
 
@@ -428,7 +561,7 @@ const TransactionDetails: React.FC<TransactionDetailsProps> = () => {
             <div className="flex-1">
               <label className="block text-sm font-medium">Transaction ID</label>
               <input
-                type="Transaction id here..."
+                type="text"
                 className="mt-1 block input input-bordered w-full max-w-xs"
                 value={transactionId}
                 onChange={(e) => setTransactionId(e.target.value)}
@@ -452,21 +585,19 @@ const TransactionDetails: React.FC<TransactionDetailsProps> = () => {
             <button type="submit" className="btn">Fetch Transaction</button>
             <button type="button" className="btn" onClick={closeModal}>Close</button>
           </div>
+          {transaction && (
+            <div className="mt-4">
+              <h2 className="text-lg font-bold">Transaction Details</h2>
+              <p><strong>Transaction ID:</strong> {transaction.txid}</p>
+              <p><strong>Amount:</strong> {amount} satoshis</p>
+              <p><strong>Sender:</strong> {sender}</p>
+              <p><strong>Receiver:</strong> {receiver}</p>
+              <p><strong>Fee:</strong> {transaction.fee} satoshis</p>
+            </div>
+          )}
+          {error && <div className="mt-4 text-red-500">{error}</div>}
         </form>
       </dialog>
-
-      {transaction && (
-        <div>
-          <h2>Transaction Details</h2>
-          <p><strong>Transaction ID:</strong> {transaction.txid}</p>
-          <p><strong>Amount:</strong> {amount} satoshis</p>
-          <p><strong>Sender:</strong> {sender}</p>
-          <p><strong>Receiver:</strong> {receiver}</p>
-          <p><strong>Fee:</strong> {transaction.fee} satoshis</p>
-        </div>
-      )}
-
-      {error && <div>{error}</div>}
     </div>
   );
 };
