@@ -7,6 +7,7 @@ import prisma from "./client";
 import { revalidatePath } from "next/cache";
 import { sendTicketNotification } from "../../utils/sendTicketNotification";
 import { fetchUserById } from "./user";
+import { addBotMessage } from "./message";
 
 export const addComment = async (
   ticketId: number,
@@ -78,10 +79,10 @@ export const createTicket = async (formData: FormData) => {
     if (!author) {
       throw new Error("User is not authenticated!");
     }
-    
+    await addBotMessage(newTicket.id, content)
     await sendTicketNotification({ author, title: validatedTitle.data, content: validatedContent.data,ticketLink: token });
     console.log("Ticket created successfully:", newTicket);
-    revalidatePath(`/chat/${newTicket.token}`);
+    // revalidatePath(`/c/${newTicket.token}`);
   } catch (err) {
     console.log("Error creating ticket:", err);
   }
