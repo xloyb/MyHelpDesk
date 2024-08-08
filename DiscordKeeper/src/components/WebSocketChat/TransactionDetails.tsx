@@ -1,72 +1,126 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+// import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
 
-interface Transaction {
-  txid: string;
-  version: number;
-  locktime: number;
-  size: number;
-  weight: number;
-  fee: number;
-  vin: Array<any>; 
-  vout: Array<any>; 
-  status: {
-    confirmed: boolean;
-    block_height?: number;
-    block_hash?: string;
-  };
-}
+// interface TransactionDetailsProps {
+//   txid: string;
+// }
+
+// interface Transaction {
+//   txid: string;
+//   fee: number;
+//   vin: Array<{ txid: string; vout: number; value: number }>;
+//   vout: Array<{ scriptpubkey_address: string; value: number }>;
+// }
+
+// const TransactionDetails: React.FC<TransactionDetailsProps> = ({ txid }) => {
+//   const [transaction, setTransaction] = useState<Transaction | null>(null);
+//   const [error, setError] = useState<string | null>(null);
+
+//   useEffect(() => {
+//     const fetchTransaction = async () => {
+//       try {
+//         const response = await axios.get(`https://btcscan.org/api/tx/${txid}`);
+//         setTransaction(response.data);
+//       } catch (err) {
+//         setError('Failed to fetch transaction details');
+//       }
+//     };
+
+//     fetchTransaction();
+//   }, [txid]);
+
+//   if (error) return <div>{error}</div>;
+//   if (!transaction) return <div>Loading...</div>;
+
+//   const amount = transaction.vout.reduce((acc, output) => acc + output.value, 0);
+//   const sender = transaction.vin.map(input => input.txid).join(', ');
+//   const receiver = transaction.vout.map(output => output.scriptpubkey_address).join(', ');
+
+//   return (
+//     <div>
+//       <h2>Transaction Details</h2>
+//       <p><strong>Transaction ID:</strong> {transaction.txid}</p>
+//       <p><strong>Amount:</strong> {amount} satoshis</p>
+//       <p><strong>Sender:</strong> {sender}</p>
+//       <p><strong>Receiver:</strong> {receiver}</p>
+//       <p><strong>Fee:</strong> {transaction.fee} satoshis</p>
+//     </div>
+//   );
+// };
+
+// export default TransactionDetails;
+
+
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 interface TransactionDetailsProps {
   txid: string;
+  coinType: string; 
 }
 
-const TransactionDetails: React.FC<TransactionDetailsProps> = ({ txid }) => {
+interface Transaction {
+  txid: string;
+  fee: number;
+  vin: Array<{ txid: string; vout: number; value: number }>;
+  vout: Array<{ scriptpubkey_address: string; value: number }>;
+}
+
+const TransactionDetails: React.FC<TransactionDetailsProps> = ({ txid, coinType }) => {
   const [transaction, setTransaction] = useState<Transaction | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchTransaction = async () => {
+      const apiUrl = getApiUrl(coinType); // Determine API URL based on coin type
+      if (!apiUrl) {
+        setError('Invalid coin type selected');
+        return;
+      }
+
       try {
-        const response = await axios.get(`https://btcscan.org/api/tx/${txid}`);
+        const response = await axios.get(`${apiUrl}/api/tx/${txid}`);
         setTransaction(response.data);
       } catch (err) {
-        setError('Failed to fetch transaction data');
+        setError('Failed to fetch transaction details');
       }
     };
 
-    fetchTransaction();
-  }, [txid]);
+    if (txid && coinType) {
+      fetchTransaction();
+    }
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  }, [txid, coinType]);
 
-  if (!transaction) {
-    return <div>Loading...</div>;
-  }
+  const getApiUrl = (coinType: string) => {
+    switch (coinType) {
+      case 'BTC':
+        return 'https://btcscan.org';
+      case 'ETH':
+        return 'https://etherscan.io';
+      case 'Litecoin':
+        return 'https://litecoinblockexplorer.net';
+      default:
+        return null;
+    }
+  };
+
+  if (error) return <div>{error}</div>;
+  if (!transaction) return <div>Loading...</div>;
+
+  const amount = transaction.vout.reduce((acc, output) => acc + output.value, 0);
+  const sender = transaction.vin.map(input => input.txid).join(', ');
+  const receiver = transaction.vout.map(output => output.scriptpubkey_address).join(', ');
 
   return (
     <div>
-      <h1>Transaction Details</h1>
+      <h2>Transaction Details</h2>
       <p><strong>Transaction ID:</strong> {transaction.txid}</p>
-      <p><strong>Version:</strong> {transaction.version}</p>
-      <p><strong>Locktime:</strong> {transaction.locktime}</p>
-      <p><strong>Size:</strong> {transaction.size} bytes</p>
-      <p><strong>Weight:</strong> {transaction.weight}</p>
+      <p><strong>Amount:</strong> {amount} satoshis</p>
+      <p><strong>Sender:</strong> {sender}</p>
+      <p><strong>Receiver:</strong> {receiver}</p>
       <p><strong>Fee:</strong> {transaction.fee} satoshis</p>
-      <h2>Inputs (vin)</h2>
-      <pre>{JSON.stringify(transaction.vin, null, 2)}</pre>
-      <h2>Outputs (vout)</h2>
-      <pre>{JSON.stringify(transaction.vout, null, 2)}</pre>
-      <h2>Status</h2>
-      <p><strong>Confirmed:</strong> {transaction.status.confirmed ? 'Yes' : 'No'}</p>
-      {transaction.status.block_height && (
-        <p><strong>Block Height:</strong> {transaction.status.block_height}</p>
-      )}
-      {transaction.status.block_hash && (
-        <p><strong>Block Hash:</strong> {transaction.status.block_hash}</p>
-      )}
     </div>
   );
 };
