@@ -10,7 +10,7 @@ export const addBotMessage = async (
         data: {
           content: content,
           ticketId: ticketId,
-          userId: "bot", 
+          userId: process.env.SITE_BOT_ID,
         },
       });
     } catch (error) {
