@@ -10,3 +10,6 @@ INSERT INTO user (id, email, avatar, cover, name, userid, roleId) VALUES
 
 INSERT INTO user (id, email, avatar, cover, name, userid, roleId) VALUES 
 ('user_2kHNEANVluU3lEr7KsHABBTrwMH', 'louayeverywhere@gmail.com', 'https://www.gravatar.com/avatar?d=mp', '/img/noCover.png', 'louay', NULL, 1);
+
+INSERT INTO user (id, email, avatar, cover, name, userid, roleId) VALUES 
+('xLoy_BOT_AmrVYJiRO2kd', 'services@mydevify.com', 'https://www.mydevify.com/assets/index.494ac568.png', '/img/noCover.png', 'Support (Bot)', NULL, 1);
