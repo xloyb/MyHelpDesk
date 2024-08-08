@@ -9,7 +9,7 @@ import { FaLocationArrow } from "react-icons/fa6";
   
   const TicketsTable: React.FC<Props> = ({ tickets = [], handleStatusChange }) => {
     return (
-      <div className="bg-base-100 card mx-6 mt-5 md:pt-4 px-6">
+      <div className="bg-base-100 card mx-6 mt-5 md:pt-4 px-6 mb-40">
       <div className="text-xl font-semibold inline-block">Tickets </div>
 
       <div className="divider mt-2"></div>
