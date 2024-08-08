@@ -2818,7 +2818,9 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
         ))}
         <div ref={bottomRef} />
       </div>
-      <TransactionDetails txid={'1849206f078d59d55ca08d2200ef188e8e03d29d69148e59cac06c5985428c39'}/>
+      {/* <TransactionDetails txid="1849206f078d59d55ca08d2200ef188e8e03d29d69148e59cac06c5985428c39" coinType="BTC" /> */}
+
+      {/* <TransactionDetails txid={'1849206f078d59d55ca08d2200ef188e8e03d29d69148e59cac06c5985428c39'}/> */}
       <div className="divider mt-2"></div>
       {Team && <StaffNoteDrawer userId={userId} ticketId={ticketId} />}
 
