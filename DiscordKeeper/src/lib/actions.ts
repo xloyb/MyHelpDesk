@@ -9,6 +9,22 @@ import { sendTicketNotification } from "../../utils/sendTicketNotification";
 import { fetchUserById } from "./user";
 import { addBotMessage } from "./message";
 
+
+const fetchSettings = async (): Promise<any> => {
+  try {
+    const response = await fetch('/data/settings.json');
+    if (!response.ok) {
+      throw new Error('Failed to fetch settings');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching settings:', error);
+    return null;
+  }
+};
+
+
+
 export const addComment = async (
   ticketId: number,
   userId: string,
@@ -80,6 +96,9 @@ export const createTicket = async (formData: FormData) => {
       throw new Error("User is not authenticated!");
     }
     await addBotMessage(newTicket.id, content)
+
+    
+
     await sendTicketNotification({ author, title: validatedTitle.data, content: validatedContent.data,ticketLink: token });
     console.log("Ticket created successfully:", newTicket);
     // revalidatePath(`/c/${newTicket.token}`);
