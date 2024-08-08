@@ -6,7 +6,6 @@ import Sidebar from "@/components/Sidebar";
 import ChatNavbar from "@/components/ChatNavbar";
 import styles from "@/app/main.module.css";
 import { useAuth } from "@clerk/nextjs";
-import ManageRoles from "@/components/RolesTable";
 import DiscordInfoPage from "@/components/admincp/Discord_info";
 
 const AdminCP_Discord = () => {
