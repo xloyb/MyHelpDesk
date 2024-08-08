@@ -2843,7 +2843,7 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
           </button>
 
           <ChatActionButtons token={token} userId={userId} ticketId={ticketId} />
-
+          <TransactionDetails/>
           {showClosedModal && (
             <dialog open className="modal">
               <div className="modal-box">
