@@ -426,19 +426,19 @@ const TransactionDetails: React.FC<TransactionDetailsProps> = () => {
           <h3 className="font-bold text-lg">Transaction Details</h3>
           <div className="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
             <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700">Transaction ID</label>
+              <label className="block text-sm font-medium">Transaction ID</label>
               <input
-                type="text"
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                type="Transaction id here..."
+                className="mt-1 block input input-bordered w-full max-w-xs"
                 value={transactionId}
                 onChange={(e) => setTransactionId(e.target.value)}
                 required
               />
             </div>
             <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700">Coin Type</label>
+              <label className="block text-sm font-medium">Coin Type</label>
               <select
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="select w-full max-w-xs"
                 value={coinType}
                 onChange={(e) => setCoinType(e.target.value)}
               >
