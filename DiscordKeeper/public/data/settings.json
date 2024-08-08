@@ -41,5 +41,6 @@
       "description": "Example Description",
       "price": "12"
     }
-  ]
+  ],
+  "discordLogs": true
 }
