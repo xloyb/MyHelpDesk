@@ -34,7 +34,7 @@ const ChatActionButtons: React.FC<ActionButtonsProps> = ({ token, userId, ticket
   return (
     <div className="">
     <div className="dropdown dropdown-top dropdown-end">
-      <div tabIndex={0} role="button" className="btn btn-outline btn-warning mt-2 btn-xs sm:btn-sm md:btn-md"><IoSettings />      </div>
+      <div tabIndex={0} role="button" className="btn btn-outline btn-info mt-2 btn-xs sm:btn-sm md:btn-md mr-2"><IoSettings /> </div>
       <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box w-52 p-2 shadow z-50">
        
         {showBanModal && <BanModal token={token} />}
