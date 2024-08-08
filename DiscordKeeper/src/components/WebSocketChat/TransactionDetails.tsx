@@ -476,6 +476,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import { FaBitcoin } from 'react-icons/fa6';
 
 interface TransactionDetailsProps {}
 
@@ -550,8 +551,8 @@ const TransactionDetails: React.FC<TransactionDetailsProps> = () => {
 
   return (
     <div>
-      <button className="btn" onClick={openModal}>
-        Open Modal
+      <button className="btn btn-success mt-2 mr-2 btn-xs sm:btn-sm md:btn-md" onClick={openModal}>
+      <FaBitcoin />
       </button>
 
       <dialog id="my_modal_4" className="modal">
