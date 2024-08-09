@@ -2615,11 +2615,7 @@ import { useAuth } from '@clerk/nextjs';
 import Image from 'next/image';
 import { CanBan, isBanned } from '@/lib/ban';
 import { isClosed } from '@/lib/ticket';
-import BanModal from '../mod/BanModal';
-import CopyUrlComponent from '../ShareTicketLink';
-import DownloadChatComponent from '../DownloadChat';
-import VouchModal from '../VouchModal';
-import TicketStatusModal from '../TicketStatusModal';
+
 import { NEXT_PUBLIC_WEBSOCKETDOMAIN } from '../../../config';
 import StaffNoteDrawer from './StaffNoteDrawer';
 import ChatActionButtons from './ChatActionsButtons';
