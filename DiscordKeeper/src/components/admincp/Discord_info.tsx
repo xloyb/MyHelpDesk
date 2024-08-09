@@ -14,9 +14,9 @@ const DiscordInfoPage = () => {
   const CheckDiscordLogs = async () => {
     try {
       const response = await fetch('/api/settings');
-      const data: response = await response.json(); 
+      const data: response = await response.json();
       const discordLogsEnabled = data.discordLogs === true;
-      setDiscordLogs(discordLogsEnabled); 
+      setDiscordLogs(discordLogsEnabled);
     } catch (error) {
       console.error("Failed to check discord logs:", error);
     }
@@ -39,11 +39,11 @@ const DiscordInfoPage = () => {
 
   const handleSetupTicketsChannel = async () => {
     try {
-      if(DiscordLogs){
-        
+      if (DiscordLogs) {
+
         await setupTicketsChannel()
-       alert("Tickets channel setup successfully!");
-      }else{
+        alert("Tickets channel setup successfully!");
+      } else {
         alert("Discord logs are not enabled. Please enable them first.");
         return;
       }
@@ -55,8 +55,18 @@ const DiscordInfoPage = () => {
 
   const handleSendAllVouches = async () => {
     try {
-      await SendAllVouchesToDiscord(); 
-      alert("All vouches sent to Discord successfully!");
+
+      if (DiscordLogs) {
+
+        await SendAllVouchesToDiscord();
+        alert("All vouches sent to Discord successfully!");
+      } else {
+        alert("Discord logs are not enabled. Please enable them first.");
+        return;
+      }
+
+
+
     } catch (error) {
       console.error("Failed to send all vouches to Discord:", error);
       alert("Failed to send all vouches to Discord.");
