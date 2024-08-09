@@ -55,9 +55,7 @@ const DiscordInfoPage = () => {
 
   const handleSendAllVouches = async () => {
     try {
-
       if (DiscordLogs) {
-
         await SendAllVouchesToDiscord();
         alert("All vouches sent to Discord successfully!");
       } else {
