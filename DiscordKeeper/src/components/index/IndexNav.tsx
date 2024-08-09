@@ -1,11 +1,35 @@
 import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import ThemeToggle from '../ThemeToggle';
 
 
+
 const IndexNav = () => {
+    interface settings {
+        sitename: string ;
+        logo: string;
+      }
+
+
+      const [Settings, setSettings] = useState<settings | null>(null);
+
+      const FetchSiteSettings = useCallback(async () => {
+        try {
+          const response = await fetch('/api/settings');
+          const data: settings = await response.json();
+          setSettings(data);
+        } catch (error) {
+          console.error("Failed to fetch Site Settings:", error);
+        }
+      }, []);
+      
+
+      useEffect(() => {
+        FetchSiteSettings();
+      }, [FetchSiteSettings]);
+
     return (
         <div>
             <div className=" navbar bg-base-100">
@@ -36,7 +60,7 @@ const IndexNav = () => {
 
                 </div>
                 <div className="navbar-center">
-                    <a className="btn btn-ghost text-xl">Discord Keeper</a>
+                    <a className="btn btn-ghost text-xl">{Settings?.sitename ?? 'MyHelpDesk'}</a>
                 </div>
                 <div className="navbar-end">
                     <ThemeToggle/>
