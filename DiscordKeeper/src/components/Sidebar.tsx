@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-undef */
 // /* eslint-disable @next/next/no-img-element */
 // "use client"
 // import React, { useEffect, useState } from 'react';
@@ -99,12 +100,29 @@ import { Ticket } from '@prisma/client';
 import Link from 'next/link';
 import ShowMoreTicketsList from './SideBarTickets';
 
+interface settings {
+  sitename: string ;
+  logo: string;
+}
+
 const Sidebar = () => {
   const { userId } = useAuth();
   
   const [tickets, setTickets] = useState<Ticket[]>([]);
+  const [Settings, setSettings] = useState<settings | null>(null);
 
+  const FetchSiteSettings = async () => {
+    try {
+      const response = await fetch('/api/settings');
+      const data: settings = await response.json();
+      setSettings(data);
+    } catch (error) {
+      console.error("Failed to fetch Site Settings:", error);
+      
+    }
+  };
   useEffect(() => {
+    FetchSiteSettings();
     const fetchTickets = async () => {
       try {
         if (userId) { 
@@ -133,7 +151,8 @@ const Sidebar = () => {
           <ul className="menu bg-base-100 text-base-content min-h-full w-80 p-4 flex flex-col justify-between">
             <li className="mb-2 font-semibold text-xl">
               <Link href={'/c'}>
-                <img className="mask mask-squircle w-10" src="/icon.png" alt="Discord Keeper Logo"/>DK
+              <img src={Settings?.logo ?? '/icon.png'} alt="Discord Keeper Logo" width={30} height={30} />
+                {/* <img className="mask mask-squircle w-10" src="/icon.png" alt="Discord Keeper Logo"/>DK */}
               </Link>
             </li>
             {/* Sidebar content here */}
