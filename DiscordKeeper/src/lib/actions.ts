@@ -24,10 +24,48 @@ import { addBotMessage } from "./message";
 // };
 
 
+// const fetchSettings = async (): Promise<any> => {
+//   try {
+//     const baseURL = typeof window === 'undefined' ? process.env.DOMAIN : '';
+//     const response = await fetch(`${baseURL}/api/settings`);
+
+//     if (!response.ok) {
+//       throw new Error(`Failed to fetch settings, status: ${response.status}`);
+//     }
+
+//     const data = await response.json();
+//     console.log('Fetched settings data:', data);
+
+//     return data;
+//   } catch (error) {
+//     console.error('Error fetching settings:', error);
+//     return null;
+//   }
+// };
+
+// const fetchSettings = async (): Promise<any> => {
+//   try {
+//     const response = await fetch('/api/settings');
+
+//     if (!response.ok) {
+//       throw new Error(`Failed to fetch settings, status: ${response.status}`);
+//     }
+
+//     const data = await response.json();
+//     console.log('Fetched settings data:', data);
+
+//     return data;
+//   } catch (error) {
+//     console.error('Error fetching settings:', error);
+//     return null;
+//   }
+// };
+
+
 const fetchSettings = async (): Promise<any> => {
   try {
-    const response = await fetch('/api/settings/settings');
-
+    const response = await fetch('/api/settings');
+    console.log("xloy response -  actions", response)
     if (!response.ok) {
       throw new Error(`Failed to fetch settings, status: ${response.status}`);
     }
@@ -41,8 +79,6 @@ const fetchSettings = async (): Promise<any> => {
     return null;
   }
 };
-
-
 
 
 

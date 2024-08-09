@@ -7,6 +7,8 @@ export async function GET(request: NextRequest) {
     const filePath = path.join(process.cwd(), 'public/data/settings.json');
     const settingsData = await fs.readFile(filePath, 'utf-8');
     const settings = JSON.parse(settingsData);
+    console.log('filePath server:', filePath);
+    console.log('Fetched settings:', settings);
     return NextResponse.json(settings);
   } catch (error) {
     console.error('Error fetching settings:', error);
