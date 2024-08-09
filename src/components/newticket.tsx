@@ -35,7 +35,8 @@ const TicketModal = () => {
     const formData = new FormData(event.currentTarget);
 
     try {
-      await createTicket(formData);
+      const token = await createTicket(formData);
+      console.log('Ticket created, token:', token);
       modalRef.current?.close();
     } catch (error) {
       console.error('Error creating ticket:', error);
