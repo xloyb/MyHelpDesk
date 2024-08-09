@@ -86,7 +86,7 @@ interface Settings {
 }
 
 // Function to fetch settings
-const fetchSettings = async (): Promise<Settings> => {
+export const fetchSettings = async (): Promise<Settings> => {
   try {
     const response = await fetch(`${process.env.DOMAIN}/api/settings`);
     if (!response.ok) {
@@ -120,7 +120,6 @@ const fetchSettings = async (): Promise<Settings> => {
 
 
 
-
 export const addComment = async (
   ticketId: number,
   userId: string,
@@ -144,7 +143,7 @@ export const addComment = async (
 
 export const createTicket = async (formData: FormData) => {
 
-  
+
   const title = formData.get("title") as string;
   const content = formData.get("content") as string;
 
@@ -168,8 +167,8 @@ export const createTicket = async (formData: FormData) => {
   if (!userId) {
     throw new Error("User is not authenticated!");
   }
-  
-  const user = await fetchUserById(userId);  
+
+  const user = await fetchUserById(userId);
   //console.log("userid test",userId)
   if (!userId) throw new Error("User is not authenticated!");
 
@@ -190,7 +189,7 @@ export const createTicket = async (formData: FormData) => {
         },
       },
     });
-    const author = user.name; 
+    const author = user.name;
     if (!author) {
       throw new Error("User is not authenticated!");
     }
@@ -198,13 +197,13 @@ export const createTicket = async (formData: FormData) => {
 
     const settings = await fetchSettings();
     console.log("settings", settings)
-  const discordLogsEnabled = settings?.discordLogs === true; 
-console.log("discordLogsEnabled", discordLogsEnabled)
-  if(discordLogsEnabled){
-    await sendTicketNotification({ author, title: validatedTitle.data, content: validatedContent.data,ticketLink: token });
-  }else{
-    console.log("Discord logs are disabled in settings");
-  }
+    const discordLogsEnabled = settings?.discordLogs === true;
+    console.log("discordLogsEnabled", discordLogsEnabled)
+    if (discordLogsEnabled) {
+      await sendTicketNotification({ author, title: validatedTitle.data, content: validatedContent.data, ticketLink: token });
+    } else {
+      console.log("Discord logs are disabled in settings");
+    }
 
     console.log("Ticket created successfully:", newTicket);
     // revalidatePath(`/c/${newTicket.token}`);
