@@ -2,6 +2,7 @@
 
 import { sendAllVouchesToDiscord } from "../../utils/sendAllVouchesToDiscord";
 import { sendVouchNotification } from "../../utils/sendVouchNotification";
+import { fetchSettings } from "./actions"; 
 import prisma from "./client";
 
 
@@ -13,6 +14,11 @@ interface Vouch {
   createdAt: Date;
 }
 
+
+interface Settings {
+  discordLogs?: boolean;
+}
+
 export const createVouch = async (vouchedBy: string, vouchedTo: string, message: string) => {
   const createdVouch = await prisma.vouch.create({
     data: {
@@ -21,8 +27,15 @@ export const createVouch = async (vouchedBy: string, vouchedTo: string, message:
       message,
     },
   });
+  const settings = await fetchSettings()
 
-  await sendVouchNotification({ vouchedBy, vouchedTo, message });
+  const discordLogs = settings?.discordLogs === false;
+  if(discordLogs){
+    await sendVouchNotification({ vouchedBy, vouchedTo, message });
+  } else {
+    console.log("Discord logs are disabled in settings");
+  }
+
 
   return createdVouch;
 };
