@@ -82,7 +82,7 @@ const Hero = () => {
             </p>
             <button
               onClick={handleToggle}
-              className={`btn mt-4 `}
+              className={`flex mt-4 font-bold`}
             >
               {showMore ? (
                 <>
@@ -90,7 +90,7 @@ const Hero = () => {
                 </>
               ) : (
                 <>
-                  Show More <IoIosArrowDown className="ml-2mt-1" />
+                  Show More <IoIosArrowDown className="ml-2 mt-1" />
                 </>
               )}
             </button>
@@ -98,9 +98,9 @@ const Hero = () => {
               <a href="/chat" className="btn btn-primary font-bold py-3 px-6 rounded-md">
                 Get Started
               </a>
-              <a href="/chat" className="btn bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-md">
+              {/* <a href="/chat" className="btn bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-md">
                 Learn More
-              </a>
+              </a> */}
             </div>
           </div>
           <div className="md:w-1/2 lg:w-1/3 mt-8 md:mt-0">
