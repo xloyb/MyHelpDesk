@@ -9,7 +9,7 @@
 
 ### **Technologies Used**
 
-- **Next.js 15.0.0**: Framework for building the server-rendered React application.
+- **Next.js 15.0.0-rc.0 (turbo)**: Framework for building the server-rendered React application.
 - **TypeScript**: Provides static type definitions for better development experience and code safety.
 - **DaisyUI**: Tailwind CSS component library used for frontend styling.
 - **Clerk Authentication**: Manages user sign-ups, sign-ins, and sessions.
