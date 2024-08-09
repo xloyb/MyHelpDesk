@@ -137,7 +137,7 @@ const Sidebar = () => {
               </Link>
             </li>
             {/* Sidebar content here */}
-            <ShowMoreTicketsList tickets={tickets} />
+            {/* <ShowMoreTicketsList tickets={tickets} /> */}
             <TicketModal />
           </ul>
         </div>
