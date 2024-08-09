@@ -12,7 +12,6 @@ const Homepage = () => {
         <IndexNav />
 
         <Hero />
-
         <Services />
         <Footer/>
       </div>
