@@ -36,14 +36,12 @@ export const createVouch = async (vouchedBy: string, vouchedTo: string, message:
     console.log("Discord logs are disabled in settings");
   }
 
-
   return createdVouch;
 };
 
 export const SendAllVouchesToDiscord = async () => {
   try {
     const vouches = await prisma.vouch.findMany();
-    
     const formattedVouches: Vouch[] = vouches.map(vouch => ({
       id: vouch.id,
       message: vouch.message ?? '', 

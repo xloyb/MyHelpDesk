@@ -4,12 +4,29 @@ import { SendAllVouchesToDiscord } from "@/lib/vouch";
 import React, { useEffect, useState } from "react";
 import { FaUser, FaTicketAlt } from "react-icons/fa";
 
+interface response {
+  discordLogs: boolean;
+}
 const DiscordInfoPage = () => {
   const [stats, setStats] = useState<any>(null);
+  const [DiscordLogs, setDiscordLogs] = useState(false);
+
+  const CheckDiscordLogs = async () => {
+    try {
+      const response = await fetch('/api/settings');
+      const data: response = await response.json(); 
+      const discordLogsEnabled = data.discordLogs === true;
+      setDiscordLogs(discordLogsEnabled); 
+    } catch (error) {
+      console.error("Failed to check discord logs:", error);
+    }
+  };
+
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
+        CheckDiscordLogs()
         const dashboardStats = await getDashboardStats();
         setStats(dashboardStats);
       } catch (error) {
@@ -22,8 +39,14 @@ const DiscordInfoPage = () => {
 
   const handleSetupTicketsChannel = async () => {
     try {
-       await setupTicketsChannel()
-      alert("Tickets channel setup successfully!");
+      if(DiscordLogs){
+        
+        await setupTicketsChannel()
+       alert("Tickets channel setup successfully!");
+      }else{
+        alert("Discord logs are not enabled. Please enable them first.");
+        return;
+      }
     } catch (error) {
       console.error("Failed to setup tickets channel:", error);
       alert("Failed to setup tickets channel.");
