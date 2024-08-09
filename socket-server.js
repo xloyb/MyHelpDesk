@@ -78,54 +78,9 @@
 
 //socket-server.js
 
-// import WebSocket, { WebSocketServer } from 'ws';
-
-// const wss = new WebSocketServer({ port: 3001 });
-
-// wss.on('connection', (ws) => {
-//   console.log('Client connected');
-
-//   ws.on('message', (data) => {
-//     // Check if the message is binary and convert it to text
-//     const messageData = typeof data === 'string' ? data : new TextDecoder().decode(new Uint8Array(data));
-
-//     try {
-//       // Ensure message is a valid JSON string
-//       if (messageData.trim()) {
-//         const message = JSON.parse(messageData);
-//         console.log('Received message:', message);
-
-//         // Broadcast the message to all connected clients
-//         wss.clients.forEach((client) => {
-//           if (client.readyState === WebSocket.OPEN) {
-//             client.send(JSON.stringify(message));
-//           }
-//         });
-//       }
-//     } catch (error) {
-//       console.error('Error parsing message:', error);
-//     }
-//   });
-
-//   ws.on('close', () => {
-//     console.log('Client disconnected');
-//   });
-
-//   ws.on('error', (error) => {
-//     console.error('WebSocket error:', error);
-//   });
-// });
-
-// console.log('WebSocket server running on ws://localhost:3001');
-
-
-
 import WebSocket, { WebSocketServer } from 'ws';
 
-// Use environment variable for port or fallback to 3001
- const port = process.env.WEBSOCKET_SERVER_PORT;
-
-const wss = new WebSocketServer({ port : 3001 });
+const wss = new WebSocketServer({ port: 3001 });
 
 wss.on('connection', (ws) => {
   console.log('Client connected');
@@ -161,6 +116,51 @@ wss.on('connection', (ws) => {
   });
 });
 
-console.log(`WebSocket server running on ws://localhost:${port}`);
+console.log('WebSocket server running on ws://localhost:3001');
 
-export default wss;
+
+
+// import WebSocket, { WebSocketServer } from 'ws';
+
+// // Use environment variable for port or fallback to 3001
+//  const port = process.env.WEBSOCKET_SERVER_PORT;
+
+// const wss = new WebSocketServer({ port : 3001 });
+
+// wss.on('connection', (ws) => {
+//   console.log('Client connected');
+
+//   ws.on('message', (data) => {
+//     // Check if the message is binary and convert it to text
+//     const messageData = typeof data === 'string' ? data : new TextDecoder().decode(new Uint8Array(data));
+
+//     try {
+//       // Ensure message is a valid JSON string
+//       if (messageData.trim()) {
+//         const message = JSON.parse(messageData);
+//         console.log('Received message:', message);
+
+//         // Broadcast the message to all connected clients
+//         wss.clients.forEach((client) => {
+//           if (client.readyState === WebSocket.OPEN) {
+//             client.send(JSON.stringify(message));
+//           }
+//         });
+//       }
+//     } catch (error) {
+//       console.error('Error parsing message:', error);
+//     }
+//   });
+
+//   ws.on('close', () => {
+//     console.log('Client disconnected');
+//   });
+
+//   ws.on('error', (error) => {
+//     console.error('WebSocket error:', error);
+//   });
+// });
+
+// console.log(`WebSocket server running on ws://localhost:${port}`);
+
+// export default wss;

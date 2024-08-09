@@ -2681,10 +2681,10 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
 
   useEffect(() => {
     fetchComments();
-
+console.log("teteteteteet",NEXT_PUBLIC_WEBSOCKETDOMAIN)
     if (typeof window !== 'undefined') {
       const connectWebSocket = () => {
-        ws.current = new WebSocket(NEXT_PUBLIC_WEBSOCKETDOMAIN);
+        ws.current = new WebSocket(`${NEXT_PUBLIC_WEBSOCKETDOMAIN}`);
 
         ws.current.onopen = () => {
           console.log('Connected to WebSocket server');
