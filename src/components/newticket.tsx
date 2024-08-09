@@ -12,6 +12,7 @@ const TicketModal = () => {
   const bannedModalRef = useRef<HTMLDialogElement>(null); 
   const { userId } = useAuth();
 
+
   const handleOpenModal = async () => {
     try {
       if (!userId) throw new Error('User is not authenticated');
@@ -36,9 +37,11 @@ const TicketModal = () => {
 
     try {
       const token = await createTicket(formData);
-      console.log('Ticket created, token:', token);
+      //console.log('Ticket created, token:', token);
       modalRef.current?.close();
-    } catch (error) {
+      // redirect(`/c/${token}`)
+      window.location.href = `/c/${token}`;
+        } catch (error) {
       console.error('Error creating ticket:', error);
     }
   };
