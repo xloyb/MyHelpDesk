@@ -40,6 +40,8 @@
 
 import React, { useState } from 'react';
 import { Ticket } from '@prisma/client';
+import { MdOutlineSupportAgent } from 'react-icons/md';
+import Link from 'next/link';
 
 interface ShowMoreTicketsListProps {
   tickets: Ticket[];
@@ -55,13 +57,17 @@ const ShowMoreTicketsList: React.FC<ShowMoreTicketsListProps> = ({ tickets }) =>
   return (
     <div className="bg-base-100 card p-6 mx-auto mt-5 w-full max-w-lg">
       <h2 className="text-xl font-semibold mb-4">Tickets List</h2>
-      <ul className="list-disc pl-5">
+      <ul className="menu rounded-box w-56">
         {tickets.slice(0, 5).map(ticket => (
-          <li key={ticket.id}>{ticket.title}</li>
+            <Link key={ticket.id} href={`/c/${ticket.token}`}>
+          <li> <a><MdOutlineSupportAgent />  {ticket.title}</a></li>
+          </Link>
         ))}
         {showMore && tickets.slice(5).map(ticket => (
-          <li key={ticket.id}>{ticket.title}</li>
-        ))}
+            <Link key={ticket.id} href={`/c/${ticket.token}`}>
+          <li> <a><MdOutlineSupportAgent />  {ticket.title}</a></li>
+          </Link>
+                ))}
       </ul>
       <button
         onClick={handleToggle}
