@@ -81,24 +81,42 @@ import { addBotMessage } from "./message";
 //   }
 // };
 
-
-async function fetchSettings() {
-
-  try {
-    const response = await fetch(`${process.env.DOMAIN}/api/settings`, {
-      method: 'GET',
-    });
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch settings, status: ${response.status}`);
-    }
-
-    const settings = await response.json();
-    console.log('Settings:', settings);
-  } catch (error) {
-    console.error('Error fetching settings:', error);
-  }
+interface Settings {
+  DiscordLogs?: boolean;
 }
+
+// Function to fetch settings
+const fetchSettings = async (): Promise<Settings> => {
+  try {
+    const response = await fetch(`${process.env.DOMAIN}/api/settings`);
+    if (!response.ok) {
+      throw new Error(`Error fetching settings: ${response.statusText}`);
+    }
+    const data: Settings = await response.json();
+    return data;
+  } catch (err) {
+    console.error("Error fetching settings:", err);
+    throw err;
+  }
+};
+
+// async function fetchSettings() {
+
+//   try {
+//     const response = await fetch(`${process.env.DOMAIN}/api/settings`, {
+//       method: 'GET',
+//     });
+
+//     if (!response.ok) {
+//       throw new Error(`Failed to fetch settings, status: ${response.status}`);
+//     }
+
+//     const settings = await response.json();
+//     console.log('Settings:', settings);
+//   } catch (error) {
+//     console.error('Error fetching settings:', error);
+//   }
+// }
 
 
 
