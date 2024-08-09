@@ -6,17 +6,17 @@ const Hero = () => {
   return (
     <>
     <div className="py-20 bg-base-100 card mx-6 mt-5 md:pt-4 px-6">
-        <Rectangular/>
+        {/* <Rectangular/> */}
       <div className="container mx-auto px-6 md:px-12 justify-center">
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 lg:w-2/3">
           
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
-              Welcome to our <br className="hidden md:block" />
-              <span className="text-primary">Discord</span> Store
+            MyHelpDesk: 
+              <span className="text-primary"> All-in-One</span>!
             </h1>
-            <p className="text-lg md:text-xl lg:text-2xl text-gray-400 mb-8">
-              We create beautiful and functional websites for businesses of all sizes.
+            <p className="mb-8">
+            Manage support tickets, engage in real-time chats, and showcase your services—all in one secure platform. Integrate with Discord and soon Telegram to keep your community connected and supported. With our built-in store system, you can easily display your services directly on the index page. Your privacy, our priority.
             </p>
             <div className="flex gap-2">
               <a href="/chat" className="btn btn-primary font-bold py-3 px-6 rounded-md">
