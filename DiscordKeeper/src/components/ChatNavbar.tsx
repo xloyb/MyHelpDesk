@@ -64,7 +64,7 @@ const ChatNavbar = () => {
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow" style={{ zIndex: 20 }}
 >
                             <li><a href='/'>Home</a></li>
-                            <li><a href='/chat'>Dashboard</a></li>
+                            <li><a href='/c'>Dashboard</a></li>
                             <li><a>About</a></li>
                         </ul>
                     </div>
