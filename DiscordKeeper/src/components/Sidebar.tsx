@@ -44,7 +44,7 @@ const Sidebar = () => {
           <ul className="menu bg-base-100 text-base-content min-h-full w-80 p-4 flex flex-col justify-between">
           <li className="mb-2 font-semibold text-xl">
                     
-                    <Link href={'/chat'}>
+                    <Link href={'/c'}>
                     <img className="mask mask-squircle w-10" src="/icon.png" alt="Discord Keeper Logo"/>DK</Link>
                      </li>
             {/* Sidebar content here */}
