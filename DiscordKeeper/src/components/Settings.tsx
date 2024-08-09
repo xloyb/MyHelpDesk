@@ -552,6 +552,7 @@ const Settings = () => {
             value={settings.theme}
             onChange={handleChange}
             className="input input-bordered w-full"
+            disabled
           />
         </div>
         <div className="mb-4">
