@@ -10,18 +10,39 @@ import { fetchUserById } from "./user";
 import { addBotMessage } from "./message";
 
 
+// const fetchSettings = async (): Promise<any> => {
+//   try {
+//     const response = await fetch('/data/settings.json');
+//     if (!response.ok) {
+//       throw new Error('Failed to fetch settings');
+//     }
+//     return await response.json();
+//   } catch (error) {
+//     console.error('Error fetching settings:', error);
+//     return null;
+//   }
+// };
+
+
 const fetchSettings = async (): Promise<any> => {
   try {
-    const response = await fetch('/data/settings.json');
+    const response = await fetch('/api/settings/settings');
+
     if (!response.ok) {
-      throw new Error('Failed to fetch settings');
+      throw new Error(`Failed to fetch settings, status: ${response.status}`);
     }
-    return await response.json();
+
+    const data = await response.json();
+    console.log('Fetched settings data:', data);
+
+    return data;
   } catch (error) {
     console.error('Error fetching settings:', error);
     return null;
   }
 };
+
+
 
 
 
@@ -97,9 +118,16 @@ export const createTicket = async (formData: FormData) => {
     }
     await addBotMessage(newTicket.id, content)
 
-    
-
+    const settings = await fetchSettings();
+    console.log("settings", settings)
+  const discordLogsEnabled = settings?.DiscordLogs === true; 
+console.log("discordLogsEnabled", discordLogsEnabled)
+  if(discordLogsEnabled){
     await sendTicketNotification({ author, title: validatedTitle.data, content: validatedContent.data,ticketLink: token });
+  }else{
+    console.log("Discord logs are disabled in settings");
+  }
+
     console.log("Ticket created successfully:", newTicket);
     // revalidatePath(`/c/${newTicket.token}`);
   } catch (err) {
