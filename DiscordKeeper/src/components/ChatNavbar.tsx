@@ -10,15 +10,30 @@ import { getUserRoleId, isTeam } from '@/lib/user';
 import ThemeToggle from './ThemeToggle';
 
 
-
+interface settings {
+    sitename: string ;
+    logo: string;
+  }
 const ChatNavbar = () => {
     const { userId } = useAuth();
     const [roleId, setRoleId] = useState<number | null>(null);
     const [isTeamMember, setIsTeamMember] = useState<boolean>(false);
 
+    const [Settings, setSettings] = useState<settings | null>(null);
 
+    const FetchSiteSettings = async () => {
+      try {
+        const response = await fetch('/api/settings');
+        const data: settings = await response.json();
+        setSettings(data);
+      } catch (error) {
+        console.error("Failed to fetch Site Settings:", error);
+        
+      }
+    };
 
     useEffect(() => {
+        FetchSiteSettings()
         const fetchRoleAndTeamStatus = async () => {
           if (userId) {
             try {
@@ -57,7 +72,8 @@ const ChatNavbar = () => {
                                     strokeLinejoin="round"
                                     strokeWidth="2"
                                     d="M4 6h16M4 12h16M4 18h7" />
-                            </svg>
+                            </svg> 
+                           
                         </div>
                         <ul
                             tabIndex={0}
@@ -76,7 +92,8 @@ const ChatNavbar = () => {
 
                 </div>
                 <div className="navbar-center">
-                    <a className="btn btn-ghost text-xl">Keeper</a>
+                    <a className="btn btn-ghost text-xl">{Settings?.sitename ?? 'MyStore'}
+                    </a>
                 </div>
                 <div className="navbar-end">
 
