@@ -82,7 +82,7 @@ import { addBotMessage } from "./message";
 // };
 
 interface Settings {
-  DiscordLogs?: boolean;
+  discordLogs?: boolean;
 }
 
 // Function to fetch settings
@@ -198,7 +198,7 @@ export const createTicket = async (formData: FormData) => {
 
     const settings = await fetchSettings();
     console.log("settings", settings)
-  const discordLogsEnabled = settings?.DiscordLogs === true; 
+  const discordLogsEnabled = settings?.discordLogs === true; 
 console.log("discordLogsEnabled", discordLogsEnabled)
   if(discordLogsEnabled){
     await sendTicketNotification({ author, title: validatedTitle.data, content: validatedContent.data,ticketLink: token });
