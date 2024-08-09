@@ -206,6 +206,7 @@ export const createTicket = async (formData: FormData) => {
     }
 
     console.log("Ticket created successfully:", newTicket);
+    return newTicket.token;
     // revalidatePath(`/c/${newTicket.token}`);
   } catch (err) {
     console.log("Error creating ticket:", err);
