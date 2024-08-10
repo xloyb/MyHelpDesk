@@ -104,24 +104,19 @@ model StaffTicketNote {
   @@index([staffId])
   @@index([ticketId])
 }
-
 model Settings {
-  id          Int       @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   sitename    String
   announcement String
-  offer        String
-  logo         String
-  theme        String
-  discordLogs  Boolean
-  services     Service[]
+  offer       String
+  logo        String
+  theme       String
 }
 
 model Service {
-  id          Int       @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   image       String
   title       String
   description String
   price       Float
-  settings    Settings   @relation(fields: [settingsId], references: [id])
-  settingsId  Int
 }
