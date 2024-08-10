@@ -13,3 +13,35 @@ INSERT INTO user (id, email, avatar, cover, name, userid, roleId) VALUES
 
 INSERT INTO user (id, email, avatar, cover, name, userid, roleId) VALUES 
 ('xLoy_BOT_AmrVYJiRO2kd', 'services@mydevify.com', 'https://www.mydevify.com/assets/index.494ac568.png', '/img/noCover.png', 'Support (Bot)', NULL, 1);
+
+
+INSERT INTO Settings (
+  sitename, 
+  announcement, 
+  offer, 
+  logo, 
+  theme, 
+  discordLogs
+) VALUES (
+  'MyHelpDesk', 
+  'We Love Cats', 
+  'Special offer available!', 
+  'https://mydevify.com/assets/xLoyMybb.5944be68.png', 
+  'dark', 
+  false
+);
+
+
+-- Insert Services
+INSERT INTO Service (
+  image, 
+  title, 
+  description, 
+  price
+) VALUES 
+  ('https://i.imgur.com/r8Csusj.jpeg', 'Service 1', 'Description of Service 1', 10.99),
+  ('https://i.imgur.com/r8Csusj.jpeg', 'Service 2', 'Description of Service 2', 20.99),
+  ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 12.00),
+  ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 12.00),
+  ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 10.00),
+  ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 12.00);
