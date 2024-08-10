@@ -105,23 +105,23 @@ model StaffTicketNote {
   @@index([ticketId])
 }
 
-model Service {
-  id          Int      @id @default(autoincrement())
-  image       String
-  title       String
-  description String
-  price       Float
-  settingsId  Int
-  settings    Settings @relation("ServiceSettings", fields: [settingsId], references: [id])
-}
-
 model Settings {
-  id           Int       @id @default(autoincrement())
-  sitename     String
+  id          Int       @id @default(autoincrement())
+  sitename    String
   announcement String
   offer        String
   logo         String
   theme        String
-  discordLogs  Boolean   @default(false)
-  services     Service[] @relation("ServiceSettings")
+  discordLogs  Boolean
+  services     Service[]
+}
+
+model Service {
+  id          Int       @id @default(autoincrement())
+  image       String
+  title       String
+  description String
+  price       Float
+  settings    Settings   @relation(fields: [settingsId], references: [id])
+  settingsId  Int
 }
