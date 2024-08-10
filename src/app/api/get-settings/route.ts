@@ -3,7 +3,11 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    const settings = await prisma.settings.findFirst(); 
+    const settings = await prisma.settings.findFirst({
+      include: {
+        services: true, 
+      },
+    });
     return NextResponse.json(settings);
   } catch (error) {
     console.error('Error fetching settings:', error);
