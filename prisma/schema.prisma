@@ -112,9 +112,7 @@ model Service {
   description String
   price       Float
   settingsId  Int
-  settings    Settings @relation(fields: [settingsId], references: [id])
-
-  Settings Settings[] @relation("SettingsServices")
+  settings    Settings @relation("ServiceSettings", fields: [settingsId], references: [id])
 }
 
 model Settings {
@@ -125,7 +123,5 @@ model Settings {
   logo         String
   theme        String
   discordLogs  Boolean   @default(false)
-  services     Service[] @relation("SettingsServices")
-
-  Service Service[]
+  services     Service[] @relation("ServiceSettings")
 }
