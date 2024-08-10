@@ -95,7 +95,7 @@ const Hero = () => {
               )}
             </button>
             <div className="flex gap-2 mt-6">
-              <a href="/chat" className="btn btn-primary font-bold py-3 px-6 rounded-md">
+              <a href="/c" className="btn btn-primary font-bold py-3 px-6 rounded-md">
                 Get Started
               </a>
               {/* <a href="/chat" className="btn bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-md">
