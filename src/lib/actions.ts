@@ -85,20 +85,36 @@ interface Settings {
   discordLogs?: boolean;
 }
 
-// Function to fetch settings
-export const fetchSettings = async (): Promise<Settings> => {
+
+export const fetchSettings = async (): Promise<Settings | null> => {
   try {
-    const response = await fetch(`${process.env.DOMAIN}/api/settings`);
+    const response = await fetch(`${process.env.DOMAIN}/api/get-settings`);
     if (!response.ok) {
       throw new Error(`Error fetching settings: ${response.statusText}`);
     }
-    const data: Settings = await response.json();
+    const data: Settings | null = await response.json();
     return data;
   } catch (err) {
     console.error("Error fetching settings:", err);
-    throw err;
+    return null; 
   }
 };
+
+
+// Function to fetch settings
+// export const fetchSettings = async (): Promise<Settings> => {
+//   try {
+//     const response = await fetch(`${process.env.DOMAIN}/api/settings`);
+//     if (!response.ok) {
+//       throw new Error(`Error fetching settings: ${response.statusText}`);
+//     }
+//     const data: Settings = await response.json();
+//     return data;
+//   } catch (err) {
+//     console.error("Error fetching settings:", err);
+//     throw err;
+//   }
+// };
 
 // async function fetchSettings() {
 
