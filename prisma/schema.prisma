@@ -106,3 +106,14 @@ model StaffTicketNote {
   @@index([staffId])
   @@index([ticketId])
 }
+
+
+model Settings {
+  id           Int       @id @default(autoincrement())
+  sitename     String
+  announcement String
+  offer        String
+  logo         String
+  theme        String
+  discordLogs  Boolean   @default(false)
+}
