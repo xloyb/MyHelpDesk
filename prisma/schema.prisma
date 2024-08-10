@@ -13,37 +13,35 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-  id        String       @id
-  email     String       @unique
-  avatar    String?
-  cover     String?
-  name      String?
-  userid String?
-  roleId    Int          @default(1) 
-  role      Role         @relation(fields: [roleId], references: [id])
-  tickets   TicketUser[]
-  comments  Comment[]    @relation("UserComments")
-  banned    Ban[]        @relation("BannedUser")
-  issuedBans Ban[]       @relation("BanningStaff")
+  id         String       @id
+  email      String       @unique
+  avatar     String?
+  cover      String?
+  name       String?
+  userid     String?
+  roleId     Int          @default(1)
+  role       Role         @relation(fields: [roleId], references: [id])
+  tickets    TicketUser[]
+  comments   Comment[]    @relation("UserComments")
+  banned     Ban[]        @relation("BannedUser")
+  issuedBans Ban[]        @relation("BanningStaff")
 
   StaffTicketNote StaffTicketNote[]
 }
 
 model Role {
-  id          Int      @id @default(autoincrement())
-  name        String   @unique
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
   description String?
   users       User[]
 }
-
 
 model Ticket {
   id        Int          @id @default(autoincrement())
   title     String?
   content   String?
-  status    String?      // e.g., "open", "closed", "pending"
+  status    String? // e.g., "open", "closed", "pending"
   createdAt DateTime?    @default(now())
   updatedAt DateTime?    @updatedAt
   token     String?      @unique
@@ -54,7 +52,7 @@ model Ticket {
 }
 
 model TicketUser {
-  id       Int    @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
   userId   String?
   ticketId Int?
   user     User?   @relation(fields: [userId], references: [id])
@@ -64,15 +62,15 @@ model TicketUser {
 }
 
 model Vouch {
-  id            Int      @id @default(autoincrement())
-  message       String?
-  vouchedBy     String?
-  vouchedTo     String?
-  createdAt     DateTime? @default(now())
+  id        Int       @id @default(autoincrement())
+  message   String?
+  vouchedBy String?
+  vouchedTo String?
+  createdAt DateTime? @default(now())
 }
 
 model Comment {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   content   String?
   createdAt DateTime? @default(now())
   ticketId  Int?
@@ -82,31 +80,42 @@ model Comment {
 }
 
 model Ban {
-  id           Int      @id @default(autoincrement())
-  userId       String
-  staffId      String
-  reason       String?
-  createdAt    DateTime @default(now())
-  user         User     @relation("BannedUser", fields: [userId], references: [id])
-  staff        User     @relation("BanningStaff", fields: [staffId], references: [id])
+  id        Int      @id @default(autoincrement())
+  userId    String
+  staffId   String
+  reason    String?
+  createdAt DateTime @default(now())
+  user      User     @relation("BannedUser", fields: [userId], references: [id])
+  staff     User     @relation("BanningStaff", fields: [staffId], references: [id])
 
   @@unique([userId, staffId])
 }
 
 model StaffTicketNote {
   id        Int      @id @default(autoincrement())
-  content   String   
-  createdAt DateTime @default(now()) 
+  content   String
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  staffId   String  
+  staffId   String
   ticketId  Int
-  staff     User    @relation(fields: [staffId], references: [id])
-  ticket    Ticket  @relation(fields: [ticketId], references: [id])
+  staff     User     @relation(fields: [staffId], references: [id])
+  ticket    Ticket   @relation(fields: [ticketId], references: [id])
 
   @@index([staffId])
   @@index([ticketId])
 }
 
+model Service {
+  id          Int      @id @default(autoincrement())
+  image       String
+  title       String
+  description String
+  price       Float
+  settingsId  Int
+  settings    Settings @relation(fields: [settingsId], references: [id])
+
+  Settings Settings[] @relation("SettingsServices")
+}
 
 model Settings {
   id           Int       @id @default(autoincrement())
@@ -116,4 +125,7 @@ model Settings {
   logo         String
   theme        String
   discordLogs  Boolean   @default(false)
+  services     Service[] @relation("SettingsServices")
+
+  Service Service[]
 }
