@@ -40,8 +40,8 @@ const TicketModal = () => {
       //console.log('Ticket created, token:', token);
       modalRef.current?.close();
       // redirect(`/c/${token}`)
-      window.location.href = `/c/${token}`;
-        } catch (error) {
+      window.location.reload()
+            } catch (error) {
       console.error('Error creating ticket:', error);
     }
   };
