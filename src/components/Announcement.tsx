@@ -8,7 +8,7 @@ const Announcement = () => {
   useEffect(() => {
     const fetchAnnouncement = async () => {
       try {
-        const response = await fetch("/data/settings.json");
+        const response = await fetch('/api/settings');
         const data = await response.json();
         setAnnouncement(data.announcement);
       } catch (error) {
