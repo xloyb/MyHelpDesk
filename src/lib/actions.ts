@@ -10,77 +10,6 @@ import { fetchUserById } from "./user";
 import { addBotMessage } from "./message";
 
 
-
-// const fetchSettings = async (): Promise<any> => {
-//   try {
-//     const response = await fetch('/data/settings.json');
-//     if (!response.ok) {
-//       throw new Error('Failed to fetch settings');
-//     }
-//     return await response.json();
-//   } catch (error) {
-//     console.error('Error fetching settings:', error);
-//     return null;
-//   }
-// };
-
-
-// const fetchSettings = async (): Promise<any> => {
-//   try {
-//     const baseURL = typeof window === 'undefined' ? process.env.DOMAIN : '';
-//     const response = await fetch(`${baseURL}/api/settings`);
-
-//     if (!response.ok) {
-//       throw new Error(`Failed to fetch settings, status: ${response.status}`);
-//     }
-
-//     const data = await response.json();
-//     console.log('Fetched settings data:', data);
-
-//     return data;
-//   } catch (error) {
-//     console.error('Error fetching settings:', error);
-//     return null;
-//   }
-// };
-
-// const fetchSettings = async (): Promise<any> => {
-//   try {
-//     const response = await fetch('/api/settings');
-
-//     if (!response.ok) {
-//       throw new Error(`Failed to fetch settings, status: ${response.status}`);
-//     }
-
-//     const data = await response.json();
-//     console.log('Fetched settings data:', data);
-
-//     return data;
-//   } catch (error) {
-//     console.error('Error fetching settings:', error);
-//     return null;
-//   }
-// };
-
-
-// const fetchSettings = async (): Promise<any> => {
-//   try {
-//     const response = await fetch('/api/settings');
-//     console.log("xloy response -  actions", response)
-//     if (!response.ok) {
-//       throw new Error(`Failed to fetch settings, status: ${response.status}`);
-//     }
-
-//     const data = await response.json();
-//     console.log('Fetched settings data:', data);
-
-//     return data;
-//   } catch (error) {
-//     console.error('Error fetching settings:', error);
-//     return null;
-//   }
-// };
-
 interface Settings {
   discordLogs?: boolean;
 }
@@ -101,38 +30,6 @@ export const fetchSettings = async (): Promise<Settings | null> => {
 };
 
 
-// Function to fetch settings
-// export const fetchSettings = async (): Promise<Settings> => {
-//   try {
-//     const response = await fetch(`${process.env.DOMAIN}/api/settings`);
-//     if (!response.ok) {
-//       throw new Error(`Error fetching settings: ${response.statusText}`);
-//     }
-//     const data: Settings = await response.json();
-//     return data;
-//   } catch (err) {
-//     console.error("Error fetching settings:", err);
-//     throw err;
-//   }
-// };
-
-// async function fetchSettings() {
-
-//   try {
-//     const response = await fetch(`${process.env.DOMAIN}/api/settings`, {
-//       method: 'GET',
-//     });
-
-//     if (!response.ok) {
-//       throw new Error(`Failed to fetch settings, status: ${response.status}`);
-//     }
-
-//     const settings = await response.json();
-//     console.log('Settings:', settings);
-//   } catch (error) {
-//     console.error('Error fetching settings:', error);
-//   }
-// }
 
 
 
