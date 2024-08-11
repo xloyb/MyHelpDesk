@@ -3,7 +3,7 @@ import axios from 'axios';
 import { FaTrash } from 'react-icons/fa';
 
 type Service = {
-  id: number;
+  id: number | null;
   image: string;
   title: string;
   description: string;
@@ -41,18 +41,38 @@ const Services = () => {
   const addService = () => {
     setServices([
       ...services,
-      { id: Date.now(), image: '', title: '', description: '', price: 0 }
+      { id: null, image: '', title: '', description: '', price: 0 }
     ]);
   };
 
-  const removeService = (index: number) => {
+  const removeService = async (index: number) => {
+    const serviceToRemove = services[index];
+
+    if (serviceToRemove.id !== null) {
+      try {
+        await axios.delete('/api/services', { data: { id: serviceToRemove.id } });
+      } catch (error) {
+        console.error('Failed to delete service:', error);
+        alert('Failed to delete service');
+        return;
+      }
+    }
+
     const updatedServices = services.filter((_, i) => i !== index);
     setServices(updatedServices);
   };
 
   const handleSave = async () => {
     try {
-      await axios.post('/api/save-services', services);
+      for (const service of services) {
+        if (service.id === null) {
+          // Create a new service
+          await axios.post('/api/services', service);
+        } else {
+          // Update an existing service
+          await axios.put('/api/services', service);
+        }
+      }
       alert('Services saved successfully!');
     } catch (error) {
       console.error('Failed to save services:', error);
@@ -67,12 +87,11 @@ const Services = () => {
   return (
     <div className="bg-base-100 card mx-6 mt-5 md:pt-4 px-6">
       <div className="text-xl font-semibold inline-block">Manage Services</div>
-
       <div className="divider mt-2"></div>
 
       {services.map((service, index) => (
         <div
-          key={service.id}
+          key={index}
           className="mb-4 p-4 grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 card card-compact shadow-xl w-auto m-2 bg-base-100"
         >
           <div>
