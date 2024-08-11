@@ -34,7 +34,11 @@ const Services = () => {
   const handleServiceChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     const updatedServices = [...services];
-    updatedServices[index] = { ...updatedServices[index], [name]: value };
+  
+    // If the field being changed is 'price', convert the value to a number
+    const newValue = name === 'price' ? parseFloat(value) : value;
+  
+    updatedServices[index] = { ...updatedServices[index], [name]: newValue };
     setServices(updatedServices);
   };
 
