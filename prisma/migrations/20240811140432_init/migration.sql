@@ -102,6 +102,7 @@ CREATE TABLE `Settings` (
     `offer` VARCHAR(191) NOT NULL,
     `logo` VARCHAR(191) NOT NULL,
     `theme` VARCHAR(191) NOT NULL,
+    `discordLogs` BOOLEAN NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
