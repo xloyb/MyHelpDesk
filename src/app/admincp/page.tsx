@@ -25,6 +25,7 @@ const AdminCP = () => {
     };
 
     checkUserRole();
+    setLoading(false);
   }, [userId]);
 
 
@@ -38,10 +39,10 @@ const AdminCP = () => {
         <Sidebar />
       </div>
       <div className={styles.content}>
-        <div className="sticky top-0 z-10">
+        <div className="sticky top-0 z-10 ">
           <ChatNavbar />
         </div>
-        <div className="flex-1 overflow-y-auto p-4">
+        <div className="h-screen overflow-y-auto bg-base-200">
           {isAdminMember ? (
             <>
               <AdminHome/>
