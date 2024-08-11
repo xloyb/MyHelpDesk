@@ -81,7 +81,6 @@ const ChatNavbar = () => {
 >
                             <li><a href='/'>Home</a></li>
                             <li><a href='/c'>Dashboard</a></li>
-                            <li><a>About</a></li>
                         </ul>
                     </div>
 
@@ -141,10 +140,6 @@ const ChatNavbar = () => {
        <li>Admins</li>
        <ul className='menu menu-compact'>
        <li><Link href='/admincp'>Admins Controle Panel</Link> </li>
-       <li><Link href='/admincp/settings'>Settings</Link> </li>
-       <li><Link href='/admincp/users'>Users</Link> </li>
-       <li><Link href='/admincp/roles'>Roles</Link> </li>
-       <li><Link href='/admincp/discord'>Discord</Link> </li>
        </ul>
 
        </li>
