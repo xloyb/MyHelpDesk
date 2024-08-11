@@ -53,27 +53,6 @@ const Settings = () => {
     } : null);
   };
 
-
-  // const handleSave = async () => {
-  //   try {
-  //     if (settings) {
-  //       const saveResponse = await saveSettings(settings);
-  
-  //       if (saveResponse.message === 'Settings updated successfully!') {
-  //         alert('Settings updated successfully!');
-  //       } else if (saveResponse.message === 'Settings created successfully!') {
-  //         alert('Settings created successfully!');
-  //       } else {
-  //         alert('Settings are unchanged');
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error('Failed to save settings:', error);
-  //     alert('Failed to save settings');
-  //   }
-  // };
-
-
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
   if (!settings) return <div>No settings available</div>;
