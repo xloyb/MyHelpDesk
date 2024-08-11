@@ -65,7 +65,7 @@ const Hero = () => {
               <span className="text-primary"> All-in-One</span>!
             </h1>
             <p className="mb-8">
-              Manage support tickets, engage in real-time chats, and showcase your services—all in one secure platform. 
+              Manage support tickets, engage in real-time chats, and showcase your services—all in one secure platform.  
               {showMore && (
                 <>
                   Integrate with Discord and soon Telegram to keep your community connected and supported. 
