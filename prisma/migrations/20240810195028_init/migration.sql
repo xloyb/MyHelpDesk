@@ -80,6 +80,43 @@ CREATE TABLE `Ban` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- CreateTable
+CREATE TABLE `StaffTicketNote` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `content` VARCHAR(191) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+    `staffId` VARCHAR(191) NOT NULL,
+    `ticketId` INTEGER NOT NULL,
+
+    INDEX `StaffTicketNote_staffId_idx`(`staffId`),
+    INDEX `StaffTicketNote_ticketId_idx`(`ticketId`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Settings` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `sitename` VARCHAR(191) NOT NULL,
+    `announcement` VARCHAR(191) NOT NULL,
+    `offer` VARCHAR(191) NOT NULL,
+    `logo` VARCHAR(191) NOT NULL,
+    `theme` VARCHAR(191) NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Service` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `image` VARCHAR(191) NOT NULL,
+    `title` VARCHAR(191) NOT NULL,
+    `description` VARCHAR(191) NOT NULL,
+    `price` DOUBLE NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- AddForeignKey
 ALTER TABLE `User` ADD CONSTRAINT `User_roleId_fkey` FOREIGN KEY (`roleId`) REFERENCES `Role`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
@@ -100,3 +137,9 @@ ALTER TABLE `Ban` ADD CONSTRAINT `Ban_userId_fkey` FOREIGN KEY (`userId`) REFERE
 
 -- AddForeignKey
 ALTER TABLE `Ban` ADD CONSTRAINT `Ban_staffId_fkey` FOREIGN KEY (`staffId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `StaffTicketNote` ADD CONSTRAINT `StaffTicketNote_staffId_fkey` FOREIGN KEY (`staffId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `StaffTicketNote` ADD CONSTRAINT `StaffTicketNote_ticketId_fkey` FOREIGN KEY (`ticketId`) REFERENCES `Ticket`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -104,17 +104,19 @@ model StaffTicketNote {
   @@index([staffId])
   @@index([ticketId])
 }
+
 model Settings {
-  id          Int      @id @default(autoincrement())
-  sitename    String
+  id           Int    @id @default(autoincrement())
+  sitename     String
   announcement String
-  offer       String
-  logo        String
-  theme       String
+  offer        String
+  logo         String
+  theme        String
+  discordLogs  Boolean
 }
 
 model Service {
-  id          Int      @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   image       String
   title       String
   description String
