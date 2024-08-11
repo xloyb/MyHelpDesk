@@ -36,6 +36,7 @@ const Settings = () => {
     try {
       const response = await axios.post('/api/settings', settings);
       console.log(response.data.message);
+      alert(response.data.message);
 
     } catch (error) {
       setError('Failed to save settings');
