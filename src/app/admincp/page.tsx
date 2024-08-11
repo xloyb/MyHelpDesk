@@ -1,42 +1,17 @@
 "use client";
 import { useState, useEffect } from "react";
-import { getAllTickets, updateTicketStatus } from "@/lib/ticket";
-import { getAllUsers, isAdmin, updateUserRole } from "@/lib/user";
-import { getAllRoles } from "@/lib/role";
-import UsersTab from "@/components/UsersTable";
+import { isAdmin } from "@/lib/user";
 import Sidebar from "@/components/Sidebar";
 import ChatNavbar from "@/components/ChatNavbar";
 import { useAuth } from "@clerk/nextjs";
-import ManageRoles from "@/components/RolesTable";
-import Settings from "@/components/Settings";
 import styles from "@/app/main.module.css";
 
 const AdminCP = () => {
   const { userId } = useAuth();
-  const [tickets, setTickets] = useState<any[]>([]);
-  const [users, setUsers] = useState<any[]>([]);
-  const [roles, setRoles] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [isAdminMember, setIsAdminMember] = useState<boolean>(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [ticketsData, usersData, rolesData] = await Promise.all([
-          getAllTickets(),
-          getAllUsers(),
-          getAllRoles(),
-        ]);
-        setTickets(ticketsData);
-        setUsers(usersData);
-        setRoles(rolesData);
-      } catch (error) {
-        console.error("Failed to fetch data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     const checkUserRole = async () => {
       if (userId) {
         try {
@@ -48,33 +23,9 @@ const AdminCP = () => {
       }
     };
 
-    fetchData();
     checkUserRole();
   }, [userId]);
 
-  const handleStatusChange = async (ticketId: number, newStatus: string) => {
-    try {
-      await updateTicketStatus(ticketId, newStatus);
-      const updatedTickets = tickets.map((ticket) =>
-        ticket.id === ticketId ? { ...ticket, status: newStatus } : ticket
-      );
-      setTickets(updatedTickets);
-    } catch (error) {
-      console.error("Failed to update ticket status:", error);
-    }
-  };
-
-  const handleUserRoleChange = async (userId: string, newRoleId: number) => {
-    try {
-      await updateUserRole(userId, newRoleId);
-      const updatedUsers = users.map((user) =>
-        user.id === userId ? { ...user, roleId: newRoleId } : user
-      );
-      setUsers(updatedUsers);
-    } catch (error) {
-      console.error("Failed to update user role:", error);
-    }
-  };
 
   if (loading) {
     return <div>Loading...</div>;
