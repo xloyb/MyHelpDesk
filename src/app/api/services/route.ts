@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server';
-import prisma from '@/lib/client';
+import { NextResponse } from "next/server";
+import prisma from "@/lib/client";
 
 // GET: Fetch all services
 export async function GET() {
@@ -7,8 +7,11 @@ export async function GET() {
     const services = await prisma.service.findMany();
     return NextResponse.json(services);
   } catch (error) {
-    console.error('Failed to fetch services:', error);
-    return NextResponse.json({ error: 'Failed to fetch services' }, { status: 500 });
+    console.error("Failed to fetch services:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch services" },
+      { status: 500 }
+    );
   }
 }
 
@@ -23,8 +26,11 @@ export async function POST(req: Request) {
 
     return NextResponse.json(newService, { status: 201 });
   } catch (error) {
-    console.error('Failed to create service:', error);
-    return NextResponse.json({ error: 'Failed to create service' }, { status: 500 });
+    console.error("Failed to create service:", error);
+    return NextResponse.json(
+      { error: "Failed to create service" },
+      { status: 500 }
+    );
   }
 }
 
@@ -32,7 +38,6 @@ export async function POST(req: Request) {
 export async function PUT(req: Request) {
   try {
     const { id, image, title, description, price } = await req.json();
-
     const updatedService = await prisma.service.update({
       where: { id },
       data: { image, title, description, price },
@@ -40,8 +45,11 @@ export async function PUT(req: Request) {
 
     return NextResponse.json(updatedService);
   } catch (error) {
-    console.error('Failed to update service:', error);
-    return NextResponse.json({ error: 'Failed to update service' }, { status: 500 });
+    console.error("Failed to update service:", error);
+    return NextResponse.json(
+      { error: "Failed to update service" },
+      { status: 500 }
+    );
   }
 }
 
@@ -54,9 +62,12 @@ export async function DELETE(req: Request) {
       where: { id },
     });
 
-    return NextResponse.json({ message: 'Service deleted successfully' });
+    return NextResponse.json({ message: "Service deleted successfully" });
   } catch (error) {
-    console.error('Failed to delete service:', error);
-    return NextResponse.json({ error: 'Failed to delete service' }, { status: 500 });
+    console.error("Failed to delete service:", error);
+    return NextResponse.json(
+      { error: "Failed to delete service" },
+      { status: 500 }
+    );
   }
 }
