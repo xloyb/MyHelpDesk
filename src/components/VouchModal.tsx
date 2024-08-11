@@ -21,12 +21,21 @@ const VouchModal = () => {
 
   useEffect(() => {
     const fetchSettings = async () => {
+      // try {
+      //   const response = await axios.get('/data/settings.json');
+      //   setSettings(response.data);
+      // } catch (error) {
+      //   console.error('Failed to fetch settings:', error);
+      // }
       try {
-        const response = await axios.get('/data/settings.json');
-        setSettings(response.data);
+        const response = await fetch('/api/settings');
+        const data = await response.json();
+        setSettings(data);
       } catch (error) {
-        console.error('Failed to fetch settings:', error);
+        console.error("Error fetching announcement:", error);
       }
+
+
     };
 
     fetchSettings();
