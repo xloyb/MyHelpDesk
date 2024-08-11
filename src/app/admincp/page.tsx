@@ -5,6 +5,7 @@ import Sidebar from "@/components/Sidebar";
 import ChatNavbar from "@/components/ChatNavbar";
 import { useAuth } from "@clerk/nextjs";
 import styles from "@/app/main.module.css";
+import AdminHome from "@/components/admincp/AdminHome";
 
 const AdminCP = () => {
   const { userId } = useAuth();
@@ -43,7 +44,7 @@ const AdminCP = () => {
         <div className="flex-1 overflow-y-auto p-4">
           {isAdminMember ? (
             <>
-              test
+              <AdminHome/>
             </>
           ) : (
             <p>You do not have access to this section.</p>
