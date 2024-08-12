@@ -1615,6 +1615,8 @@ const Store = () => {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageFileName, setImageFileName] = useState<string | undefined>(undefined);
+
 
   const [formData, setFormData] = useState<Service>({
     image: '',
@@ -1629,7 +1631,6 @@ const Store = () => {
   const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
-    // Fetch services and categories when the component mounts
     axios.get('/api/services')
       .then(response => setServices(response.data))
       .catch(error => console.error('Error fetching services:', error));
@@ -1652,7 +1653,6 @@ const Store = () => {
     const file = e.target.files?.[0];
     if (file) {
       setImageFile(file);
-      // Optionally, you can also update formData with the file name
       setFormData(prevState => ({
         ...prevState,
         image: file.name,
@@ -1664,7 +1664,7 @@ const Store = () => {
     const { name, value } = e.target;
     setFormData(prevState => ({
       ...prevState,
-      [name]: value as any,  // Casting to 'any' as 'buyOrSellType' is a string literal
+      [name]: value as any,  
     }));
   };
 
@@ -1679,14 +1679,15 @@ const Store = () => {
   const uploadImage = async (file: File) => {
     const formData = new FormData();
     formData.append('file', file);
-    console.log('Uploading file:', file.name); // Log file details
+    console.log('Uploading file:', file.name); 
     const response = await axios.post('/api/upload', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
-    console.log('Upload response:', response.data); // Log server response
-    return response.data.fileName; // Assuming server sends file name
+    console.log('Upload response:', response.data); 
+    console.log('File name:', response.data.filename)
+    return response.data.filename; 
   };
   
   
@@ -1723,15 +1724,21 @@ const Store = () => {
     e.preventDefault();
     if (selectedService) {
       try {
-        let imageFileName = formData.image;
+        let imageFileName = selectedService.image;
         if (imageFile) {
           imageFileName = await uploadImage(imageFile);
+          console.log('New image file name:', imageFileName);
         }
-        await axios.put(`/api/services/${selectedService.id}`, {
+  
+        const updatedService = {
           ...formData,
           image: imageFileName,
-          price: parseFloat(formData.price.toString())
-        });
+        };
+  
+        console.log('Updating service with data:', updatedService);
+  
+        await axios.put(`/api/services/${selectedService.id}`, updatedService);
+  
         setEditModalOpen(false);
         setSelectedService(null);
         setFormData({
@@ -1743,6 +1750,7 @@ const Store = () => {
           amount: 0,
           buyOrSellType: 'buy',
         });
+  
         const response = await axios.get('/api/services');
         setServices(response.data);
       } catch (error) {
@@ -1750,6 +1758,8 @@ const Store = () => {
       }
     }
   };
+    
+  
   
   
 
@@ -1762,7 +1772,6 @@ const Store = () => {
   const handleDeleteService = async (id: number) => {
     try {
       await axios.delete(`/api/services/${id}`);
-      // Refresh the list of services
       const response = await axios.get('/api/services');
       setServices(response.data);
     } catch (error) {
