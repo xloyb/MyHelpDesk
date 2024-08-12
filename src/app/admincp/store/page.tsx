@@ -6,6 +6,8 @@ import ChatNavbar from "@/components/ChatNavbar";
 import styles from "@/app/main.module.css";
 import { useAuth } from "@clerk/nextjs";
 import Services from "@/components/admincp/Store";
+import AuthorizedCountries from "@/components/admincp/AuthorizedCountries";
+import ManageCategories from "@/components/admincp/ManageCategories";
 
 const AdminCPRoles = () => {
   const { userId } = useAuth();
@@ -43,6 +45,8 @@ const AdminCPRoles = () => {
           <div className="overflow-y-auto">
             {isAdminMember ? (
               <>
+              <AuthorizedCountries/>
+              <ManageCategories/>
                 <Services />
               </>
             ) : (
