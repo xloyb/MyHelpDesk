@@ -1,3 +1,162 @@
+// import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+// import { FaTrash } from 'react-icons/fa';
+
+// type Service = {
+//   id: number | null;
+//   image: string;
+//   title: string;
+//   description: string;
+//   price: number;
+// };
+
+// const Services = () => {
+//   const [services, setServices] = useState<Service[]>([]);
+//   const [loading, setLoading] = useState<boolean>(true);
+//   const [error, setError] = useState<string | null>(null);
+
+//   useEffect(() => {
+//     const fetchServices = async () => {
+//       try {
+//         const response = await axios.get<Service[]>('/api/services');
+//         setServices(response.data);
+//       } catch (error) {
+//         setError('Failed to fetch services');
+//         console.error('Failed to fetch services:', error);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchServices();
+//   }, []);
+
+//   const handleServiceChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+//     const { name, value } = e.target;
+//     const updatedServices = [...services];
+  
+//     // If the field being changed is 'price', convert the value to a number
+//     const newValue = name === 'price' ? parseFloat(value) : value;
+  
+//     updatedServices[index] = { ...updatedServices[index], [name]: newValue };
+//     setServices(updatedServices);
+//   };
+
+//   const addService = () => {
+//     setServices([
+//       ...services,
+//       { id: null, image: '', title: '', description: '', price: 0 }
+//     ]);
+//   };
+
+//   const removeService = async (index: number) => {
+//     const serviceToRemove = services[index];
+
+//     if (serviceToRemove.id !== null) {
+//       try {
+//         await axios.delete('/api/services', { data: { id: serviceToRemove.id } });
+//       } catch (error) {
+//         console.error('Failed to delete service:', error);
+//         alert('Failed to delete service');
+//         return;
+//       }
+//     }
+
+//     const updatedServices = services.filter((_, i) => i !== index);
+//     setServices(updatedServices);
+//   };
+
+//   const handleSave = async () => {
+//     try {
+//       for (const service of services) {
+//         if (service.id === null) {
+//           // Create a new service
+//           await axios.post('/api/services', service);
+//         } else {
+//           // Update an existing service
+//           await axios.put('/api/services', service);
+//         }
+//       }
+//       alert('Services saved successfully!');
+//     } catch (error) {
+//       console.error('Failed to save services:', error);
+//       alert('Failed to save services');
+//     }
+//   };
+
+//   if (loading) return <div>Loading...</div>;
+//   if (error) return <div>{error}</div>;
+//   if (services.length === 0) return <div>No services available</div>;
+
+//   return (
+//     <div className="bg-base-100 card mx-6 mt-5 md:pt-4 px-6">
+//       <div className="text-xl font-semibold inline-block">Manage Services</div>
+//       <div className="divider mt-2"></div>
+
+//       {services.map((service, index) => (
+//         <div
+//           key={index}
+//           className="mb-4 p-4 grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 card card-compact shadow-xl w-auto m-2 bg-base-100"
+//         >
+//           <div>
+//             <label className="block text-sm font-medium mb-1">Image:</label>
+//             <input
+//               name="image"
+//               value={service.image}
+//               onChange={(e) => handleServiceChange(index, e)}
+//               className="input input-bordered w-full mb-2"
+//             />
+//           </div>
+//           <div>
+//             <label className="block text-sm font-medium mb-1">Title:</label>
+//             <input
+//               name="title"
+//               value={service.title}
+//               onChange={(e) => handleServiceChange(index, e)}
+//               className="input input-bordered w-full mb-2"
+//             />
+//           </div>
+//           <div>
+//             <label className="block text-sm font-medium mb-1">Description:</label>
+//             <input
+//               name="description"
+//               value={service.description}
+//               onChange={(e) => handleServiceChange(index, e)}
+//               className="input input-bordered w-full mb-2"
+//             />
+//           </div>
+//           <div>
+//             <label className="block text-sm font-medium mb-1">Price:</label>
+//             <input
+//               name="price"
+//               type="number"
+//               value={service.price}
+//               onChange={(e) => handleServiceChange(index, e)}
+//               className="input input-bordered w-full mb-2"
+//             />
+//           </div>
+//           <div className="flex items-center justify-end md:justify-start">
+//             <button onClick={() => removeService(index)} className="btn btn-error">
+//               <FaTrash className="mr-1" /> Remove
+//             </button>
+//           </div>
+//         </div>
+//       ))}
+//       <button onClick={addService} className="btn btn-secondary w-full mb-4">
+//         Add Service
+//       </button>
+
+//       <button onClick={handleSave} className="btn btn-primary w-full">
+//         Save Services
+//       </button>
+//     </div>
+//   );
+// };
+
+// export default Services;
+
+
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaTrash } from 'react-icons/fa';
@@ -8,12 +167,14 @@ type Service = {
   title: string;
   description: string;
   price: number;
+  categoryId: number; // Add categoryId
 };
 
 const Services = () => {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [categories, setCategories] = useState<{ id: number; name: string }[]>([]);
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -28,16 +189,27 @@ const Services = () => {
       }
     };
 
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get<{ id: number; name: string }[]>('/api/categories');
+        setCategories(response.data);
+      } catch (error) {
+        setError('Failed to fetch categories');
+        console.error('Failed to fetch categories:', error);
+      }
+    };
+
     fetchServices();
+    fetchCategories();
   }, []);
 
-  const handleServiceChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleServiceChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     const updatedServices = [...services];
-  
+    
     // If the field being changed is 'price', convert the value to a number
-    const newValue = name === 'price' ? parseFloat(value) : value;
-  
+    const newValue = name === 'price' ? parseFloat(value) : (name === 'categoryId' ? parseInt(value, 10) : value);
+    
     updatedServices[index] = { ...updatedServices[index], [name]: newValue };
     setServices(updatedServices);
   };
@@ -45,7 +217,7 @@ const Services = () => {
   const addService = () => {
     setServices([
       ...services,
-      { id: null, image: '', title: '', description: '', price: 0 }
+      { id: null, image: '', title: '', description: '', price: 0, categoryId: categories[0]?.id || 1 } // Default to first category if available
     ]);
   };
 
@@ -135,20 +307,33 @@ const Services = () => {
               className="input input-bordered w-full mb-2"
             />
           </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Category:</label>
+            <select
+              name="categoryId"
+              value={service.categoryId}
+              onChange={(e) => handleServiceChange(index, e)}
+              className="select select-bordered w-full mb-2"
+            >
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </div>
           <div className="flex items-center justify-end md:justify-start">
             <button onClick={() => removeService(index)} className="btn btn-error">
-              <FaTrash className="mr-1" /> Remove
+              <FaTrash className="mr-2" /> Delete
             </button>
           </div>
         </div>
       ))}
-      <button onClick={addService} className="btn btn-secondary w-full mb-4">
-        Add Service
-      </button>
 
-      <button onClick={handleSave} className="btn btn-primary w-full">
-        Save Services
-      </button>
+      <div className="flex justify-between mt-4">
+        <button onClick={addService} className="btn btn-primary">Add Service</button>
+        <button onClick={handleSave} className="btn btn-success">Save Changes</button>
+      </div>
     </div>
   );
 };
