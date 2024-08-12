@@ -1758,10 +1758,8 @@ const Store = () => {
       }
     }
   };
-    
-  
-  
-  
+
+
 
   const openEditModal = (service: Service) => {
     setSelectedService(service);
@@ -1922,7 +1920,7 @@ const Store = () => {
     {services.map(service => (
       <div key={service.id} className="card bg-base-100 shadow-xl">
         <figure>
-          <img src={service.image} alt={service.title} className="w-full h-48 object-cover" />
+          <img src={`/uploads/${service.image}`} alt={service.title} className="w-full h-48 object-cover" />
         </figure>
         <div className="card-body">
           <h2 className="card-title">{service.title}</h2>
