@@ -1,17 +1,14 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
-import { getAllRoles } from "@/lib/role";
 import { isAdmin } from "@/lib/user";
 import Sidebar from "@/components/Sidebar";
 import ChatNavbar from "@/components/ChatNavbar";
 import styles from "@/app/main.module.css";
 import { useAuth } from "@clerk/nextjs";
-import ManageRoles from "@/components/RolesTable";
 import Services from "@/components/admincp/Store";
 
 const AdminCPRoles = () => {
   const { userId } = useAuth();
-  const [roles, setRoles] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [isAdminMember, setisAdminMember] = useState<boolean>(false);
 
@@ -45,10 +42,9 @@ const AdminCPRoles = () => {
           <ChatNavbar />
           <div className="overflow-y-auto">
             {isAdminMember ? (
-                <>
-<Services/>
-
-                </>
+              <>
+                <Services />
+              </>
             ) : (
               <p>You do not have access to this section.</p>
             )}
