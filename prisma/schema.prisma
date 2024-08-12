@@ -121,12 +121,27 @@ model Category {
   services Service[]
 }
 
+// model Service {
+//   id          Int       @id @default(autoincrement())
+//   image       String
+//   title       String
+//   description String
+//   price       Float
+//   categoryId  Int
+//   category    Category  @relation(fields: [categoryId], references: [id])
+// }
+
+
 model Service {
-  id          Int       @id @default(autoincrement())
-  image       String
-  title       String
-  description String
-  price       Float
-  categoryId  Int
-  category    Category  @relation(fields: [categoryId], references: [id])
+  id            Int       @id @default(autoincrement())
+  image         String
+  title         String
+  description   String
+  price         Float
+  categoryId    Int
+  category      Category  @relation(fields: [categoryId], references: [id])
+  amount        Int      
+  buyOrSellType String   
 }
+
+

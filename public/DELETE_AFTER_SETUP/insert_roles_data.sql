@@ -39,34 +39,21 @@ INSERT INTO Category (id, name)
 VALUES (1, 'Cat1');
 
 
--- Insert Services with Category ID
+
+
 INSERT INTO Service (
   image, 
   title, 
   description, 
   price,
-  categoryId
+  categoryId,
+  amount,
+  buyOrSellType
 ) VALUES 
-  ('https://i.imgur.com/r8Csusj.jpeg', 'Service 1', 'Description of Service 1', 10.99, 1),
-  ('https://i.imgur.com/r8Csusj.jpeg', 'Service 2', 'Description of Service 2', 20.99, 1),
-  ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 12.00, 1),
-  ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 12.00, 1),
-  ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 10.00, 1),
-  ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 12.00, 1);
+  ('https://i.imgur.com/r8Csusj.jpeg', 'Service 1', 'Description of Service 1', 10.99, 1, 50, 'buy'),
+  ('https://i.imgur.com/r8Csusj.jpeg', 'Service 2', 'Description of Service 2', 20.99, 1, 30, 'sell'),
+  ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service 1', 'Example Description 1', 12.00, 1, 40, 'buy'),
+  ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service 2', 'Example Description 2', 15.00, 1, 25, 'sell'),
+  ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service 3', 'Example Description 3', 18.00, 1, 35, 'buy'),
+  ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service 4', 'Example Description 4', 22.00, 1, 20, 'sell');
 
-
-
-
--- -- Insert Services
--- INSERT INTO Service (
---   image, 
---   title, 
---   description, 
---   price
--- ) VALUES 
---   ('https://i.imgur.com/r8Csusj.jpeg', 'Service 1', 'Description of Service 1', 10.99),
---   ('https://i.imgur.com/r8Csusj.jpeg', 'Service 2', 'Description of Service 2', 20.99),
---   ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 12.00),
---   ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 12.00),
---   ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 10.00),
---   ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 12.00);
