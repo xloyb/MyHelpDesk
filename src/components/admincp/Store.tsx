@@ -1,341 +1,632 @@
+// /* eslint-disable @next/next/no-img-element */
+
 // import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
-// import { FaTrash } from 'react-icons/fa';
 
-// type Service = {
-//   id: number | null;
+// // Define the interface for a Service
+// interface Service {
+//   id?: number;
 //   image: string;
 //   title: string;
 //   description: string;
 //   price: number;
-// };
+//   categoryId: number;
+//   amount: number;
+//   buyOrSellType: 'buy' | 'sell';
+// }
 
-// const Services = () => {
+// // Define the interface for a Category
+// interface Category {
+//   id: number;
+//   name: string;
+// }
+
+// const Store = () => {
+//   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
+//   const [isEditModalOpen, setEditModalOpen] = useState(false);
+//   const [selectedService, setSelectedService] = useState<Service | null>(null);
+//   const [formData, setFormData] = useState<Service>({
+//     image: '',
+//     title: '',
+//     description: '',
+//     price: 0,
+//     categoryId: 0,
+//     amount: 0,
+//     buyOrSellType: 'buy',
+//   });
 //   const [services, setServices] = useState<Service[]>([]);
-//   const [loading, setLoading] = useState<boolean>(true);
-//   const [error, setError] = useState<string | null>(null);
+//   const [categories, setCategories] = useState<Category[]>([]);
 
 //   useEffect(() => {
-//     const fetchServices = async () => {
-//       try {
-//         const response = await axios.get<Service[]>('/api/services');
-//         setServices(response.data);
-//       } catch (error) {
-//         setError('Failed to fetch services');
-//         console.error('Failed to fetch services:', error);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
+//     // Fetch services and categories when the component mounts
+//     axios.get('/api/services')
+//       .then(response => setServices(response.data))
+//       .catch(error => console.error('Error fetching services:', error));
 
-//     fetchServices();
+//     axios.get('/api/categories')
+//       .then(response => setCategories(response.data))
+//       .catch(error => console.error('Error fetching categories:', error));
 //   }, []);
 
-//   const handleServiceChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+//   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 //     const { name, value } = e.target;
-//     const updatedServices = [...services];
-  
-//     // If the field being changed is 'price', convert the value to a number
-//     const newValue = name === 'price' ? parseFloat(value) : value;
-  
-//     updatedServices[index] = { ...updatedServices[index], [name]: newValue };
-//     setServices(updatedServices);
+//     setFormData(prevState => ({
+//       ...prevState,
+//       [name]: value,
+//     }));
 //   };
 
-//   const addService = () => {
-//     setServices([
-//       ...services,
-//       { id: null, image: '', title: '', description: '', price: 0 }
-//     ]);
+//   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+//     const { name, value } = e.target;
+//     setFormData(prevState => ({
+//       ...prevState,
+//       [name]: value as any,  // Casting to 'any' as 'buyOrSellType' is a string literal
+//     }));
 //   };
 
-//   const removeService = async (index: number) => {
-//     const serviceToRemove = services[index];
-
-//     if (serviceToRemove.id !== null) {
-//       try {
-//         await axios.delete('/api/services', { data: { id: serviceToRemove.id } });
-//       } catch (error) {
-//         console.error('Failed to delete service:', error);
-//         alert('Failed to delete service');
-//         return;
-//       }
-//     }
-
-//     const updatedServices = services.filter((_, i) => i !== index);
-//     setServices(updatedServices);
+//   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+//     const { value } = e.target;
+//     setFormData(prevState => ({
+//       ...prevState,
+//       categoryId: parseInt(value, 10),
+//     }));
 //   };
 
-//   const handleSave = async () => {
+//   const handleCreateService = async (e: React.FormEvent) => {
+//     e.preventDefault();
 //     try {
-//       for (const service of services) {
-//         if (service.id === null) {
-//           // Create a new service
-//           await axios.post('/api/services', service);
-//         } else {
-//           // Update an existing service
-//           await axios.put('/api/services', service);
-//         }
-//       }
-//       alert('Services saved successfully!');
+//       await axios.post('/api/services', {
+//         ...formData,
+//         price: parseFloat(formData.price.toString())  // Convert price to a number
+//       });
+//       setCreateModalOpen(false);  // Close the modal
+//       setFormData({
+//         image: '',
+//         title: '',
+//         description: '',
+//         price: 0,
+//         categoryId: 0,
+//         amount: 0,
+//         buyOrSellType: 'buy',
+//       });
+//       // Refresh the list of services
+//       const response = await axios.get('/api/services');
+//       setServices(response.data);
 //     } catch (error) {
-//       console.error('Failed to save services:', error);
-//       alert('Failed to save services');
+//       console.error('Error creating service:', error);
 //     }
 //   };
+  
 
-//   if (loading) return <div>Loading...</div>;
-//   if (error) return <div>{error}</div>;
-//   if (services.length === 0) return <div>No services available</div>;
+//   const handleEditService = async (e: React.FormEvent) => {
+//     e.preventDefault();
+//     if (selectedService) {
+//       try {
+//         await axios.put(`/api/services/${selectedService.id}`, {
+//           ...formData,
+//           price: parseFloat(formData.price.toString())  // Convert price to a number
+//         });
+//         setEditModalOpen(false);  // Close the modal
+//         setSelectedService(null);
+//         setFormData({
+//           image: '',
+//           title: '',
+//           description: '',
+//           price: 0,
+//           categoryId: 0,
+//           amount: 0,
+//           buyOrSellType: 'buy',
+//         });
+//         // Refresh the list of services
+//         const response = await axios.get('/api/services');
+//         setServices(response.data);
+//       } catch (error) {
+//         console.error('Error updating service:', error);
+//       }
+//     }
+//   };
+  
+
+//   const openEditModal = (service: Service) => {
+//     setSelectedService(service);
+//     setFormData(service);
+//     setEditModalOpen(true);
+//   };
+
+//   const handleDeleteService = async (id: number) => {
+//     try {
+//       await axios.delete(`/api/services/${id}`);
+//       // Refresh the list of services
+//       const response = await axios.get('/api/services');
+//       setServices(response.data);
+//     } catch (error) {
+//       console.error('Error deleting service:', error);
+//     }
+//   };
+  
 
 //   return (
-//     <div className="bg-base-100 card mx-6 mt-5 md:pt-4 px-6">
-//       <div className="text-xl font-semibold inline-block">Manage Services</div>
-//       <div className="divider mt-2"></div>
+// <div className="bg-base-100 card mx-6 mt-5 md:pt-4 px-6">
+//     <div className="text-xl font-semibold inline-block">Manage Store </div>
+//     <div className='stat-desc text-xs'></div>
+//     <div className="divider mt-2"></div>
+//   <button className="btn btn-primary" onClick={() => setCreateModalOpen(true)}>
+//     Create New Service
+//   </button>
 
-//       {services.map((service, index) => (
-//         <div
-//           key={index}
-//           className="mb-4 p-4 grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 card card-compact shadow-xl w-auto m-2 bg-base-100"
-//         >
-//           <div>
-//             <label className="block text-sm font-medium mb-1">Image:</label>
-//             <input
-//               name="image"
-//               value={service.image}
-//               onChange={(e) => handleServiceChange(index, e)}
-//               className="input input-bordered w-full mb-2"
-//             />
+//   {/* Create Service Modal */}
+//   {isCreateModalOpen && (
+//     <dialog open className="modal modal-bottom sm:modal-middle">
+//       <div className="modal-box">
+//         <h3 className="font-bold text-lg">Create New Service</h3>
+//         <form onSubmit={handleCreateService} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Image URL</span>
+//             </label>
+//             <input type="text" name="image" value={formData.image} onChange={handleInputChange} required className="input input-bordered" />
 //           </div>
-//           <div>
-//             <label className="block text-sm font-medium mb-1">Title:</label>
-//             <input
-//               name="title"
-//               value={service.title}
-//               onChange={(e) => handleServiceChange(index, e)}
-//               className="input input-bordered w-full mb-2"
-//             />
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Title</span>
+//             </label>
+//             <input type="text" name="title" value={formData.title} onChange={handleInputChange} required className="input input-bordered" />
 //           </div>
-//           <div>
-//             <label className="block text-sm font-medium mb-1">Description:</label>
-//             <input
-//               name="description"
-//               value={service.description}
-//               onChange={(e) => handleServiceChange(index, e)}
-//               className="input input-bordered w-full mb-2"
-//             />
+//           <div className="form-control sm:col-span-2">
+//             <label className="label">
+//               <span className="label-text">Description</span>
+//             </label>
+//             <textarea name="description" value={formData.description} onChange={handleInputChange} required className="textarea textarea-bordered"></textarea>
 //           </div>
-//           <div>
-//             <label className="block text-sm font-medium mb-1">Price:</label>
-//             <input
-//               name="price"
-//               type="number"
-//               value={service.price}
-//               onChange={(e) => handleServiceChange(index, e)}
-//               className="input input-bordered w-full mb-2"
-//             />
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Price</span>
+//             </label>
+//             <input type="number" name="price" value={formData.price} onChange={handleInputChange} required step="0.01" className="input input-bordered" />
 //           </div>
-//           <div className="flex items-center justify-end md:justify-start">
-//             <button onClick={() => removeService(index)} className="btn btn-error">
-//               <FaTrash className="mr-1" /> Remove
-//             </button>
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Category</span>
+//             </label>
+//             <select name="categoryId" value={formData.categoryId} onChange={handleCategoryChange} required className="select select-bordered">
+//               <option value="">Select a category</option>
+//               {categories.map(category => (
+//                 <option key={category.id} value={category.id}>{category.name}</option>
+//               ))}
+//             </select>
+//           </div>
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Amount</span>
+//             </label>
+//             <input type="number" name="amount" value={formData.amount} onChange={handleInputChange} required className="input input-bordered" />
+//           </div>
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Buy or Sell</span>
+//             </label>
+//             <select name="buyOrSellType" value={formData.buyOrSellType} onChange={handleSelectChange} required className="select select-bordered">
+//               <option value="buy">Buy</option>
+//               <option value="sell">Sell</option>
+//             </select>
+//           </div>
+//           <div className="modal-action sm:col-span-2">
+//             <button type="submit" className="btn btn-primary">Save</button>
+//             <button type="button" className="btn btn-secondary" onClick={() => setCreateModalOpen(false)}>Cancel</button>
+//           </div>
+//         </form>
+//       </div>
+//     </dialog>
+//   )}
+
+//   {/* Edit Service Modal */}
+//   {isEditModalOpen && (
+//     <dialog open className="modal modal-bottom sm:modal-middle">
+//       <div className="modal-box">
+//         <h3 className="font-bold text-lg">Edit Service</h3>
+//         <form onSubmit={handleEditService} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+//           {/* Same structure as the Create Service Modal */}
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Image URL</span>
+//             </label>
+//             <input type="text" name="image" value={formData.image} onChange={handleInputChange} required className="input input-bordered" />
+//           </div>
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Title</span>
+//             </label>
+//             <input type="text" name="title" value={formData.title} onChange={handleInputChange} required className="input input-bordered" />
+//           </div>
+//           <div className="form-control sm:col-span-2">
+//             <label className="label">
+//               <span className="label-text">Description</span>
+//             </label>
+//             <textarea name="description" value={formData.description} onChange={handleInputChange} required className="textarea textarea-bordered"></textarea>
+//           </div>
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Price</span>
+//             </label>
+//             <input type="number" name="price" value={formData.price} onChange={handleInputChange} required step="0.01" className="input input-bordered" />
+//           </div>
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Category</span>
+//             </label>
+//             <select name="categoryId" value={formData.categoryId} onChange={handleCategoryChange} required className="select select-bordered">
+//               <option value="">Select a category</option>
+//               {categories.map(category => (
+//                 <option key={category.id} value={category.id}>{category.name}</option>
+//               ))}
+//             </select>
+//           </div>
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Amount</span>
+//             </label>
+//             <input type="number" name="amount" value={formData.amount} onChange={handleInputChange} required className="input input-bordered" />
+//           </div>
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Buy or Sell</span>
+//             </label>
+//             <select name="buyOrSellType" value={formData.buyOrSellType} onChange={handleSelectChange} required className="select select-bordered">
+//               <option value="buy">Buy</option>
+//               <option value="sell">Sell</option>
+//             </select>
+//           </div>
+//           <div className="modal-action sm:col-span-2">
+//             <button type="submit" className="btn btn-primary">Save</button>
+//             <button type="button" className="btn btn-secondary" onClick={() => setEditModalOpen(false)}>Cancel</button>
+//           </div>
+//         </form>
+//       </div>
+//     </dialog>
+//   )}
+
+//   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-6">
+//     {services.map(service => (
+//       <div key={service.id} className="card bg-base-100 shadow-xl">
+//         <figure>
+//           <img src={service.image} alt={service.title} className="w-full h-48 object-cover" />
+//         </figure>
+//         <div className="card-body">
+//           <h2 className="card-title">{service.title}</h2>
+//           <p>{service.description}</p>
+//           <p className="text-lg font-bold">${service.price}</p>
+//           <p className="text-sm text-gray-500">Category: {service.categoryId}</p>
+//           <p className="text-sm text-gray-500">Amount: {service.amount}</p>
+//           <p className="text-sm text-gray-500">{service.buyOrSellType === 'buy' ? 'Buying' : 'Selling'}</p>
+//           <div className="card-actions justify-end">
+//             <button className="btn btn-primary" onClick={() => openEditModal(service)}>Edit</button>
+//             <button className="btn btn-error" onClick={() => handleDeleteService(service.id!)}>Delete</button>
 //           </div>
 //         </div>
-//       ))}
-//       <button onClick={addService} className="btn btn-secondary w-full mb-4">
-//         Add Service
-//       </button>
+//       </div>
+//     ))}
+//   </div>
+// </div>
 
-//       <button onClick={handleSave} className="btn btn-primary w-full">
-//         Save Services
-//       </button>
-//     </div>
 //   );
 // };
 
-// export default Services;
+// export default Store;
 
 
+
+
+/* eslint-disable @next/next/no-img-element */
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FaTrash } from 'react-icons/fa';
 
-type Service = {
-  id: number | null;
+// Define the interface for a Service
+interface Service {
+  id?: number;
   image: string;
   title: string;
   description: string;
   price: number;
-  categoryId: number; // Add categoryId
-};
+  categoryId: number;
+  amount: number;
+  buyOrSellType: 'buy' | 'sell';
+}
 
-const Services = () => {
+// Define the interface for a Category
+interface Category {
+  id: number;
+  name: string;
+}
+
+const Store = () => {
+  const [isCreateModalOpen, setCreateModalOpen] = useState(false);
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [formData, setFormData] = useState<Service>({
+    image: '',
+    title: '',
+    description: '',
+    price: 0,
+    categoryId: 0,
+    amount: 0,
+    buyOrSellType: 'buy',
+  });
   const [services, setServices] = useState<Service[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const [categories, setCategories] = useState<{ id: number; name: string }[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        const response = await axios.get<Service[]>('/api/services');
-        setServices(response.data);
-      } catch (error) {
-        setError('Failed to fetch services');
-        console.error('Failed to fetch services:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    // Fetch services and categories when the component mounts
+    axios.get('/api/services')
+      .then(response => setServices(response.data))
+      .catch(error => console.error('Error fetching services:', error));
 
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get<{ id: number; name: string }[]>('/api/categories');
-        setCategories(response.data);
-      } catch (error) {
-        setError('Failed to fetch categories');
-        console.error('Failed to fetch categories:', error);
-      }
-    };
-
-    fetchServices();
-    fetchCategories();
+    axios.get('/api/categories')
+      .then(response => setCategories(response.data))
+      .catch(error => console.error('Error fetching categories:', error));
   }, []);
 
-  const handleServiceChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    const updatedServices = [...services];
-    
-    // If the field being changed is 'price', convert the value to a number
-    const newValue = name === 'price' ? parseFloat(value) : (name === 'categoryId' ? parseInt(value, 10) : value);
-    
-    updatedServices[index] = { ...updatedServices[index], [name]: newValue };
-    setServices(updatedServices);
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
-  const addService = () => {
-    setServices([
-      ...services,
-      { id: null, image: '', title: '', description: '', price: 0, categoryId: categories[0]?.id || 1 } // Default to first category if available
-    ]);
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value as any,  // Casting to 'any' as 'buyOrSellType' is a string literal
+    }));
   };
 
-  const removeService = async (index: number) => {
-    const serviceToRemove = services[index];
-
-    if (serviceToRemove.id !== null) {
-      try {
-        await axios.delete('/api/services', { data: { id: serviceToRemove.id } });
-      } catch (error) {
-        console.error('Failed to delete service:', error);
-        alert('Failed to delete service');
-        return;
-      }
-    }
-
-    const updatedServices = services.filter((_, i) => i !== index);
-    setServices(updatedServices);
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      categoryId: parseInt(value, 10),
+    }));
   };
 
-  const handleSave = async () => {
+  const handleCreateService = async (e: React.FormEvent) => {
+    e.preventDefault();
     try {
-      for (const service of services) {
-        if (service.id === null) {
-          // Create a new service
-          await axios.post('/api/services', service);
-        } else {
-          // Update an existing service
-          await axios.put('/api/services', service);
-        }
-      }
-      alert('Services saved successfully!');
+      await axios.post('/api/services', {
+        ...formData,
+        price: parseFloat(formData.price.toString())  // Convert price to a number
+      });
+      setCreateModalOpen(false);  // Close the modal
+      setFormData({
+        image: '',
+        title: '',
+        description: '',
+        price: 0,
+        categoryId: 0,
+        amount: 0,
+        buyOrSellType: 'buy',
+      });
+      // Refresh the list of services
+      const response = await axios.get('/api/services');
+      setServices(response.data);
     } catch (error) {
-      console.error('Failed to save services:', error);
-      alert('Failed to save services');
+      console.error('Error creating service:', error);
     }
   };
+  
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
-  if (services.length === 0) return <div>No services available</div>;
+  const handleEditService = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (selectedService) {
+      try {
+        await axios.put(`/api/services/${selectedService.id}`, {
+          ...formData,
+          price: parseFloat(formData.price.toString())  // Convert price to a number
+        });
+        setEditModalOpen(false);  // Close the modal
+        setSelectedService(null);
+        setFormData({
+          image: '',
+          title: '',
+          description: '',
+          price: 0,
+          categoryId: 0,
+          amount: 0,
+          buyOrSellType: 'buy',
+        });
+        // Refresh the list of services
+        const response = await axios.get('/api/services');
+        setServices(response.data);
+      } catch (error) {
+        console.error('Error updating service:', error);
+      }
+    }
+  };
+  
+
+  const openEditModal = (service: Service) => {
+    setSelectedService(service);
+    setFormData(service);
+    setEditModalOpen(true);
+  };
+
+  const handleDeleteService = async (id: number) => {
+    try {
+      await axios.delete(`/api/services/${id}`);
+      // Refresh the list of services
+      const response = await axios.get('/api/services');
+      setServices(response.data);
+    } catch (error) {
+      console.error('Error deleting service:', error);
+    }
+  };
+  
 
   return (
-    <div className="bg-base-100 card mx-6 mt-5 md:pt-4 px-6">
-      <div className="text-xl font-semibold inline-block">Manage Services</div>
-      <div className="divider mt-2"></div>
+<div className="bg-base-100 card mx-6 mt-5 md:pt-4 px-6">
+    <div className="text-xl font-semibold inline-block">Manage Store </div>
+    <div className='stat-desc text-xs'></div>
+    <div className="divider mt-2"></div>
+  <button className="btn btn-primary" onClick={() => setCreateModalOpen(true)}>
+    Create New Service
+  </button>
 
-      {services.map((service, index) => (
-        <div
-          key={index}
-          className="mb-4 p-4 grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 card card-compact shadow-xl w-auto m-2 bg-base-100"
-        >
-          <div>
-            <label className="block text-sm font-medium mb-1">Image:</label>
-            <input
-              name="image"
-              value={service.image}
-              onChange={(e) => handleServiceChange(index, e)}
-              className="input input-bordered w-full mb-2"
-            />
+  {/* Create Service Modal */}
+  {isCreateModalOpen && (
+    <dialog open className="modal modal-bottom sm:modal-middle">
+      <div className="modal-box">
+        <h3 className="font-bold text-lg">Create New Service</h3>
+        <form onSubmit={handleCreateService} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Image URL</span>
+            </label>
+            <input type="text" name="image" value={formData.image} onChange={handleInputChange} required className="input input-bordered" />
           </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Title:</label>
-            <input
-              name="title"
-              value={service.title}
-              onChange={(e) => handleServiceChange(index, e)}
-              className="input input-bordered w-full mb-2"
-            />
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Title</span>
+            </label>
+            <input type="text" name="title" value={formData.title} onChange={handleInputChange} required className="input input-bordered" />
           </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Description:</label>
-            <input
-              name="description"
-              value={service.description}
-              onChange={(e) => handleServiceChange(index, e)}
-              className="input input-bordered w-full mb-2"
-            />
+          <div className="form-control sm:col-span-2">
+            <label className="label">
+              <span className="label-text">Description</span>
+            </label>
+            <textarea name="description" value={formData.description} onChange={handleInputChange} required className="textarea textarea-bordered"></textarea>
           </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Price:</label>
-            <input
-              name="price"
-              type="number"
-              value={service.price}
-              onChange={(e) => handleServiceChange(index, e)}
-              className="input input-bordered w-full mb-2"
-            />
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Price</span>
+            </label>
+            <input type="number" name="price" value={formData.price} onChange={handleInputChange} required step="0.01" className="input input-bordered" />
           </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Category:</label>
-            <select
-              name="categoryId"
-              value={service.categoryId}
-              onChange={(e) => handleServiceChange(index, e)}
-              className="select select-bordered w-full mb-2"
-            >
-              {categories.map((category) => (
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Category</span>
+            </label>
+            <select name="categoryId" value={formData.categoryId} onChange={handleCategoryChange} required className="select select-bordered">
+              <option value="">Select a category</option>
+              {categories.map(category => (
+                <option key={category.id} value={category.id}>{category.name}</option>
               ))}
             </select>
           </div>
-          <div className="flex items-center justify-end md:justify-start">
-            <button onClick={() => removeService(index)} className="btn btn-error">
-              <FaTrash className="mr-2" /> Delete
-            </button>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Amount</span>
+            </label>
+            <input type="number" name="amount" value={formData.amount} onChange={handleInputChange} required className="input input-bordered" />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Buy or Sell</span>
+            </label>
+            <select name="buyOrSellType" value={formData.buyOrSellType} onChange={handleSelectChange} required className="select select-bordered">
+              <option value="buy">Buy</option>
+              <option value="sell">Sell</option>
+            </select>
+          </div>
+          <div className="modal-action sm:col-span-2">
+            <button type="submit" className="btn btn-primary">Save</button>
+            <button type="button" className="btn btn-secondary" onClick={() => setCreateModalOpen(false)}>Cancel</button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+  )}
+
+  {/* Edit Service Modal */}
+  {isEditModalOpen && (
+    <dialog open className="modal modal-bottom sm:modal-middle">
+      <div className="modal-box">
+        <h3 className="font-bold text-lg">Edit Service</h3>
+        <form onSubmit={handleEditService} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Same structure as the Create Service Modal */}
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Image URL</span>
+            </label>
+            <input type="text" name="image" value={formData.image} onChange={handleInputChange} required className="input input-bordered" />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Title</span>
+            </label>
+            <input type="text" name="title" value={formData.title} onChange={handleInputChange} required className="input input-bordered" />
+          </div>
+          <div className="form-control sm:col-span-2">
+            <label className="label">
+              <span className="label-text">Description</span>
+            </label>
+            <textarea name="description" value={formData.description} onChange={handleInputChange} required className="textarea textarea-bordered"></textarea>
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Price</span>
+            </label>
+            <input type="number" name="price" value={formData.price} onChange={handleInputChange} required step="0.01" className="input input-bordered" />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Category</span>
+            </label>
+            <select name="categoryId" value={formData.categoryId} onChange={handleCategoryChange} required className="select select-bordered">
+              <option value="">Select a category</option>
+              {categories.map(category => (
+                <option key={category.id} value={category.id}>{category.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Amount</span>
+            </label>
+            <input type="number" name="amount" value={formData.amount} onChange={handleInputChange} required className="input input-bordered" />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Buy or Sell</span>
+            </label>
+            <select name="buyOrSellType" value={formData.buyOrSellType} onChange={handleSelectChange} required className="select select-bordered">
+              <option value="buy">Buy</option>
+              <option value="sell">Sell</option>
+            </select>
+          </div>
+          <div className="modal-action sm:col-span-2">
+            <button type="submit" className="btn btn-primary">Save</button>
+            <button type="button" className="btn btn-secondary" onClick={() => setEditModalOpen(false)}>Cancel</button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+  )}
+
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-6">
+    {services.map(service => (
+      <div key={service.id} className="card bg-base-100 shadow-xl">
+        <figure>
+          <img src={service.image} alt={service.title} className="w-full h-48 object-cover" />
+        </figure>
+        <div className="card-body">
+          <h2 className="card-title">{service.title}</h2>
+          <p>{service.description}</p>
+          <p className="text-lg font-bold">${service.price}</p>
+          <p className="text-sm text-gray-500">Category: {service.categoryId}</p>
+          <p className="text-sm text-gray-500">Amount: {service.amount}</p>
+          <p className="text-sm text-gray-500">{service.buyOrSellType === 'buy' ? 'Buying' : 'Selling'}</p>
+          <div className="card-actions justify-end">
+            <button className="btn btn-primary" onClick={() => openEditModal(service)}>Edit</button>
+            <button className="btn btn-error" onClick={() => handleDeleteService(service.id!)}>Delete</button>
           </div>
         </div>
-      ))}
-
-      <div className="flex justify-between mt-4">
-        <button onClick={addService} className="btn btn-primary">Add Service</button>
-        <button onClick={handleSave} className="btn btn-success">Save Changes</button>
       </div>
-    </div>
+    ))}
+  </div>
+</div>
+
   );
 };
 
-export default Services;
+export default Store;
