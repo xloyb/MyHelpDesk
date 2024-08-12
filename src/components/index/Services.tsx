@@ -52,7 +52,7 @@ const Services = () => {
           <figure>
             <div style={{ width: '100%', position: 'relative', paddingBottom: '56.25%' }}>
               <Image
-                src={service.image}
+                src={`/uploads/${service.image}`}
                 alt={service.title}
                 layout="fill"
                 objectFit="contain"
