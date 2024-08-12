@@ -32,16 +32,41 @@ INSERT INTO Settings (
 );
 
 
--- Insert Services
+
+
+-- Insert a new category with a specific ID
+INSERT INTO Category (id, name) 
+VALUES (1, 'Cat1');
+
+
+-- Insert Services with Category ID
 INSERT INTO Service (
   image, 
   title, 
   description, 
-  price
+  price,
+  categoryId
 ) VALUES 
-  ('https://i.imgur.com/r8Csusj.jpeg', 'Service 1', 'Description of Service 1', 10.99),
-  ('https://i.imgur.com/r8Csusj.jpeg', 'Service 2', 'Description of Service 2', 20.99),
-  ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 12.00),
-  ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 12.00),
-  ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 10.00),
-  ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 12.00);
+  ('https://i.imgur.com/r8Csusj.jpeg', 'Service 1', 'Description of Service 1', 10.99, 1),
+  ('https://i.imgur.com/r8Csusj.jpeg', 'Service 2', 'Description of Service 2', 20.99, 1),
+  ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 12.00, 1),
+  ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 12.00, 1),
+  ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 10.00, 1),
+  ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 12.00, 1);
+
+
+
+
+-- -- Insert Services
+-- INSERT INTO Service (
+--   image, 
+--   title, 
+--   description, 
+--   price
+-- ) VALUES 
+--   ('https://i.imgur.com/r8Csusj.jpeg', 'Service 1', 'Description of Service 1', 10.99),
+--   ('https://i.imgur.com/r8Csusj.jpeg', 'Service 2', 'Description of Service 2', 20.99),
+--   ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 12.00),
+--   ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 12.00),
+--   ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 10.00),
+--   ('https://i.imgur.com/r8Csusj.jpeg', 'Example Service', 'Example Description', 12.00);
