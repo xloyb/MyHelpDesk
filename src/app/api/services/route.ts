@@ -1,73 +1,97 @@
-import { NextResponse } from "next/server";
-import prisma from "@/lib/client";
+import { NextRequest, NextResponse } from 'next/server';
+import prisma from '@/lib/client';
 
-// GET: Fetch all services
-export async function GET() {
+// export async function GET() {
+//   try {
+//     const services = await prisma.service.findMany({
+//       include: {
+//         category: true 
+//       }
+//     });
+//     return NextResponse.json(services);
+//   } catch (error) {
+//     console.error('Error fetching services:', error);
+//     return NextResponse.json({ message: 'Failed to fetch services' }, { status: 500 });
+//   }
+// }
+
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const categoryId = searchParams.get('categoryId');
+
   try {
-    const services = await prisma.service.findMany();
-    return NextResponse.json(services);
+    if (categoryId) {
+      // If categoryId is provided, count the number of services for that category
+      const count = await prisma.service.count({
+        where: { categoryId: Number(categoryId) },
+      });
+      return NextResponse.json({ count });
+    } else {
+      // If no categoryId is provided, fetch all services
+      const services = await prisma.service.findMany();
+      return NextResponse.json(services);
+    }
   } catch (error) {
-    console.error("Failed to fetch services:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch services" },
-      { status: 500 }
-    );
+    console.error('Error fetching services:', error);
+    return NextResponse.json({ message: 'Failed to fetch services' }, { status: 500 });
   }
 }
 
-// POST: Create a new service
-export async function POST(req: Request) {
+
+
+export async function POST(request: NextRequest) {
   try {
-    const { image, title, description, price } = await req.json();
+    const { image, title, description, price, categoryId } = await request.json();
+    if (!image || !title || !description || price == null || !categoryId) {
+      return NextResponse.json({ message: 'All fields are required' }, { status: 400 });
+    }
 
     const newService = await prisma.service.create({
-      data: { image, title, description, price },
+      data: { image, title, description, price, categoryId },
     });
 
     return NextResponse.json(newService, { status: 201 });
   } catch (error) {
-    console.error("Failed to create service:", error);
-    return NextResponse.json(
-      { error: "Failed to create service" },
-      { status: 500 }
-    );
+    console.error('Error creating service:', error);
+    return NextResponse.json({ message: 'Failed to create service' }, { status: 500 });
   }
 }
 
-// PUT: Update an existing service by ID
-export async function PUT(req: Request) {
+export async function PUT(request: NextRequest) {
   try {
-    const { id, image, title, description, price } = await req.json();
+    const { id, image, title, description, price, categoryId } = await request.json();
+    if (!id || !image || !title || !description || price == null || !categoryId) {
+      return NextResponse.json({ message: 'All fields are required' }, { status: 400 });
+    }
+
     const updatedService = await prisma.service.update({
-      where: { id },
-      data: { image, title, description, price },
+      where: { id: Number(id) },
+      data: { image, title, description, price, categoryId },
     });
 
     return NextResponse.json(updatedService);
   } catch (error) {
-    console.error("Failed to update service:", error);
-    return NextResponse.json(
-      { error: "Failed to update service" },
-      { status: 500 }
-    );
+    console.error('Error updating service:', error);
+    return NextResponse.json({ message: 'Failed to update service' }, { status: 500 });
   }
 }
 
-// DELETE: Delete a service by ID
-export async function DELETE(req: Request) {
+export async function DELETE(request: NextRequest) {
   try {
-    const { id } = await req.json();
+    const { id } = await request.json();
+    if (!id) {
+      return NextResponse.json({ message: 'Service ID is required' }, { status: 400 });
+    }
 
     await prisma.service.delete({
-      where: { id },
+      where: { id: Number(id) },
     });
 
-    return NextResponse.json({ message: "Service deleted successfully" });
+    return NextResponse.json({}, { status: 204 }); 
   } catch (error) {
-    console.error("Failed to delete service:", error);
-    return NextResponse.json(
-      { error: "Failed to delete service" },
-      { status: 500 }
-    );
+    console.error('Error deleting service:', error);
+    return NextResponse.json({ message: 'Failed to delete service' }, { status: 500 });
   }
 }
+
+
