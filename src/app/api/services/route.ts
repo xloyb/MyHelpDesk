@@ -103,10 +103,10 @@ export async function POST(request: Request) {
     const data = await request.json();
     console.log('Received data:', data);
 
-    const { image, title, description, price, categoryId, amount, buyOrSellType } = data;
+    const { image, title, description, price, categoryId, amount, buyOrSellType, ShoppyCode } = data;
 
     // Validate the required fields
-    if (!image || !title || !description || price === undefined || !categoryId || amount === undefined || !buyOrSellType) {
+    if (!image || !title || !description || price === undefined || !categoryId || amount === undefined || !buyOrSellType || !ShoppyCode) {
       return new NextResponse('All fields are required.', { status: 400 });
     }
 
@@ -125,6 +125,7 @@ export async function POST(request: Request) {
         categoryId: parseInt(categoryId, 10),
         amount: parseInt(amount, 10),
         buyOrSellType,
+        ShoppyCode,
       },
     });
 
@@ -140,10 +141,10 @@ export async function POST(request: Request) {
 // Handler for PUT request to update an existing service
 export async function PUT(request: Request) {
   try {
-    const { id, image, title, description, price, categoryId, amount, buyOrSellType } = await request.json();
+    const { id, image, title, description, price, categoryId, amount, buyOrSellType, ShoppyCode } = await request.json();
 
     // Validate the required fields
-    if (!id || !image || !title || !description || !price || !categoryId || !amount || !buyOrSellType) {
+    if (!id || !image || !title || !description || !price || !categoryId || !amount || !buyOrSellType || !ShoppyCode) {
       return new NextResponse('All fields are required.', { status: 400 });
     }
 
