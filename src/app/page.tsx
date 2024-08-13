@@ -7,7 +7,7 @@ import Services from "@/components/index/Services";
 
 const Homepage = () => {
   return (
-    <div className={styles.container}>
+    <div className='h-screen'>
       <div className="bg-base-200">
         <IndexNav />
 
