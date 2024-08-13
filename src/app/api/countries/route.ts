@@ -13,6 +13,7 @@ export async function GET(request: Request) {
     const countries = await getCountries(skip, take, search);
     return NextResponse.json(countries);
   } catch (error) {
+    console.error('Error fetching countries:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

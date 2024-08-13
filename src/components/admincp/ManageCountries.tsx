@@ -18,7 +18,7 @@ const CountryTable = () => {
     const fetchCountries = async () => {
       try {
         const response = await axios.get('/api/countries', {
-          params: { page, search },
+          params: { page, search }, // Ensure search is included
         });
         setCountries((prev) => [...prev, ...response.data]);
         setHasMore(response.data.length > 0);
@@ -26,6 +26,7 @@ const CountryTable = () => {
         console.error('Error fetching countries:', error);
       }
     };
+    
 
     fetchCountries();
   }, [page, search]);

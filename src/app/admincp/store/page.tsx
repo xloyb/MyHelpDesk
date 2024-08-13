@@ -8,6 +8,7 @@ import { useAuth } from "@clerk/nextjs";
 import Services from "@/components/admincp/Store";
 import AuthorizedCountries from "@/components/admincp/AuthorizedCountries";
 import ManageCategories from "@/components/admincp/ManageCategories";
+import CountryTable from "@/components/admincp/ManageCountries";
 
 const AdminCPRoles = () => {
   const { userId } = useAuth();
@@ -45,7 +46,8 @@ const AdminCPRoles = () => {
           <div className="overflow-y-auto">
             {isAdminMember ? (
               <>
-              <AuthorizedCountries/>
+              {/* <AuthorizedCountries/> */}
+              <CountryTable/>
               <ManageCategories/>
                 <Services />
               </>
