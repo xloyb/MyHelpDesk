@@ -10,41 +10,49 @@ interface Country {
 
 const CountryTable = () => {
   const [countries, setCountries] = useState<Country[]>([]);
+  const [filteredCountries, setFilteredCountries] = useState<Country[]>([]);
   const [search, setSearch] = useState('');
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
     const fetchCountries = async () => {
       try {
-        const response = await axios.get('/api/countries', {
-          params: { page, search }, // Ensure search is included
-        });
-        setCountries((prev) => [...prev, ...response.data]);
-        setHasMore(response.data.length > 0);
+        const response = await axios.get('/api/countries');
+        setCountries(response.data);
+        setFilteredCountries(response.data);
       } catch (error) {
         console.error('Error fetching countries:', error);
       }
     };
-    
 
     fetchCountries();
-  }, [page, search]);
+  }, []);
+
+  useEffect(() => {
+    const filterCountries = () => {
+      if (!search) {
+        setFilteredCountries(countries);
+      } else {
+        const lowerCaseSearch = search.toLowerCase();
+        const result = countries.filter(country =>
+          country.name.toLowerCase().includes(lowerCaseSearch) ||
+          country.shortname.toLowerCase().includes(lowerCaseSearch)
+        );
+        setFilteredCountries(result);
+      }
+    };
+
+    filterCountries();
+  }, [search, countries]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
-    setPage(1);
-    setCountries([]);
-  };
-
-  const loadMore = () => {
-    setPage((prev) => prev + 1);
   };
 
   const toggleEnabled = async (id: number, currentStatus: boolean) => {
     try {
       await axios.post('/api/countries/toggle', { id, enabled: !currentStatus });
       setCountries(countries.map(c => c.id === id ? { ...c, enabled: !currentStatus } : c));
+      setFilteredCountries(filteredCountries.map(c => c.id === id ? { ...c, enabled: !currentStatus } : c));
     } catch (error) {
       console.error('Error toggling enabled status:', error);
     }
@@ -60,7 +68,6 @@ const CountryTable = () => {
         className="input input-bordered mb-4"
       />
       <table className="table">
-        {/* head */}
         <thead>
           <tr>
             <th>
@@ -75,7 +82,7 @@ const CountryTable = () => {
           </tr>
         </thead>
         <tbody>
-          {countries.map((country) => (
+          {filteredCountries.map((country) => (
             <tr key={country.id}>
               <th>
                 <label>
@@ -98,7 +105,6 @@ const CountryTable = () => {
             </tr>
           ))}
         </tbody>
-        {/* foot */}
         <tfoot>
           <tr>
             <th></th>
@@ -109,11 +115,6 @@ const CountryTable = () => {
           </tr>
         </tfoot>
       </table>
-      {hasMore && (
-        <button onClick={loadMore} className="btn btn-primary mt-4">
-          Show More
-        </button>
-      )}
     </div>
   );
 };
