@@ -1,54 +1,47 @@
 "use client"
 import { useEffect, useState } from 'react';
 
-interface CountryData {
-  country_name: string;
-  country_code: string;
+async function fetchCountry() {
+  const response = await fetch('/api/getCountry');
+  const data = await response.json();
+  return data.country_code;
 }
 
-const CheckCountry = () => {
-  const [country, setCountry] = useState<CountryData | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+async function checkCountryEnabled(countryCode: string) {
+  const response = await fetch(`/api/countries/checkcountrystatus?country_code=${countryCode}`);
+  const data = await response.json();
+  return data.isEnabled;
+}
+
+export default function CheckCountryStatus() {
+  const [status, setStatus] = useState<{ country_code: string; isEnabled: boolean } | null>(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchCountry() {
+    async function fetchAndCheckCountry() {
       try {
-        const response = await fetch('/api/getCountry');
-        const data: CountryData | { error: string } = await response.json();
-
-        if (response.ok) {
-          setCountry(data as CountryData);
-        } else {
-          setError((data as { error: string }).error || 'Failed to fetch country');
-        }
+        const countryCode = await fetchCountry();
+        const isEnabled = await checkCountryEnabled(countryCode);
+        setStatus({ country_code: countryCode, isEnabled });
       } catch (error) {
-        setError('Failed to fetch country.');
+        setError('Failed to fetch country status');
       } finally {
         setLoading(false);
       }
     }
 
-    fetchCountry();
+    fetchAndCheckCountry();
   }, []);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div>
-      {country ? (
-        <h1>Your Country: {country.country_name} ({country.country_code})</h1>
-      ) : (
-        <p>No country data available.</p>
-      )}
+      <p>Country Code: {status?.country_code}</p>
+      <p>Status Enabled: {status?.isEnabled ? 'Yes' : 'No'}</p>
     </div>
   );
-};
+}
 
-export default CheckCountry;
