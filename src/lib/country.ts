@@ -17,47 +17,17 @@ import prisma from "./client";
 // }
 
 
-export async function getCountries(skip: number, take: number, search: string) {
+export const getCountries = async () => {
   try {
     const countries = await prisma.country.findMany({
-      skip,
-      take,
-      where: {
-        OR: [
-          {
-            name: {
-              contains: search.toLowerCase(),
-            },
-          },
-          {
-            shortname: {
-              contains: search.toLowerCase(),
-            },
-          },
-        ],
-        AND: [
-          {
-            name: {
-              contains: search.toLowerCase(),
-            },
-          },
-          {
-            shortname: {
-              contains: search.toLowerCase(),
-            },
-          },
-        ],
-      },
-      orderBy: {
-        name: 'asc',
-      },
+      orderBy: { name: 'asc' }, // Optional: order by name or any other attribute
     });
     return countries;
   } catch (error) {
-    console.error('Error fetching countries:', error);
+    console.error('Error fetching countries from database:', error);
     throw new Error('Error fetching countries');
   }
-}
+};
 
 export async function getCountryById(id: number) {
   return prisma.country.findUnique({
