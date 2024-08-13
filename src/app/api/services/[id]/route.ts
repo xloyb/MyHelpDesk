@@ -12,15 +12,15 @@ export async function PUT(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { image, title, description, price, categoryId, amount, buyOrSellType } = body;
+    const { image, title, description, price, categoryId, amount, buyOrSellType, ShoppyCode } = body;
 
-    if (!image || !title || !description || price == null || !categoryId || amount == null || !buyOrSellType) {
+    if (!image || !title || !description || price == null || !categoryId || amount == null || !buyOrSellType || !ShoppyCode) {
       return NextResponse.json({ message: 'All fields are required' }, { status: 400 });
     }
 
     const updatedService = await prisma.service.update({
       where: { id: Number(id) },
-      data: { image, title, description, price, categoryId, amount, buyOrSellType },
+      data: { image, title, description, price, categoryId, amount, buyOrSellType, ShoppyCode },
     });
 
     return NextResponse.json(updatedService);
