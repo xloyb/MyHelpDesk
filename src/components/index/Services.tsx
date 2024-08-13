@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import Image from 'next/image';
+import TestTabs from './TestTabs';
+import DynamicTabs from './TestTabs';
 
 interface Service {
   id: number;
@@ -46,6 +48,9 @@ const Services = () => {
   }
 
   return (
+    <div className='content-center bg-base-200 card mx-6 mt-5 md:pt-4 px-6'>
+
+        <DynamicTabs/>
     <div className={`content-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-base-200 card mx-6 mt-5 md:pt-4 px-6 `}>
       {services.map((service) => (
         <div key={service.id} className="mt-6 card card-compact shadow-xl w-auto m-2 bg-base-100">
@@ -72,6 +77,7 @@ const Services = () => {
         </div>
       ))}
     </div>
+      </div>
   );
 };
 
