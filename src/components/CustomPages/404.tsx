@@ -10,7 +10,7 @@ const NotFoundBitch = () => {
     <div>
       <p className="text-sm font-medium text-primary">404 error</p>
       <h1 className="mt-3 text-2xl font-semibold  md:text-3xl">
-        We can’t find that page
+        Uh oh, it’s a ghost town in here!
       </h1>
       <p className="mt-4 ">
         Sorry, the page you are looking for doesn’t exist or has been moved.
