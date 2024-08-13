@@ -1,14 +1,13 @@
 "use client"
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface CountryData {
   country_name: string;
   country_code: string;
-  [key: string]: any; 
 }
 
 const CheckCountry = () => {
-  const [countryData, setCountryData] = useState<CountryData | null>(null);
+  const [country, setCountry] = useState<CountryData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -16,12 +15,12 @@ const CheckCountry = () => {
     async function fetchCountry() {
       try {
         const response = await fetch('/api/getCountry');
-        const data = await response.json();
+        const data: CountryData | { error: string } = await response.json();
 
         if (response.ok) {
-          setCountryData(data);
+          setCountry(data as CountryData);
         } else {
-          setError(data.error || 'Failed to fetch country data.');
+          setError((data as { error: string }).error || 'Failed to fetch country');
         }
       } catch (error) {
         setError('Failed to fetch country.');
@@ -33,20 +32,20 @@ const CheckCountry = () => {
     fetchCountry();
   }, []);
 
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
   return (
     <div>
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>Error: {error}</p>
+      {country ? (
+        <h1>Your Country: {country.country_name} ({country.country_code})</h1>
       ) : (
-        countryData && (
-          <div>
-            <h1>Your Country: {countryData.country_name} ({countryData.country_code})</h1>
-            {/* Render other data from the countryData object if needed */}
-            <pre>{JSON.stringify(countryData, null, 2)}</pre>
-          </div>
-        )
+        <p>No country data available.</p>
       )}
     </div>
   );
