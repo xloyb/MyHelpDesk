@@ -1602,6 +1602,7 @@ interface Service {
   categoryId: number;
   amount: number;
   buyOrSellType: 'buy' | 'sell';
+  ShoppyCode: string;
 }
 
 // Define the interface for a Category
@@ -1626,6 +1627,7 @@ const Store = () => {
     categoryId: 0,
     amount: 0,
     buyOrSellType: 'buy',
+    ShoppyCode: '',
   });
   const [services, setServices] = useState<Service[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -1712,6 +1714,8 @@ const Store = () => {
         categoryId: 0,
         amount: 0,
         buyOrSellType: 'buy',
+        ShoppyCode:'',
+        
       });
       const response = await axios.get('/api/services');
       setServices(response.data);
@@ -1749,6 +1753,7 @@ const Store = () => {
           categoryId: 0,
           amount: 0,
           buyOrSellType: 'buy',
+          ShoppyCode:'',
         });
   
         const response = await axios.get('/api/services');
@@ -1842,6 +1847,14 @@ const Store = () => {
               <option value="sell">Sell</option>
             </select>
           </div>
+        
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Shoppy Code</span>
+            </label>
+            <input type="text" name="ShoppyCode" value={formData.ShoppyCode} onChange={handleInputChange} required className="input input-bordered" />
+          </div>
+          
           <div className="modal-action sm:col-span-2">
             <button type="submit" className="btn btn-primary">Save</button>
             <button type="button" className="btn btn-secondary" onClick={() => setCreateModalOpen(false)}>Cancel</button>
@@ -1907,6 +1920,15 @@ const Store = () => {
               <option value="sell">Sell</option>
             </select>
           </div>
+
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Shoppy Code</span>
+            </label>
+            <input type="text" name="ShoppyCode" value={formData.ShoppyCode} onChange={handleInputChange} required className="input input-bordered" />
+          </div>
+
+
           <div className="modal-action sm:col-span-2">
             <button type="submit" className="btn btn-primary">Save</button>
             <button type="button" className="btn btn-secondary" onClick={() => setEditModalOpen(false)}>Cancel</button>
