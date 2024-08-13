@@ -1,9 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
-import { PrismaClient } from '@prisma/client';
 import { useState, useEffect } from 'react';
-import { NextPage } from 'next';
-import prisma from '@/lib/client';
-
+import axios from 'axios';
 
 interface Country {
   id: number;
@@ -12,32 +8,56 @@ interface Country {
   enabled: boolean;
 }
 
-const CountryTable: NextPage = () => {
+const CountryTable = () => {
   const [countries, setCountries] = useState<Country[]>([]);
+  const [search, setSearch] = useState('');
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
-  // Fetch countries from the database
   useEffect(() => {
     const fetchCountries = async () => {
-      const countriesData = await prisma.country.findMany();
-      setCountries(countriesData);
+      try {
+        const response = await axios.get('/api/countries', {
+          params: { page, search },
+        });
+        setCountries((prev) => [...prev, ...response.data]);
+        setHasMore(response.data.length > 0);
+      } catch (error) {
+        console.error('Error fetching countries:', error);
+      }
     };
 
     fetchCountries();
-  }, []);
+  }, [page, search]);
 
-  // Toggle the enabled status of a country
-  const toggleEnabled = async (id: number, enabled: boolean) => {
-    await prisma.country.update({
-      where: { id },
-      data: { enabled: !enabled },
-    });
-    setCountries(countries.map(country =>
-      country.id === id ? { ...country, enabled: !enabled } : country
-    ));
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+    setPage(1);
+    setCountries([]);
+  };
+
+  const loadMore = () => {
+    setPage((prev) => prev + 1);
+  };
+
+  const toggleEnabled = async (id: number, currentStatus: boolean) => {
+    try {
+      await axios.post('/api/countries/toggle', { id, enabled: !currentStatus });
+      setCountries(countries.map(c => c.id === id ? { ...c, enabled: !currentStatus } : c));
+    } catch (error) {
+      console.error('Error toggling enabled status:', error);
+    }
   };
 
   return (
     <div className="overflow-x-auto">
+      <input
+        type="text"
+        placeholder="Search for a country..."
+        value={search}
+        onChange={handleSearch}
+        className="input input-bordered mb-4"
+      />
       <table className="table">
         {/* head */}
         <thead>
@@ -66,22 +86,7 @@ const CountryTable: NextPage = () => {
                   />
                 </label>
               </th>
-              <td>
-                <div className="flex items-center gap-3">
-                  <div className="avatar">
-                    <div className="mask mask-squircle h-12 w-12">
-                      <img
-                        src={`https://countryflagsapi.com/png/${country.shortname.toLowerCase()}`}
-                        alt={`${country.name} Flag`}
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="font-bold">{country.name}</div>
-                    <div className="text-sm opacity-50">{country.shortname}</div>
-                  </div>
-                </div>
-              </td>
+              <td>{country.name}</td>
               <td>{country.shortname}</td>
               <td>{country.enabled ? 'Enabled' : 'Disabled'}</td>
               <th>
@@ -103,6 +108,11 @@ const CountryTable: NextPage = () => {
           </tr>
         </tfoot>
       </table>
+      {hasMore && (
+        <button onClick={loadMore} className="btn btn-primary mt-4">
+          Show More
+        </button>
+      )}
     </div>
   );
 };
