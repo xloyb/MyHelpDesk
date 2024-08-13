@@ -2,6 +2,7 @@
 import Footer from "@/components/Footer";
 import IndexNav from "@/components/index/IndexNav";
 import Services from "@/components/index/Services";
+import Test from "@/components/test";
 import Script from "next/script"; 
 
 const Store = () => {
@@ -31,6 +32,7 @@ const Store = () => {
           }}
           data-shoppy-product="oORWBGB"
         >PP</button>
+        <Test/>
         <Services />
         <Footer />
       </div>

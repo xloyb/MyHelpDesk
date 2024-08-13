@@ -29,10 +29,6 @@ export const fetchSettings = async (): Promise<Settings | null> => {
   }
 };
 
-
-
-
-
 export const addComment = async (
   ticketId: number,
   userId: string,
@@ -55,8 +51,6 @@ export const addComment = async (
 
 
 export const createTicket = async (formData: FormData) => {
-
-
   const title = formData.get("title") as string;
   const content = formData.get("content") as string;
 
