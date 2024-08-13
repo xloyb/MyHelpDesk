@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import CheckCountry from "@/components/CheckCountry";
 import Footer from "@/components/Footer";
 import IndexNav from "@/components/index/IndexNav";
 import Services from "@/components/index/Services";
@@ -32,8 +33,9 @@ const Store = () => {
           }}
           data-shoppy-product="oORWBGB"
         >PP</button>
-        <Test/>
-        <Services />
+        <CheckCountry/>
+        {/* <Test/>
+        <Services /> */}
         <Footer />
       </div>
     </div>
