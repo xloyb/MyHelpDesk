@@ -135,12 +135,12 @@ model Service {
   category        Category @relation(fields: [categoryId], references: [id])
 }
 
-model Country {
-  id       Int    @id @default(autoincrement())
-  name     String
-  enabled  Int    @default(0) 
-
-  @@map("countries")
+model country {
+  id        Int    @id @default(autoincrement())
+  name      String
+  shortname  String @unique
+  enabled   Boolean @default(false)
 }
+
 
 
