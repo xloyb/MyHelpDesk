@@ -47,9 +47,9 @@ const AdminCPRoles = () => {
             {isAdminMember ? (
               <>
               {/* <AuthorizedCountries/> */}
-              <CountryTable/>
               <ManageCategories/>
-                <Services />
+              <Services />
+              <CountryTable/>
               </>
             ) : (
               <p>You do not have access to this section.</p>
