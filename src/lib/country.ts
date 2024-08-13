@@ -41,3 +41,21 @@ export async function updateCountry(id: number, enabled: boolean) {
     data: { enabled },
   });
 }
+
+
+export async function isCountryEnabled(shortname: string): Promise<boolean> {
+  try {
+    const country = await prisma.country.findUnique({
+      where: { shortname },
+    });
+
+    if (!country) {
+      throw new Error('Country not found');
+    }
+
+    return country.enabled;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Internal Server Error');
+  }
+}
