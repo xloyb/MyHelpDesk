@@ -1950,6 +1950,7 @@ const Store = () => {
           <p className="text-lg font-bold">${service.price}</p>
           <p className="text-sm text-gray-500">Category: {service.categoryId}</p>
           <p className="text-sm text-gray-500">Amount: {service.amount}</p>
+          <p className="text-sm text-gray-500">Amount: {service.ShoppyCode}</p>
           <p className="text-sm text-gray-500">{service.buyOrSellType === 'buy' ? 'Buying' : 'Selling'}</p>
           <div className="card-actions justify-end">
             <button className="btn btn-primary" onClick={() => openEditModal(service)}>Edit</button>
