@@ -25,13 +25,15 @@ interface Service {
 async function fetchCountry() {
   const response = await fetch('/api/getCountry');
   const data = await response.json();
-
+  console.log("Get Country Logged Data:",data)
   return data.country_code;
 }
 
 async function checkCountryEnabled(countryCode: string) {
   const response = await fetch(`/api/countries/checkcountrystatus?country_code=${countryCode}`);
   const data = await response.json();
+  console.log("checkcountrystatus Logged Data:",data)
+
   return data.isEnabled;
 }
 
