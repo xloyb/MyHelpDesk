@@ -99,6 +99,7 @@ import { fetchUserTickets } from '@/lib/data';
 import { Ticket } from '@prisma/client';
 import Link from 'next/link';
 import ShowMoreTicketsList from './SideBarTickets';
+import ExchangeModal from './WebSocketChat/ExchangeModal';
 
 interface settings {
   sitename: string ;
@@ -157,6 +158,7 @@ const Sidebar = () => {
             </li>
             {/* Sidebar content here */}
             <ShowMoreTicketsList tickets={tickets} />
+            <ExchangeModal/>
             <TicketModal />
           </ul>
         </div>
