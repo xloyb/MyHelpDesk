@@ -103,6 +103,9 @@ interface Service {
   description: string;
   price: number;
   amount: number;
+  buyOrSellType:  String
+  ShoppyCode: String
+  ShoppyCodeNoCrypto: String
 }
 
 function ServiceTabs() {
@@ -138,8 +141,12 @@ function ServiceTabs() {
         </figure>
         <div className="card-body">
           <h2 className="card-title">{service.title}</h2>
-          <p>{service.description}</p>
+          <p>{service.buyOrSellType}</p>
+          <p>{service.ShoppyCode}</p>
+          <p>{service.ShoppyCodeNoCrypto}</p>
+
           <div className="card-actions justify-end">
+            
             <p className="text-lg font-bold leading-10">${service.price.toFixed(2)}</p>
             <Link href={`/c/`}>
               <button className="btn btn-primary">Order</button>
