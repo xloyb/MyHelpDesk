@@ -1603,6 +1603,7 @@ interface Service {
   amount: number;
   buyOrSellType: 'buy' | 'sell';
   ShoppyCode: string;
+  ShoppyCodeNoCrypto: string;
 }
 
 // Define the interface for a Category
@@ -1628,6 +1629,7 @@ const Store = () => {
     amount: 0,
     buyOrSellType: 'buy',
     ShoppyCode: '',
+    ShoppyCodeNoCrypto: '',
   });
   const [services, setServices] = useState<Service[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -1715,7 +1717,7 @@ const Store = () => {
         amount: 0,
         buyOrSellType: 'buy',
         ShoppyCode:'',
-        
+        ShoppyCodeNoCrypto: '',
       });
       const response = await axios.get('/api/services');
       setServices(response.data);
@@ -1754,6 +1756,7 @@ const Store = () => {
           amount: 0,
           buyOrSellType: 'buy',
           ShoppyCode:'',
+          ShoppyCodeNoCrypto: '',
         });
   
         const response = await axios.get('/api/services');
@@ -1854,6 +1857,13 @@ const Store = () => {
             </label>
             <input type="text" name="ShoppyCode" value={formData.ShoppyCode} onChange={handleInputChange} required className="input input-bordered" />
           </div>
+
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Shoppy No Crypto Code</span>
+            </label>
+            <input type="text" name="ShoppyCodeNoCrypto" value={formData.ShoppyCodeNoCrypto} onChange={handleInputChange} required className="input input-bordered" />
+          </div>
           
           <div className="modal-action sm:col-span-2">
             <button type="submit" className="btn btn-primary">Save</button>
@@ -1928,6 +1938,13 @@ const Store = () => {
             <input type="text" name="ShoppyCode" value={formData.ShoppyCode} onChange={handleInputChange} required className="input input-bordered" />
           </div>
 
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Shoppy No Crypto Code</span>
+            </label>
+            <input type="text" name="ShoppyCodeNoCrypto" value={formData.ShoppyCodeNoCrypto} onChange={handleInputChange} required className="input input-bordered" />
+          </div>
+
 
           <div className="modal-action sm:col-span-2">
             <button type="submit" className="btn btn-primary">Save</button>
@@ -1951,6 +1968,7 @@ const Store = () => {
           <p className="text-sm text-gray-500">Category: {service.categoryId}</p>
           <p className="text-sm text-gray-500">Amount: {service.amount}</p>
           <p className="text-sm text-gray-500">ShoppyCode: {service.ShoppyCode}</p>
+          <p className="text-sm text-gray-500">Shoppy No Crypto Code: {service.ShoppyCodeNoCrypto}</p>
           <p className="text-sm text-gray-500">{service.buyOrSellType === 'buy' ? 'Buying' : 'Selling'}</p>
           <div className="card-actions justify-end">
             <button className="btn btn-primary" onClick={() => openEditModal(service)}>Edit</button>
