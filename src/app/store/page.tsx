@@ -8,7 +8,6 @@ import Script from "next/script";
 const Store = () => {
   return (
     <div className="h-screen" suppressHydrationWarning>
-      <Script src="https://shoppy.gg/api/embed.js" strategy="lazyOnload" />
       <div className="bg-base-200">
         <IndexNav />
         <ServiceTabsWithCountryCheck />
