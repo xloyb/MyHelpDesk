@@ -13,6 +13,27 @@ export const getAllTickets = async () => {
   });
 };
 
+
+export const getTicketById = async (id: number) => {
+  try {
+    const ticket = await prisma.ticket.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        users: true, 
+        comments: true, 
+      },
+    });
+
+    return ticket;
+  } catch (error) {
+    console.error('Error fetching ticket by ID:', error);
+    throw new Error('Failed to fetch ticket by ID');
+  }
+};
+
+
 // Update ticket status
 export const updateTicketStatus = async (ticketId: number, status: string) => {
   return prisma.ticket.update({
