@@ -50,6 +50,79 @@ export const addComment = async (
 };
 
 
+export const createExchange = async (formData: FormData) => {
+  const { userId } = auth();
+  if (!userId) {
+    throw new Error("User is not authenticated!");
+  }
+
+  const user = await fetchUserById(userId);
+  if (!user) throw new Error("User not found!");
+
+  // Generate a secure token
+  const token = crypto.randomBytes(32).toString("hex");
+
+  // Extract data from FormData
+  const payment = formData.get('payment') as string;
+  const desiredExchange = formData.get('desiredExchange') as string;
+  const walletAddress = formData.get('walletAddress') as string;
+  const amount = parseFloat(formData.get('amount') as string);
+  const cardId = formData.get('cardId') as string;
+  const paypalEmail = formData.get('paypalEmail') as string;
+  const payoneerEmail = formData.get('payoneerEmail') as string;
+  const skrillEmail = formData.get('skrillEmail') as string;
+  const type = formData.get('type') as string;
+  const title = 'Exchange: ' + payment + ' to ' + desiredExchange as string;
+  const status = 'open' as string;
+
+
+
+  try {
+    // Create a new exchange record
+    const newExchange = await prisma.ticket.create({
+      data: {
+        title,
+        token,
+        status,
+        payment,
+        desiredExchange,
+        walletAddress,
+        amount,
+        cardId,
+        paypalEmail,
+        payoneerEmail,
+        skrillEmail,
+        type,
+        users: {
+          create: {
+            userId,
+          },
+        },
+      },
+    });
+
+    const author = user.name;
+    if (!author) {
+      throw new Error("User name is not available!");
+    }
+
+    const settings = await fetchSettings();
+    const discordLogsEnabled = settings?.discordLogs === true;
+    if (discordLogsEnabled) {
+      // await sendTicketNotification({ author, title: 'Exchange Created', ticketLink: token });
+    } else {
+      console.log("Discord logs are disabled in settings");
+    }
+
+    console.log("Exchange created successfully:", newExchange);
+    return newExchange.token;
+  } catch (err) {
+    console.error("Error creating exchange:", err);
+    throw err; // Rethrow the error to be handled by the calling code
+  }
+};
+
+
 export const createTicket = async (formData: FormData) => {
   const title = formData.get("title") as string;
   const content = formData.get("content") as string;
