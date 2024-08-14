@@ -74,6 +74,7 @@ function ServiceTabsWithCountryCheck() {
     fetchData();
   }, []);
 
+
   const renderServicesForCategory = (categoryId: number) => {
     return services
       .filter((service) => service.categoryId === categoryId)
@@ -101,13 +102,18 @@ function ServiceTabsWithCountryCheck() {
           <div className="card-body">
             <h2 className="card-title">{service.title}</h2>
             <p>{service.buyOrSellType}</p>
-            {/* <p>
+            <p>
+            {countryStatus === null || countryStatus === undefined
+              ? <span>ShoppyCode :</span>
+              : countryStatus
+              ? <span>ShoppyCode :</span>
+              : <span>ShoppyCodeNoCrypto: </span>}
             {countryStatus === null || countryStatus === undefined
               ? service.ShoppyCode
               : countryStatus
               ? service.ShoppyCode
               : service.ShoppyCodeNoCrypto}
-          </p> */}
+          </p>
 
             <div className="card-actions justify-end">
               <p className="text-lg font-bold leading-10">
