@@ -48,14 +48,16 @@ INSERT INTO Service (
   price,
   categoryId,
   amount,
-  buyOrSellType
+  buyOrSellType,
+  ShoppyCode,
+  ShoppyCodeNoCrypto
 ) VALUES 
-  ('1723499148818phone.svg', 'Service 1', 'Description of Service 1', 10.99, 1, 50, 'buy'),
-  ('1723499148818phone.svg', 'Service 2', 'Description of Service 2', 20.99, 1, 30, 'sell'),
-  ('1723499148818phone.svg', 'Example Service 1', 'Example Description 1', 12.00, 1, 40, 'buy'),
-  ('1723499148818phone.svg', 'Example Service 2', 'Example Description 2', 15.00, 1, 25, 'sell'),
-  ('1723499148818phone.svg', 'Example Service 3', 'Example Description 3', 18.00, 1, 35, 'buy'),
-  ('1723499148818phone.svg', 'Example Service 4', 'Example Description 4', 22.00, 1, 20, 'sell');
+  ('1723499148818phone.svg', 'Service 1', 'Description of Service 1', 10.99, 1, 50, 'sell', '2Dh6TwY', 'oORWBGB'),
+  ('1723499148818phone.svg', 'Service 2', 'Description of Service 2', 20.99, 1, 30, 'sell', '2Dh6TwY', 'oORWBGB'),
+  ('1723499148818phone.svg', 'Example Service 1', 'Example Description 1', 12.00, 1, 40, 'sell', '2Dh6TwY', 'oORWBGB'),
+  ('1723499148818phone.svg', 'Example Service 2', 'Example Description 2', 15.00, 1, 25, 'sell', '2Dh6TwY', 'oORWBGB'),
+  ('1723499148818phone.svg', 'Example Service 3', 'Example Description 3', 18.00, 1, 35, 'sell', '2Dh6TwY', 'oORWBGB'),
+  ('1723499148818phone.svg', 'Example Service 4', 'Example Description 4', 22.00, 1, 20, 'sell', '2Dh6TwY', 'oORWBGB');
 
 INSERT INTO country (name, shortname, enabled) VALUES
 ('Afghanistan', 'AF', 1),
