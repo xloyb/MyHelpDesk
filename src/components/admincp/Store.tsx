@@ -96,7 +96,7 @@
 // // //       console.error('Error creating service:', error);
 // // //     }
 // // //   };
-  
+
 
 // // //   const handleEditService = async (e: React.FormEvent) => {
 // // //     e.preventDefault();
@@ -125,7 +125,7 @@
 // // //       }
 // // //     }
 // // //   };
-  
+
 
 // // //   const openEditModal = (service: Service) => {
 // // //     setSelectedService(service);
@@ -143,7 +143,7 @@
 // // //       console.error('Error deleting service:', error);
 // // //     }
 // // //   };
-  
+
 
 // // //   return (
 // // // <div className="bg-base-100 card mx-6 mt-5 md:pt-4 px-6">
@@ -414,7 +414,7 @@
 // //       console.error('Error creating service:', error);
 // //     }
 // //   };
-  
+
 
 // //   const handleEditService = async (e: React.FormEvent) => {
 // //     e.preventDefault();
@@ -443,7 +443,7 @@
 // //       }
 // //     }
 // //   };
-  
+
 
 // //   const openEditModal = (service: Service) => {
 // //     setSelectedService(service);
@@ -461,7 +461,7 @@
 // //       console.error('Error deleting service:', error);
 // //     }
 // //   };
-  
+
 
 // //   return (
 // // <div className="bg-base-100 card mx-6 mt-5 md:pt-4 px-6">
@@ -731,7 +731,7 @@
 // //       console.error('Error creating service:', error);
 // //     }
 // //   };
-  
+
 
 // //   const handleEditService = async (e: React.FormEvent) => {
 // //     e.preventDefault();
@@ -760,7 +760,7 @@
 // //       }
 // //     }
 // //   };
-  
+
 
 // //   const openEditModal = (service: Service) => {
 // //     setSelectedService(service);
@@ -778,7 +778,7 @@
 // //       console.error('Error deleting service:', error);
 // //     }
 // //   };
-  
+
 
 // //   return (
 // // <div className="bg-base-100 card mx-6 mt-5 md:pt-4 px-6">
@@ -1049,7 +1049,7 @@
 //       console.error('Error creating service:', error);
 //     }
 //   };
-  
+
 
 //   const handleEditService = async (e: React.FormEvent) => {
 //     e.preventDefault();
@@ -1078,7 +1078,7 @@
 //       }
 //     }
 //   };
-  
+
 
 //   const openEditModal = (service: Service) => {
 //     setSelectedService(service);
@@ -1096,7 +1096,7 @@
 //       console.error('Error deleting service:', error);
 //     }
 //   };
-  
+
 
 //   return (
 // <div className="bg-base-100 card mx-6 mt-5 md:pt-4 px-6">
@@ -1367,7 +1367,7 @@
 //       console.error('Error creating service:', error);
 //     }
 //   };
-  
+
 
 //   const handleEditService = async (e: React.FormEvent) => {
 //     e.preventDefault();
@@ -1396,7 +1396,7 @@
 //       }
 //     }
 //   };
-  
+
 
 //   const openEditModal = (service: Service) => {
 //     setSelectedService(service);
@@ -1414,7 +1414,7 @@
 //       console.error('Error deleting service:', error);
 //     }
 //   };
-  
+
 
 //   return (
 // <div className="bg-base-100 card mx-6 mt-5 md:pt-4 px-6">
@@ -1587,6 +1587,415 @@
 
 
 
+// /* eslint-disable @next/next/no-img-element */
+
+// import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+
+// // Define the interface for a Service
+// interface Service {
+//   id?: number;
+//   image: string;
+//   title: string;
+//   description: string;
+//   price: number;
+//   categoryId: number;
+//   amount: number;
+//   buyOrSellType: 'buy' | 'sell';
+//   ShoppyCode: string;
+//   ShoppyCodeNoCrypto: string;
+// }
+
+// // Define the interface for a Category
+// interface Category {
+//   id: number;
+//   name: string;
+// }
+
+// const Store = () => {
+//   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
+//   const [isEditModalOpen, setEditModalOpen] = useState(false);
+//   const [selectedService, setSelectedService] = useState<Service | null>(null);
+//   const [imageFile, setImageFile] = useState<File | null>(null);
+//   const [imageFileName, setImageFileName] = useState<string | undefined>(undefined);
+
+
+//   const [formData, setFormData] = useState<Service>({
+//     image: '',
+//     title: '',
+//     description: '',
+//     price: 0,
+//     categoryId: 0,
+//     amount: 0,
+//     buyOrSellType: 'buy',
+//     ShoppyCode: '',
+//     ShoppyCodeNoCrypto: '',
+//   });
+//   const [services, setServices] = useState<Service[]>([]);
+//   const [categories, setCategories] = useState<Category[]>([]);
+
+//   useEffect(() => {
+//     axios.get('/api/services')
+//       .then(response => setServices(response.data))
+//       .catch(error => console.error('Error fetching services:', error));
+
+//     axios.get('/api/categories')
+//       .then(response => setCategories(response.data))
+//       .catch(error => console.error('Error fetching categories:', error));
+//   }, []);
+
+//   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+//     const { name, value } = e.target;
+//     setFormData(prevState => ({
+//       ...prevState,
+//       [name]: value,
+//     }));
+//   };
+
+
+//   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     const file = e.target.files?.[0];
+//     if (file) {
+//       setImageFile(file);
+//       setFormData(prevState => ({
+//         ...prevState,
+//         image: file.name,
+//       }));
+//     }
+//   };
+
+//   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+//     const { name, value } = e.target;
+//     setFormData(prevState => ({
+//       ...prevState,
+//       [name]: value as any,  
+//     }));
+//   };
+
+//   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+//     const { value } = e.target;
+//     setFormData(prevState => ({
+//       ...prevState,
+//       categoryId: parseInt(value, 10),
+//     }));
+//   };
+
+//   const uploadImage = async (file: File) => {
+//     const formData = new FormData();
+//     formData.append('file', file);
+//     console.log('Uploading file:', file.name); 
+//     const response = await axios.post('/api/upload', formData, {
+//       headers: {
+//         'Content-Type': 'multipart/form-data',
+//       },
+//     });
+//     console.log('Upload response:', response.data); 
+//     console.log('File name:', response.data.filename)
+//     return response.data.filename; 
+//   };
+
+
+//   const handleCreateService = async (e: React.FormEvent) => {
+//     e.preventDefault();
+//     try {
+//       let imageFileName = formData.image;
+//       if (imageFile) {
+//         imageFileName = await uploadImage(imageFile);
+//       }
+//       await axios.post('/api/services', {
+//         ...formData,
+//         image: imageFileName,
+//         price: parseFloat(formData.price.toString())
+//       });
+//       setCreateModalOpen(false);
+//       setFormData({
+//         image: '',
+//         title: '',
+//         description: '',
+//         price: 0,
+//         categoryId: 0,
+//         amount: 0,
+//         buyOrSellType: 'buy',
+//         ShoppyCode:'',
+//         ShoppyCodeNoCrypto: '',
+//       });
+//       const response = await axios.get('/api/services');
+//       setServices(response.data);
+//     } catch (error) {
+//       console.error('Error creating service:', error);
+//     }
+//   };
+
+//   const handleEditService = async (e: React.FormEvent) => {
+//     e.preventDefault();
+//     if (selectedService) {
+//       try {
+//         let imageFileName = selectedService.image;
+//         if (imageFile) {
+//           imageFileName = await uploadImage(imageFile);
+//           console.log('New image file name:', imageFileName);
+//         }
+
+//         const updatedService = {
+//           ...formData,
+//           image: imageFileName,
+//         };
+
+//         console.log('Updating service with data:', updatedService);
+
+//         await axios.put(`/api/services/${selectedService.id}`, updatedService);
+
+//         setEditModalOpen(false);
+//         setSelectedService(null);
+//         setFormData({
+//           image: '',
+//           title: '',
+//           description: '',
+//           price: 0,
+//           categoryId: 0,
+//           amount: 0,
+//           buyOrSellType: 'buy',
+//           ShoppyCode:'',
+//           ShoppyCodeNoCrypto: '',
+//         });
+
+//         const response = await axios.get('/api/services');
+//         setServices(response.data);
+//       } catch (error) {
+//         console.error('Error updating service:', error);
+//       }
+//     }
+//   };
+
+
+
+//   const openEditModal = (service: Service) => {
+//     setSelectedService(service);
+//     setFormData(service);
+//     setEditModalOpen(true);
+//   };
+
+//   const handleDeleteService = async (id: number) => {
+//     try {
+//       await axios.delete(`/api/services/${id}`);
+//       const response = await axios.get('/api/services');
+//       setServices(response.data);
+//     } catch (error) {
+//       console.error('Error deleting service:', error);
+//     }
+//   };
+
+
+//   return (
+// <div className="bg-base-100 card mx-6 mt-5 md:pt-4 px-6">
+//     <div className="text-xl font-semibold inline-block">Manage Store </div>
+//     <div className='stat-desc text-xs'></div>
+//     <div className="divider mt-2"></div>
+//   <button className="btn btn-primary" onClick={() => setCreateModalOpen(true)}>
+//     Create New Service
+//   </button>
+
+//   {/* Create Service Modal */}
+//   {isCreateModalOpen && (
+//     <dialog open className="modal modal-bottom sm:modal-middle">
+//       <div className="modal-box">
+//         <h3 className="font-bold text-lg">Create New Service</h3>
+//         <form onSubmit={handleCreateService} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+//           <div className="form-control">
+//           <label className="label">
+//     <span className="label-text">Image Upload</span>
+//   </label>
+//   <input type="file" onChange={handleFileChange} className="input input-bordered" />          </div>
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Title</span>
+//             </label>
+//             <input type="text" name="title" value={formData.title} onChange={handleInputChange} required className="input input-bordered" />
+//           </div>
+//           <div className="form-control sm:col-span-2">
+//             <label className="label">
+//               <span className="label-text">Description</span>
+//             </label>
+//             <textarea name="description" value={formData.description} onChange={handleInputChange} required className="textarea textarea-bordered"></textarea>
+//           </div>
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Price</span>
+//             </label>
+//             <input type="number" name="price" value={formData.price} onChange={handleInputChange} required step="0.01" className="input input-bordered" />
+//           </div>
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Category</span>
+//             </label>
+//             <select name="categoryId" value={formData.categoryId} onChange={handleCategoryChange} required className="select select-bordered">
+//               <option value="">Select a category</option>
+//               {categories.map(category => (
+//                 <option key={category.id} value={category.id}>{category.name}</option>
+//               ))}
+//             </select>
+//           </div>
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Amount</span>
+//             </label>
+//             <input type="number" name="amount" value={formData.amount} onChange={handleInputChange} required className="input input-bordered" />
+//           </div>
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Buy or Sell</span>
+//             </label>
+//             {/* <select name="buyOrSellType" value={formData.buyOrSellType} onChange={handleSelectChange} required className="select select-bordered">
+//               <option value="buy">Buy</option>
+//               <option value="sell">Sell</option>
+//             </select> */}
+//             <select name="buyOrSellType" value={formData.buyOrSellType} onChange={handleSelectChange} required className="select select-bordered">
+//               <option value="buy">Buy</option>
+//               <option value="sell">Sell</option>
+//               <option value="buy-sell">Buy and Sell</option>
+
+//             </select>
+
+
+//           </div>
+
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Shoppy Code</span>
+//             </label>
+//             <input type="text" name="ShoppyCode" value={formData.ShoppyCode} onChange={handleInputChange} required className="input input-bordered" />
+//           </div>
+
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Shoppy No Crypto Code</span>
+//             </label>
+//             <input type="text" name="ShoppyCodeNoCrypto" value={formData.ShoppyCodeNoCrypto} onChange={handleInputChange} required className="input input-bordered" />
+//           </div>
+
+//           <div className="modal-action sm:col-span-2">
+//             <button type="submit" className="btn btn-primary">Save</button>
+//             <button type="button" className="btn btn-secondary" onClick={() => setCreateModalOpen(false)}>Cancel</button>
+//           </div>
+//         </form>
+//       </div>
+//     </dialog>
+//   )}
+
+//   {/* Edit Service Modal */}
+//   {isEditModalOpen && (
+//     <dialog open className="modal modal-bottom sm:modal-middle">
+//       <div className="modal-box">
+//         <h3 className="font-bold text-lg">Edit Service</h3>
+//         <form onSubmit={handleEditService} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+//           {/* Same structure as the Create Service Modal */}
+//           <div className="form-control">
+//           <label className="label">
+//     <span className="label-text">Image Upload</span>
+//   </label>
+//   <input type="file" onChange={handleFileChange} className="input input-bordered" />        </div>
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Title</span>
+//             </label>
+//             <input type="text" name="title" value={formData.title} onChange={handleInputChange} required className="input input-bordered" />
+//           </div>
+//           <div className="form-control sm:col-span-2">
+//             <label className="label">
+//               <span className="label-text">Description</span>
+//             </label>
+//             <textarea name="description" value={formData.description} onChange={handleInputChange} required className="textarea textarea-bordered"></textarea>
+//           </div>
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Price</span>
+//             </label>
+//             <input type="number" name="price" value={formData.price} onChange={handleInputChange} required step="0.01" className="input input-bordered" />
+//           </div>
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Category</span>
+//             </label>
+//             <select name="categoryId" value={formData.categoryId} onChange={handleCategoryChange} required className="select select-bordered">
+//               <option value="">Select a category</option>
+//               {categories.map(category => (
+//                 <option key={category.id} value={category.id}>{category.name}</option>
+//               ))}
+//             </select>
+//           </div>
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Amount</span>
+//             </label>
+//             <input type="number" name="amount" value={formData.amount} onChange={handleInputChange} required className="input input-bordered" />
+//           </div>
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Buy or Sell</span>
+//             </label>
+//             <select name="buyOrSellType" value={formData.buyOrSellType} onChange={handleSelectChange} required className="select select-bordered">
+//               <option value="buy">Buy</option>
+//               <option value="sell">Sell</option>
+//             </select>
+//           </div>
+
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Shoppy Code</span>
+//             </label>
+//             <input type="text" name="ShoppyCode" value={formData.ShoppyCode} onChange={handleInputChange} required className="input input-bordered" />
+//           </div>
+
+//           <div className="form-control">
+//             <label className="label">
+//               <span className="label-text">Shoppy No Crypto Code</span>
+//             </label>
+//             <input type="text" name="ShoppyCodeNoCrypto" value={formData.ShoppyCodeNoCrypto} onChange={handleInputChange} required className="input input-bordered" />
+//           </div>
+
+
+//           <div className="modal-action sm:col-span-2">
+//             <button type="submit" className="btn btn-primary">Save</button>
+//             <button type="button" className="btn btn-secondary" onClick={() => setEditModalOpen(false)}>Cancel</button>
+//           </div>
+//         </form>
+//       </div>
+//     </dialog>
+//   )}
+
+//   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-6">
+//     {services.map(service => (
+//       <div key={service.id} className="card bg-base-100 shadow-xl">
+//         <figure>
+//           <img src={`/uploads/${service.image}`} alt={service.title} className="w-full h-48 object-cover" />
+//         </figure>
+//         <div className="card-body">
+//           <h2 className="card-title">{service.title}</h2>
+//           <p>{service.description}</p>
+//           <p className="text-lg font-bold">${service.price}</p>
+//           <p className="text-sm text-gray-500">Category: {service.categoryId}</p>
+//           <p className="text-sm text-gray-500">Amount: {service.amount}</p>
+//           <p className="text-sm text-gray-500">ShoppyCode: {service.ShoppyCode}</p>
+//           <p className="text-sm text-gray-500">Shoppy No Crypto Code: {service.ShoppyCodeNoCrypto}</p>
+//           <p className="text-sm text-gray-500">{service.buyOrSellType === 'buy' ? 'Buying' : 'Selling'}</p>
+//           <div className="card-actions justify-end">
+//             <button className="btn btn-primary" onClick={() => openEditModal(service)}>Edit</button>
+//             <button className="btn btn-error" onClick={() => handleDeleteService(service.id!)}>Delete</button>
+//           </div>
+//         </div>
+//       </div>
+//     ))}
+//   </div>
+// </div>
+
+//   );
+// };
+
+// export default Store;
+
+
+
+
 /* eslint-disable @next/next/no-img-element */
 
 import React, { useState, useEffect } from 'react';
@@ -1601,7 +2010,7 @@ interface Service {
   price: number;
   categoryId: number;
   amount: number;
-  buyOrSellType: 'buy' | 'sell';
+  buyOrSellType: string;
   ShoppyCode: string;
   ShoppyCodeNoCrypto: string;
 }
@@ -1627,7 +2036,7 @@ const Store = () => {
     price: 0,
     categoryId: 0,
     amount: 0,
-    buyOrSellType: 'buy',
+    buyOrSellType: '',
     ShoppyCode: '',
     ShoppyCodeNoCrypto: '',
   });
@@ -1664,12 +2073,29 @@ const Store = () => {
     }
   };
 
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value as any,  
-    }));
+  // const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   const { name, value } = e.target;
+  //   setFormData(prevState => ({
+  //     ...prevState,
+  //     [name]: value as any,  
+  //   }));
+  // };
+
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+    const { name, value, type } = e.target;
+
+    if (type === 'select-one') {
+      setFormData(prevState => ({
+        ...prevState,
+        [name]: value as any,
+      }));
+    } else if (type === 'radio') {
+      setFormData(prevState => ({
+        ...prevState,
+        [name]: value as any,
+      }));
+    }
   };
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -1683,18 +2109,18 @@ const Store = () => {
   const uploadImage = async (file: File) => {
     const formData = new FormData();
     formData.append('file', file);
-    console.log('Uploading file:', file.name); 
+    console.log('Uploading file:', file.name);
     const response = await axios.post('/api/upload', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
-    console.log('Upload response:', response.data); 
+    console.log('Upload response:', response.data);
     console.log('File name:', response.data.filename)
-    return response.data.filename; 
+    return response.data.filename;
   };
-  
-  
+
+
   const handleCreateService = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -1715,8 +2141,8 @@ const Store = () => {
         price: 0,
         categoryId: 0,
         amount: 0,
-        buyOrSellType: 'buy',
-        ShoppyCode:'',
+        buyOrSellType: '',
+        ShoppyCode: '',
         ShoppyCodeNoCrypto: '',
       });
       const response = await axios.get('/api/services');
@@ -1725,7 +2151,7 @@ const Store = () => {
       console.error('Error creating service:', error);
     }
   };
-  
+
   const handleEditService = async (e: React.FormEvent) => {
     e.preventDefault();
     if (selectedService) {
@@ -1735,16 +2161,16 @@ const Store = () => {
           imageFileName = await uploadImage(imageFile);
           console.log('New image file name:', imageFileName);
         }
-  
+
         const updatedService = {
           ...formData,
           image: imageFileName,
         };
-  
+
         console.log('Updating service with data:', updatedService);
-  
+
         await axios.put(`/api/services/${selectedService.id}`, updatedService);
-  
+
         setEditModalOpen(false);
         setSelectedService(null);
         setFormData({
@@ -1754,11 +2180,11 @@ const Store = () => {
           price: 0,
           categoryId: 0,
           amount: 0,
-          buyOrSellType: 'buy',
-          ShoppyCode:'',
+          buyOrSellType: '',
+          ShoppyCode: '',
           ShoppyCodeNoCrypto: '',
         });
-  
+
         const response = await axios.get('/api/services');
         setServices(response.data);
       } catch (error) {
@@ -1784,152 +2210,152 @@ const Store = () => {
       console.error('Error deleting service:', error);
     }
   };
-  
+
 
   return (
-<div className="bg-base-100 card mx-6 mt-5 md:pt-4 px-6">
-    <div className="text-xl font-semibold inline-block">Manage Store </div>
-    <div className='stat-desc text-xs'></div>
-    <div className="divider mt-2"></div>
-  <button className="btn btn-primary" onClick={() => setCreateModalOpen(true)}>
-    Create New Service
-  </button>
+    <div className="bg-base-100 card mx-6 mt-5 md:pt-4 px-6">
+      <div className="text-xl font-semibold inline-block">Manage Store </div>
+      <div className='stat-desc text-xs'></div>
+      <div className="divider mt-2"></div>
+      <button className="btn btn-primary" onClick={() => setCreateModalOpen(true)}>
+        Create New Service
+      </button>
 
-  {/* Create Service Modal */}
-  {isCreateModalOpen && (
-    <dialog open className="modal modal-bottom sm:modal-middle">
-      <div className="modal-box">
-        <h3 className="font-bold text-lg">Create New Service</h3>
-        <form onSubmit={handleCreateService} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="form-control">
-          <label className="label">
-    <span className="label-text">Image Upload</span>
-  </label>
-  <input type="file" onChange={handleFileChange} className="input input-bordered" />          </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Title</span>
-            </label>
-            <input type="text" name="title" value={formData.title} onChange={handleInputChange} required className="input input-bordered" />
-          </div>
-          <div className="form-control sm:col-span-2">
-            <label className="label">
-              <span className="label-text">Description</span>
-            </label>
-            <textarea name="description" value={formData.description} onChange={handleInputChange} required className="textarea textarea-bordered"></textarea>
-          </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Price</span>
-            </label>
-            <input type="number" name="price" value={formData.price} onChange={handleInputChange} required step="0.01" className="input input-bordered" />
-          </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Category</span>
-            </label>
-            <select name="categoryId" value={formData.categoryId} onChange={handleCategoryChange} required className="select select-bordered">
-              <option value="">Select a category</option>
-              {categories.map(category => (
-                <option key={category.id} value={category.id}>{category.name}</option>
-              ))}
-            </select>
-          </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Amount</span>
-            </label>
-            <input type="number" name="amount" value={formData.amount} onChange={handleInputChange} required className="input input-bordered" />
-          </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Buy or Sell</span>
-            </label>
-            {/* <select name="buyOrSellType" value={formData.buyOrSellType} onChange={handleSelectChange} required className="select select-bordered">
+      {/* Create Service Modal */}
+      {isCreateModalOpen && (
+        <dialog open className="modal modal-bottom sm:modal-middle">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg">Create New Service</h3>
+            <form onSubmit={handleCreateService} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Image Upload</span>
+                </label>
+                <input type="file" onChange={handleFileChange} className="input input-bordered" />          </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Title</span>
+                </label>
+                <input type="text" name="title" value={formData.title} onChange={handleInputChange} required className="input input-bordered" />
+              </div>
+              <div className="form-control sm:col-span-2">
+                <label className="label">
+                  <span className="label-text">Description</span>
+                </label>
+                <textarea name="description" value={formData.description} onChange={handleInputChange} required className="textarea textarea-bordered"></textarea>
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Price</span>
+                </label>
+                <input type="number" name="price" value={formData.price} onChange={handleInputChange} required step="0.01" className="input input-bordered" />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Category</span>
+                </label>
+                <select name="categoryId" value={formData.categoryId} onChange={handleCategoryChange} required className="select select-bordered">
+                  <option value="">Select a category</option>
+                  {categories.map(category => (
+                    <option key={category.id} value={category.id}>{category.name}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Amount</span>
+                </label>
+                <input type="number" name="amount" value={formData.amount} onChange={handleInputChange} required className="input input-bordered" />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Buy or Sell</span>
+                </label>
+                {/* <select name="buyOrSellType" value={formData.buyOrSellType} onChange={handleSelectChange} required className="select select-bordered">
               <option value="buy">Buy</option>
               <option value="sell">Sell</option>
             </select> */}
-            <select name="buyOrSellType" value={formData.buyOrSellType} onChange={handleSelectChange} required className="select select-bordered">
-              <option value="buy">Buy</option>
-              <option value="sell">Sell</option>
-              <option value="buy-sell">Buy and Sell</option>
+                <select name="buyOrSellType" value={formData.buyOrSellType} onChange={handleSelectChange} required className="select select-bordered">
+                  <option value="buy">Buy</option>
+                  <option value="sell">Sell</option>
+                  <option value="buy-sell">Buy and Sell</option>
 
-            </select>
+                </select>
 
 
-          </div>
-        
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Shoppy Code</span>
-            </label>
-            <input type="text" name="ShoppyCode" value={formData.ShoppyCode} onChange={handleInputChange} required className="input input-bordered" />
-          </div>
+              </div>
 
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Shoppy No Crypto Code</span>
-            </label>
-            <input type="text" name="ShoppyCodeNoCrypto" value={formData.ShoppyCodeNoCrypto} onChange={handleInputChange} required className="input input-bordered" />
-          </div>
-          
-          <div className="modal-action sm:col-span-2">
-            <button type="submit" className="btn btn-primary">Save</button>
-            <button type="button" className="btn btn-secondary" onClick={() => setCreateModalOpen(false)}>Cancel</button>
-          </div>
-        </form>
-      </div>
-    </dialog>
-  )}
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Shoppy Code</span>
+                </label>
+                <input type="text" name="ShoppyCode" value={formData.ShoppyCode} onChange={handleInputChange} required className="input input-bordered" />
+              </div>
 
-  {/* Edit Service Modal */}
-  {isEditModalOpen && (
-    <dialog open className="modal modal-bottom sm:modal-middle">
-      <div className="modal-box">
-        <h3 className="font-bold text-lg">Edit Service</h3>
-        <form onSubmit={handleEditService} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {/* Same structure as the Create Service Modal */}
-          <div className="form-control">
-          <label className="label">
-    <span className="label-text">Image Upload</span>
-  </label>
-  <input type="file" onChange={handleFileChange} className="input input-bordered" />        </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Title</span>
-            </label>
-            <input type="text" name="title" value={formData.title} onChange={handleInputChange} required className="input input-bordered" />
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Shoppy No Crypto Code</span>
+                </label>
+                <input type="text" name="ShoppyCodeNoCrypto" value={formData.ShoppyCodeNoCrypto} onChange={handleInputChange} required className="input input-bordered" />
+              </div>
+
+              <div className="modal-action sm:col-span-2">
+                <button type="submit" className="btn btn-primary">Save</button>
+                <button type="button" className="btn btn-secondary" onClick={() => setCreateModalOpen(false)}>Cancel</button>
+              </div>
+            </form>
           </div>
-          <div className="form-control sm:col-span-2">
-            <label className="label">
-              <span className="label-text">Description</span>
-            </label>
-            <textarea name="description" value={formData.description} onChange={handleInputChange} required className="textarea textarea-bordered"></textarea>
-          </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Price</span>
-            </label>
-            <input type="number" name="price" value={formData.price} onChange={handleInputChange} required step="0.01" className="input input-bordered" />
-          </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Category</span>
-            </label>
-            <select name="categoryId" value={formData.categoryId} onChange={handleCategoryChange} required className="select select-bordered">
-              <option value="">Select a category</option>
-              {categories.map(category => (
-                <option key={category.id} value={category.id}>{category.name}</option>
-              ))}
-            </select>
-          </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Amount</span>
-            </label>
-            <input type="number" name="amount" value={formData.amount} onChange={handleInputChange} required className="input input-bordered" />
-          </div>
-          <div className="form-control">
+        </dialog>
+      )}
+
+      {/* Edit Service Modal */}
+      {isEditModalOpen && (
+        <dialog open className="modal modal-bottom sm:modal-middle">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg">Edit Service</h3>
+            <form onSubmit={handleEditService} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Same structure as the Create Service Modal */}
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Image Upload</span>
+                </label>
+                <input type="file" onChange={handleFileChange} className="input input-bordered" />        </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Title</span>
+                </label>
+                <input type="text" name="title" value={formData.title} onChange={handleInputChange} required className="input input-bordered" />
+              </div>
+              <div className="form-control sm:col-span-2">
+                <label className="label">
+                  <span className="label-text">Description</span>
+                </label>
+                <textarea name="description" value={formData.description} onChange={handleInputChange} required className="textarea textarea-bordered"></textarea>
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Price</span>
+                </label>
+                <input type="number" name="price" value={formData.price} onChange={handleInputChange} required step="0.01" className="input input-bordered" />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Category</span>
+                </label>
+                <select name="categoryId" value={formData.categoryId} onChange={handleCategoryChange} required className="select select-bordered">
+                  <option value="">Select a category</option>
+                  {categories.map(category => (
+                    <option key={category.id} value={category.id}>{category.name}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Amount</span>
+                </label>
+                <input type="number" name="amount" value={formData.amount} onChange={handleInputChange} required className="input input-bordered" />
+              </div>
+              {/* <div className="form-control">
             <label className="label">
               <span className="label-text">Buy or Sell</span>
             </label>
@@ -1937,56 +2363,77 @@ const Store = () => {
               <option value="buy">Buy</option>
               <option value="sell">Sell</option>
             </select>
-          </div>
+          </div> */}
 
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Shoppy Code</span>
-            </label>
-            <input type="text" name="ShoppyCode" value={formData.ShoppyCode} onChange={handleInputChange} required className="input input-bordered" />
-          </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Buy or Sell</span>
+                </label>
+                <div className="flex flex-col gap-2">
+                  <label>
+                    <input type="radio" name="buyOrSellType" value="buy" checked={formData.buyOrSellType === 'buy'} onChange={handleSelectChange} className="radio" />
+                    <span className="ml-2">Buy</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="buyOrSellType" value="sell" checked={formData.buyOrSellType === 'sell'} onChange={handleSelectChange} className="radio" />
+                    <span className="ml-2">Sell</span>
+                  </label>
 
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Shoppy No Crypto Code</span>
-            </label>
-            <input type="text" name="ShoppyCodeNoCrypto" value={formData.ShoppyCodeNoCrypto} onChange={handleInputChange} required className="input input-bordered" />
-          </div>
+                  <label>
+                    <input type="radio" name="buyOrSellType" value="buy-sell" checked={formData.buyOrSellType === 'buy-sell'} onChange={handleSelectChange} className="radio" />
+                    <span className="ml-2">Buy and Sell</span>
+                  </label>
+                </div>
+              </div>
+
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Shoppy Code</span>
+                </label>
+                <input type="text" name="ShoppyCode" value={formData.ShoppyCode} onChange={handleInputChange} required className="input input-bordered" />
+              </div>
+
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Shoppy No Crypto Code</span>
+                </label>
+                <input type="text" name="ShoppyCodeNoCrypto" value={formData.ShoppyCodeNoCrypto} onChange={handleInputChange} required className="input input-bordered" />
+              </div>
 
 
-          <div className="modal-action sm:col-span-2">
-            <button type="submit" className="btn btn-primary">Save</button>
-            <button type="button" className="btn btn-secondary" onClick={() => setEditModalOpen(false)}>Cancel</button>
+              <div className="modal-action sm:col-span-2">
+                <button type="submit" className="btn btn-primary">Save</button>
+                <button type="button" className="btn btn-secondary" onClick={() => setEditModalOpen(false)}>Cancel</button>
+              </div>
+            </form>
           </div>
-        </form>
+        </dialog>
+      )}
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-6">
+        {services.map(service => (
+          <div key={service.id} className="card bg-base-100 shadow-xl">
+            <figure>
+              <img src={`/uploads/${service.image}`} alt={service.title} className="w-full h-48 object-cover" />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">{service.title}</h2>
+              <p>{service.description}</p>
+              <p className="text-lg font-bold">${service.price}</p>
+              <p className="text-sm text-gray-500">Category: {service.categoryId}</p>
+              <p className="text-sm text-gray-500">Amount: {service.amount}</p>
+              <p className="text-sm text-gray-500">ShoppyCode: {service.ShoppyCode}</p>
+              <p className="text-sm text-gray-500">Shoppy No Crypto Code: {service.ShoppyCodeNoCrypto}</p>
+              <p className="text-sm text-gray-500">{service.buyOrSellType === 'buy' ? 'Buying' : 'Selling'}</p>
+              <div className="card-actions justify-end">
+                <button className="btn btn-primary" onClick={() => openEditModal(service)}>Edit</button>
+                <button className="btn btn-error" onClick={() => handleDeleteService(service.id!)}>Delete</button>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
-    </dialog>
-  )}
-
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-6">
-    {services.map(service => (
-      <div key={service.id} className="card bg-base-100 shadow-xl">
-        <figure>
-          <img src={`/uploads/${service.image}`} alt={service.title} className="w-full h-48 object-cover" />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">{service.title}</h2>
-          <p>{service.description}</p>
-          <p className="text-lg font-bold">${service.price}</p>
-          <p className="text-sm text-gray-500">Category: {service.categoryId}</p>
-          <p className="text-sm text-gray-500">Amount: {service.amount}</p>
-          <p className="text-sm text-gray-500">ShoppyCode: {service.ShoppyCode}</p>
-          <p className="text-sm text-gray-500">Shoppy No Crypto Code: {service.ShoppyCodeNoCrypto}</p>
-          <p className="text-sm text-gray-500">{service.buyOrSellType === 'buy' ? 'Buying' : 'Selling'}</p>
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary" onClick={() => openEditModal(service)}>Edit</button>
-            <button className="btn btn-error" onClick={() => handleDeleteService(service.id!)}>Delete</button>
-          </div>
-        </div>
-      </div>
-    ))}
-  </div>
-</div>
+    </div>
 
   );
 };
