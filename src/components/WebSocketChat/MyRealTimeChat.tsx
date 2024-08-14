@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // import React, { useEffect, useState } from 'react';
 // import axios from 'axios';
 // import { useAuth } from '@clerk/nextjs';
@@ -2622,6 +2623,7 @@ import ChatActionButtons from './ChatActionsButtons';
 import { isTeam } from '@/lib/user';
 import { BsSendFill } from "react-icons/bs";
 import TransactionDetails from './TransactionDetails';
+import { isExchange } from '@/lib/actions';
 
 interface User {
   id: string;
@@ -2655,6 +2657,10 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
   const [showClosedModal, setShowClosedModal] = useState(false);
   const [showBannedModal, setshowBannedModal] = useState(false);
   const [Team, setTeam] = useState(false);
+  const [Exchange, setExchange] = useState(false);
+
+  
+
 
   const bottomRef = useRef<HTMLDivElement>(null);
   const ws = useRef<WebSocket | null>(null);
@@ -2663,7 +2669,6 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
     try {
       const response = await axios.get(`/api/comments?ticketId=${ticketId}`);
       setComments(response.data);
-
       const ticketClosed = await isClosed(token);
       setIsTicketClosed(ticketClosed);
 
@@ -2679,9 +2684,24 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
     }
   }, [ticketId, token, userId]);
 
+
+  const isexchange = useCallback(async () => {
+    try {
+      const ex = await isExchange(ticketId)
+      console.log("hassen",ex)
+      setExchange(ex)
+      console.log(Exchange)
+
+    } catch (error) {
+      console.error('Error in checking ticket type:', error);
+    }
+  }, [ticketId,]);
+
   useEffect(() => {
     fetchComments();
-console.log("teteteteteet",NEXT_PUBLIC_WEBSOCKETDOMAIN)
+    isexchange();
+    console.log("ticket type",Exchange);
+    console.log("teteteteteet",NEXT_PUBLIC_WEBSOCKETDOMAIN)
     if (typeof window !== 'undefined') {
       const connectWebSocket = () => {
         ws.current = new WebSocket(`${NEXT_PUBLIC_WEBSOCKETDOMAIN}`);
@@ -2729,7 +2749,7 @@ console.log("teteteteteet",NEXT_PUBLIC_WEBSOCKETDOMAIN)
         ws.current?.close();
       };
     }
-  }, [ticketId, userId, token, fetchComments]);
+  }, [ticketId, userId, token, fetchComments,isexchange]);
 
   useEffect(() => {
     if (bottomRef.current) {
