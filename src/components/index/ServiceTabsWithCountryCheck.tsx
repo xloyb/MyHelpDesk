@@ -145,7 +145,7 @@ function ServiceTabsWithCountryCheck() {
 
   return (
     <div className="mt-4">
-        <Script src="https://shoppy.gg/api/embed.js" strategy="lazyOnload" />
+        <Script src="https://shoppy.gg/api/embed.js"/>
       <div className="tabs tabs-lifted px-6 mx-6">
         {categories.map((category) => (
           <a
