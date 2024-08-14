@@ -133,6 +133,7 @@ model Service {
   amount          Int
   buyOrSellType   String
   ShoppyCode String
+  ShoppyCodeNoCrypto String
   category        Category @relation(fields: [categoryId], references: [id])
 }
 
