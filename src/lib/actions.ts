@@ -78,7 +78,6 @@ export const createExchange = async (formData: FormData) => {
 
 
   try {
-    // Create a new exchange record
     const newExchange = await prisma.ticket.create({
       data: {
         title,
@@ -109,7 +108,7 @@ export const createExchange = async (formData: FormData) => {
     const settings = await fetchSettings();
     const discordLogsEnabled = settings?.discordLogs === true;
     if (discordLogsEnabled) {
-      // await sendTicketNotification({ author, title: 'Exchange Created', ticketLink: token });
+      await sendTicketNotification({ author, title: title, content: 'Exchange Ticket', ticketLink: token });
     } else {
       console.log("Discord logs are disabled in settings");
     }
