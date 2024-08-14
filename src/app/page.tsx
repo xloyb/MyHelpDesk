@@ -4,15 +4,17 @@ import Footer from "@/components/Footer";
 import Hero from "@/components/index/Hero";
 import IndexNav from "@/components/index/IndexNav";
 import Services from "@/components/index/Services";
+import ServiceTabsWithCountryCheck from "@/components/index/ServiceTabsWithCountryCheck";
 
 const Homepage = () => {
   return (
-    <div className='h-screen'>
+    <div className='h-screen' suppressHydrationWarning>
       <div className="bg-base-200">
         <IndexNav />
 
         <Hero />
-        <Services />
+        {/* <Services /> */}
+        <ServiceTabsWithCountryCheck/>
         <Footer/>
       </div>
     </div>
