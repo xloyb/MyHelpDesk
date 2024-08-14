@@ -37,19 +37,47 @@ model Role {
   users       User[]
 }
 
+// model Ticket {
+//   id        Int          @id @default(autoincrement())
+//   title     String?
+//   content   String?
+//   status    String? // e.g., "open", "closed", "pending"
+//   createdAt DateTime?    @default(now())
+//   updatedAt DateTime?    @updatedAt
+//   token     String?      @unique
+
+//   users     TicketUser[]
+//   comments  Comment[]
+
+//   StaffTicketNote StaffTicketNote[]
+// }
+
 model Ticket {
-  id        Int          @id @default(autoincrement())
-  title     String?
-  content   String?
-  status    String? // e.g., "open", "closed", "pending"
-  createdAt DateTime?    @default(now())
-  updatedAt DateTime?    @updatedAt
-  token     String?      @unique
-  users     TicketUser[]
-  comments  Comment[]
+  id              Int          @id @default(autoincrement())
+  title           String?
+  content         String?
+  status          String?      // e.g., "open", "closed", "pending"
+  createdAt       DateTime?    @default(now())
+  updatedAt       DateTime?    @updatedAt
+  token           String?      @unique
+  
+  payment         String?
+  desiredExchange String?
+  walletAddress   String?
+  amount          Float?      
+  cardId          String?
+  paypalEmail     String?
+  payoneerEmail   String?
+  skrillEmail     String?
+
+  type            String?      
+
+  users           TicketUser[]
+  comments        Comment[]
 
   StaffTicketNote StaffTicketNote[]
 }
+
 
 model TicketUser {
   id       Int     @id @default(autoincrement())
