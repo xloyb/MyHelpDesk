@@ -1845,10 +1845,18 @@ const Store = () => {
             <label className="label">
               <span className="label-text">Buy or Sell</span>
             </label>
+            {/* <select name="buyOrSellType" value={formData.buyOrSellType} onChange={handleSelectChange} required className="select select-bordered">
+              <option value="buy">Buy</option>
+              <option value="sell">Sell</option>
+            </select> */}
             <select name="buyOrSellType" value={formData.buyOrSellType} onChange={handleSelectChange} required className="select select-bordered">
               <option value="buy">Buy</option>
               <option value="sell">Sell</option>
+              <option value="buy-sell">Buy and Sell</option>
+
             </select>
+
+
           </div>
         
           <div className="form-control">
