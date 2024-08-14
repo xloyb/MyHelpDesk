@@ -237,3 +237,23 @@ export const getDashboardStats = async () => {
     throw new Error('Failed to fetch dashboard stats');
   }
 };
+
+
+export const isExchange = async (ticketId: number): Promise<boolean> => {
+  try {
+    const ticket = await prisma.ticket.findUnique({
+      where: { id: ticketId },
+      select: {
+        type: true, 
+      },
+    });
+
+    if (!ticket) {
+      throw new Error("Ticket not found!");
+    }
+    return ticket.type === 'exchange';
+  } catch (err) {
+    console.error("Error checking if ticket is exchange:", err);
+    throw err; 
+  }
+};
