@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import Script from "next/script";
 
 interface Category {
   id: number;
@@ -124,6 +125,13 @@ function ServiceTabsWithCountryCheck() {
               >
                 Buy
               </button>
+
+              {/* <button
+                className="btn btn-primary"
+                data-shoppy-product={service.ShoppyCode}
+              >
+                Buy
+              </button> */}
               <Link href={`/c/`}>
                 <button className="btn btn-primary">Contact</button>
               </Link>
@@ -136,8 +144,9 @@ function ServiceTabsWithCountryCheck() {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div>
-      <div className="tabs tabs-lifted">
+    <div className="mt-4">
+        <Script src="https://shoppy.gg/api/embed.js" strategy="lazyOnload" />
+      <div className="tabs tabs-lifted px-6 mx-6">
         {categories.map((category) => (
           <a
             key={category.id}
