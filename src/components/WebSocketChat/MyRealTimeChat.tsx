@@ -2596,6 +2596,7 @@ import { BsSendFill } from "react-icons/bs";
 import TransactionDetails from "./TransactionDetails";
 import { isExchange } from "@/lib/actions";
 import ExchangeTicketCard from "../ExchangeTicketCard";
+import Loading from "../Loading";
 
 interface User {
   id: string;
@@ -2631,6 +2632,7 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
   const [Team, setTeam] = useState(false);
   const [Exchange, setExchange] = useState(false);
   const [ExchangeTicket, setExchangeTicket] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const bottomRef = useRef<HTMLDivElement>(null);
   const ws = useRef<WebSocket | null>(null);
@@ -2641,7 +2643,7 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
       setComments(response.data);
       const ticketClosed = await isClosed(token);
       setIsTicketClosed(ticketClosed);
-
+      setLoading(false);
       if (userId) {
         const team = await isTeam(userId);
         setTeam(team);
@@ -2653,31 +2655,13 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
     }
   }, [ticketId, token, userId]);
 
-  // const isexchange = useCallback(async () => {
-  //   try {
-  //     const ex = await isExchange(ticketId);
-  //     setExchange(ex);
-  //     console.log("Ticket Type",Exchange)
-  //     if(Exchange){
-  //       try {
-  //         const excht = await getTicketById(ticketId)
-  //         setExchangeTicket(excht)
-  //         console.log("ExchangeTicket",ExchangeTicket);
-  //       } catch (error) {
-  //         console.log(error)
-
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error('Error in checking ticket type:', error);
-  //   }
-  // }, [ticketId]);
 
   const isexchange = useCallback(async () => {
     try {
       const ex = await isExchange(ticketId);
       console.log("isExchange result:", ex);
       setExchange(ex);
+      
     } catch (error) {
       console.error("Error in checking ticket type:", error);
     }
@@ -2694,6 +2678,7 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
         })
         .catch((error) => console.log(error));
     }
+    
   }, [Exchange, ticketId]);
 
   useEffect(() => {
@@ -2753,6 +2738,7 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
         ws.current?.close();
       };
     }
+    
   }, [ticketId, userId, token, fetchComments, isexchange]);
 
   useEffect(() => {
@@ -2813,15 +2799,22 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
     }
   };
 
+  console.log("Loading Status:", loading)
+  console.log("Ticket to send:", ExchangeTicket)
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <div className="flex bg-base-200 flex-col h-[90vh] z-20">
       <div className="flex-1 overflow-y-auto p-4 mt-12">
-        {Exchange && (
-          <div>
-            {" "}
-            <ExchangeTicketCard ticket={ExchangeTicket} />{" "}
-          </div>
-        )}
+      {Exchange && ExchangeTicket && (
+  <div>
+    <ExchangeTicketCard ticket={ExchangeTicket} />
+  </div>
+)}
+
         {comments.map((comment) => (
           <div
             className={`chat ${

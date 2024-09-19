@@ -26,7 +26,7 @@ const Chat = () => {
           <div className="h-screen bg-base-200 sticky top-0 overflow-x-auto">
 
           <MyStats userId={userId} />
-          {/* <CryptoTracker/> */}
+          <CryptoTracker/>
           {/* <MyChat /> */}
 
           {/* <Footer/> */}
