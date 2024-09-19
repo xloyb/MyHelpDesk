@@ -16,10 +16,8 @@ const TicketModal = () => {
   const handleOpenModal = async () => {
     try {
       if (!userId) throw new Error('User is not authenticated');
-
       const userBanned = await isBanned(userId);
       setBanned(userBanned);
-
       if (userBanned) {
         bannedModalRef.current?.showModal();
       } else {
@@ -48,7 +46,7 @@ const TicketModal = () => {
 
   return (
     <>
-      <button className="btn btn-outline btn-success mt-auto btn-xs sm:btn-sm md:btn-md" onClick={handleOpenModal}>
+      <button className="btn btn-outline btn-success mt-2 btn-xs sm:btn-sm md:btn-md" onClick={handleOpenModal}>
       <GrContact />
       New Ticket
       </button>

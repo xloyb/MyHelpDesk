@@ -251,6 +251,8 @@ export const isExchange = async (ticketId: number): Promise<boolean> => {
     if (!ticket) {
       throw new Error("Ticket not found!");
     }
+    console.log("server ticket type:", ticket.type)
+    console.log(ticket.type === 'exchange')
     return ticket.type === 'exchange';
   } catch (err) {
     console.error("Error checking if ticket is exchange:", err);

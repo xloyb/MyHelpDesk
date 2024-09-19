@@ -26,7 +26,6 @@ async function fetchCountryByIp(ip: string) {
   if (ip === '::1' || ip === '127.0.0.1') {
     return { country_code: 'LC' }; 
   }
-
   const response = await fetch(`https://ipapi.co/${ip}/json/`);
   const data = await response.json();
   if (!response.ok) throw new Error('Failed to fetch country');

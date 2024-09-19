@@ -276,8 +276,6 @@
 
 //   }, [ticketId, userId, token]);
 
-
-
 //   const handleSend = async () => {
 //     if (isTicketClosed) {
 //       setShowClosedModal(true);
@@ -310,7 +308,6 @@
 //       console.error('Error posting comment:', error);
 //     }
 //   };
-
 
 //   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
 //     if (event.key === 'Enter' && !cooldown) {
@@ -380,8 +377,6 @@
 
 // export default Chat;
 
-
-
 // "use client"
 // import React, { useEffect, useState } from 'react';
 // import axios from 'axios';
@@ -742,8 +737,7 @@
 
 // export default Chat;
 
-
-"use client"
+"use client";
 
 // import React, { useEffect, useState } from 'react';
 // import axios from 'axios';
@@ -872,7 +866,6 @@
 //   //   }
 //   // };
 
-
 //   const handleSend = async () => {
 //     if (isTicketClosed) {
 //       setShowClosedModal(true);
@@ -974,7 +967,6 @@
 
 // export default Chat;
 
-
 // "use client"
 // import React, { useEffect, useState, useRef } from 'react';
 // import axios from 'axios';
@@ -982,7 +974,6 @@
 // import Image from 'next/image';
 // import { CanBan } from '@/lib/ban';
 // import { isClosed } from '@/lib/ticket';
-
 
 // interface User {
 //   id: string;
@@ -1115,7 +1106,6 @@
 //     }
 //   };
 
-
 //   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
 //     if (event.key === 'Enter' && !cooldown) {
 //       handleSend();
@@ -1184,7 +1174,6 @@
 // };
 
 // export default Chat;
-
 
 // "use client"
 // import React, { useEffect, useState, useRef } from 'react';
@@ -1397,7 +1386,6 @@
 // };
 
 // export default Chat;
-
 
 // "use client"
 // import React, { useEffect, useState, useRef } from 'react';
@@ -1611,8 +1599,6 @@
 // };
 
 // export default Chat;
-
-
 
 // "use client"
 // import React, { useEffect, useState, useRef, useCallback } from 'react';
@@ -1828,8 +1814,6 @@
 // };
 
 // export default Chat;
-
-
 
 // "use client"
 // import React, { useEffect, useState, useRef, useCallback } from 'react';
@@ -2055,9 +2039,6 @@
 
 // export default Chat;
 
-
-
-
 // "use client"
 // import React, { useEffect, useState, useRef, useCallback } from 'react';
 // import axios from 'axios';
@@ -2136,7 +2117,6 @@
 //         // ws.current = new WebSocket('ws://localhost:3001');
 //         ws.current = new WebSocket(NEXT_PUBLIC_WEBSOCKETDOMAIN);
 
-
 //         ws.current.onopen = () => {
 //           console.log('Connected to WebSocket server');
 //         };
@@ -2198,7 +2178,6 @@
 //         return;
 //       }
 //       }
-
 
 //     if (isTicketClosed) {
 //       setShowClosedModal(true);
@@ -2329,8 +2308,7 @@
 
 // export default Chat;
 
-
-// // That Shit is working 
+// // That Shit is working
 // "use client"
 // import React, { useEffect, useState, useRef, useCallback } from 'react';
 // import axios from 'axios';
@@ -2348,7 +2326,6 @@
 // import ChatActionButtons from './ChatActionsButtons';
 // import { isTeam } from '@/lib/user';
 // import { BsSendFill } from "react-icons/bs";
-
 
 // interface User {
 //   id: string;
@@ -2385,7 +2362,6 @@
 //   const [showBannedModal, setshowBannedModal] = useState(false);
 //   const [Team, setTeam] = useState(false);
 
-
 //   const bottomRef = useRef<HTMLDivElement>(null);
 //   const ws = useRef<WebSocket | null>(null);
 
@@ -2413,12 +2389,10 @@
 //   useEffect(() => {
 //     fetchComments();
 
-
 //     if (typeof window !== 'undefined') {
 //       const connectWebSocket = () => {
 //         // ws.current = new WebSocket('ws://localhost:3001');
 //         ws.current = new WebSocket(NEXT_PUBLIC_WEBSOCKETDOMAIN);
-
 
 //         ws.current.onopen = () => {
 //           console.log('Connected to WebSocket server');
@@ -2481,7 +2455,6 @@
 //         return;
 //       }
 //     }
-
 
 //     if (isTicketClosed) {
 //       setShowClosedModal(true);
@@ -2607,23 +2580,22 @@
 
 // export default Chat;
 
+"use client";
+import React, { useEffect, useState, useRef, useCallback } from "react";
+import axios from "axios";
+import { useAuth } from "@clerk/nextjs";
+import Image from "next/image";
+import { CanBan, isBanned } from "@/lib/ban";
+import { getTicketById, isClosed } from "@/lib/ticket";
 
-
-"use client"
-import React, { useEffect, useState, useRef, useCallback } from 'react';
-import axios from 'axios';
-import { useAuth } from '@clerk/nextjs';
-import Image from 'next/image';
-import { CanBan, isBanned } from '@/lib/ban';
-import { isClosed } from '@/lib/ticket';
-
-import { NEXT_PUBLIC_WEBSOCKETDOMAIN } from '../../../config';
-import StaffNoteDrawer from './StaffNoteDrawer';
-import ChatActionButtons from './ChatActionsButtons';
-import { isTeam } from '@/lib/user';
+import { NEXT_PUBLIC_WEBSOCKETDOMAIN } from "../../../config";
+import StaffNoteDrawer from "./StaffNoteDrawer";
+import ChatActionButtons from "./ChatActionsButtons";
+import { isTeam } from "@/lib/user";
 import { BsSendFill } from "react-icons/bs";
-import TransactionDetails from './TransactionDetails';
-import { isExchange } from '@/lib/actions';
+import TransactionDetails from "./TransactionDetails";
+import { isExchange } from "@/lib/actions";
+import ExchangeTicketCard from "../ExchangeTicketCard";
 
 interface User {
   id: string;
@@ -2650,7 +2622,7 @@ interface ChatProps {
 const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
   const { userId } = useAuth();
   const [comments, setComments] = useState<Comment[]>([]);
-  const [newComment, setNewComment] = useState('');
+  const [newComment, setNewComment] = useState("");
   const [cooldown, setCooldown] = useState(false);
   const [Disab, setDisab] = useState(false);
   const [isTicketClosed, setIsTicketClosed] = useState(false);
@@ -2658,9 +2630,7 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
   const [showBannedModal, setshowBannedModal] = useState(false);
   const [Team, setTeam] = useState(false);
   const [Exchange, setExchange] = useState(false);
-
-  
-
+  const [ExchangeTicket, setExchangeTicket] = useState<any>(null);
 
   const bottomRef = useRef<HTMLDivElement>(null);
   const ws = useRef<WebSocket | null>(null);
@@ -2678,50 +2648,84 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
       } else {
         return <span className="loading loading-ring loading-lg"></span>;
       }
-
     } catch (error) {
-      console.error('Error fetching comments:', error);
+      console.error("Error fetching comments:", error);
     }
   }, [ticketId, token, userId]);
 
+  // const isexchange = useCallback(async () => {
+  //   try {
+  //     const ex = await isExchange(ticketId);
+  //     setExchange(ex);
+  //     console.log("Ticket Type",Exchange)
+  //     if(Exchange){
+  //       try {
+  //         const excht = await getTicketById(ticketId)
+  //         setExchangeTicket(excht)
+  //         console.log("ExchangeTicket",ExchangeTicket);
+  //       } catch (error) {
+  //         console.log(error)
+
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error('Error in checking ticket type:', error);
+  //   }
+  // }, [ticketId]);
 
   const isexchange = useCallback(async () => {
     try {
-      const ex = await isExchange(ticketId)
-      console.log("hassen",ex)
-      setExchange(ex)
-      console.log(Exchange)
-
+      const ex = await isExchange(ticketId);
+      console.log("isExchange result:", ex);
+      setExchange(ex);
     } catch (error) {
-      console.error('Error in checking ticket type:', error);
+      console.error("Error in checking ticket type:", error);
     }
-  }, [ticketId,]);
+  }, [ticketId]);
+
+  useEffect(() => {
+    console.log("Exchange state on effect:", Exchange);
+    if (Exchange) {
+      console.log("Fetching ticket details...");
+      getTicketById(ticketId)
+        .then((excht) => {
+          setExchangeTicket(excht);
+          console.log("Fetched ExchangeTicket:", excht);
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [Exchange, ticketId]);
 
   useEffect(() => {
     fetchComments();
     isexchange();
-    console.log("ticket type",Exchange);
-    console.log("teteteteteet",NEXT_PUBLIC_WEBSOCKETDOMAIN)
-    if (typeof window !== 'undefined') {
+    console.log("ticket type", Exchange);
+    console.log("teteteteteet", NEXT_PUBLIC_WEBSOCKETDOMAIN);
+    if (typeof window !== "undefined") {
       const connectWebSocket = () => {
         ws.current = new WebSocket(`${NEXT_PUBLIC_WEBSOCKETDOMAIN}`);
 
         ws.current.onopen = () => {
-          console.log('Connected to WebSocket server');
+          console.log("Connected to WebSocket server");
         };
 
         ws.current.onmessage = (event) => {
-          console.log('WebSocket message received:', event.data);
+          console.log("WebSocket message received:", event.data);
 
-          const messageData = typeof event.data === 'string' ? event.data : new TextDecoder().decode(new Uint8Array(event.data));
+          const messageData =
+            typeof event.data === "string"
+              ? event.data
+              : new TextDecoder().decode(new Uint8Array(event.data));
 
           try {
             if (messageData.trim()) {
               const message = JSON.parse(messageData);
               if (message.ticketId === ticketId) {
                 setComments((prevComments) => {
-                  if (!prevComments.some(comment => comment.id === message.id)) {
-                    console.log('Adding new comment:', message);
+                  if (
+                    !prevComments.some((comment) => comment.id === message.id)
+                  ) {
+                    console.log("Adding new comment:", message);
                     return [...prevComments, message];
                   }
                   return prevComments;
@@ -2729,17 +2733,17 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
               }
             }
           } catch (error) {
-            console.error('Error parsing WebSocket message:', error);
+            console.error("Error parsing WebSocket message:", error);
           }
         };
 
         ws.current.onclose = () => {
-          console.log('WebSocket connection closed, reconnecting...');
+          console.log("WebSocket connection closed, reconnecting...");
           setTimeout(connectWebSocket, 1000); // Reconnect after 1 second
         };
 
         ws.current.onerror = (error) => {
-          console.error('WebSocket error:', error);
+          console.error("WebSocket error:", error);
         };
       };
 
@@ -2749,11 +2753,11 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
         ws.current?.close();
       };
     }
-  }, [ticketId, userId, token, fetchComments,isexchange]);
+  }, [ticketId, userId, token, fetchComments, isexchange]);
 
   useEffect(() => {
     if (bottomRef.current) {
-      bottomRef.current.scrollIntoView({ behavior: 'smooth' });
+      bottomRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [comments]);
 
@@ -2776,7 +2780,7 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
     setCooldown(true);
 
     try {
-      const response = await axios.post('/api/comments', {
+      const response = await axios.post("/api/comments", {
         content: newComment,
         ticketId: ticketId,
         userId: userId,
@@ -2784,26 +2788,26 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
 
       const newCommentData = response.data;
 
-      setNewComment('');
-      console.log('Sending comment through WebSocket:', newCommentData);
+      setNewComment("");
+      console.log("Sending comment through WebSocket:", newCommentData);
 
       if (ws.current?.readyState === WebSocket.OPEN) {
         ws.current.send(JSON.stringify(newCommentData)); // Send the comment through WebSocket
       } else {
-        console.error('WebSocket is not open. Cannot send message.');
+        console.error("WebSocket is not open. Cannot send message.");
       }
 
       setComments((prevComments) => [...prevComments, newCommentData]); // Add the new comment to the state
 
       setTimeout(() => setCooldown(false), 1500); // Cooldown period of 1.5 seconds
     } catch (error) {
-      console.error('Error posting comment:', error);
+      console.error("Error posting comment:", error);
       setCooldown(false); // Reset cooldown on error
     }
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter' && !cooldown) {
+    if (event.key === "Enter" && !cooldown) {
       event.preventDefault(); // Prevent default Enter behavior (e.g., form submission)
       handleSend();
     }
@@ -2812,23 +2816,40 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
   return (
     <div className="flex bg-base-200 flex-col h-[90vh] z-20">
       <div className="flex-1 overflow-y-auto p-4 mt-12">
+        {Exchange && (
+          <div>
+            {" "}
+            <ExchangeTicketCard ticket={ExchangeTicket} />{" "}
+          </div>
+        )}
         {comments.map((comment) => (
-          <div className={`chat ${comment.userId === userId ? 'chat-end' : 'chat-start'}`} key={comment.id}>
+          <div
+            className={`chat ${
+              comment.userId === userId ? "chat-end" : "chat-start"
+            }`}
+            key={comment.id}
+          >
             <div className="chat-image avatar">
               <div className="w-10 rounded-full">
                 <Image
-                  src={comment.user?.avatar || 'https://www.mydevify.com/icon.png'}
+                  src={
+                    comment.user?.avatar || "https://www.mydevify.com/icon.png"
+                  }
                   width={100}
                   height={100}
-                  alt={comment.user?.name || 'User avatar'}
+                  alt={comment.user?.name || "User avatar"}
                 />
               </div>
             </div>
             <div className="chat-header">
               {comment.user?.name || comment.userId}
-              <time className="text-xs opacity-50 ml-1">{comment.createdAt ? new Date(comment.createdAt).toLocaleTimeString() : 'Unknown Time'}</time>
+              <time className="text-xs opacity-50 ml-1">
+                {comment.createdAt
+                  ? new Date(comment.createdAt).toLocaleTimeString()
+                  : "Unknown Time"}
+              </time>
             </div>
-            <div className="chat-bubble">{comment.content || 'No Content'}</div>
+            <div className="chat-bubble">{comment.content || "No Content"}</div>
             <div className="chat-footer opacity-50">Delivered</div>
           </div>
         ))}
@@ -2858,15 +2879,26 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
             <BsSendFill /> Send
           </button>
 
-          <ChatActionButtons token={token} userId={userId} ticketId={ticketId} />
-          <TransactionDetails/>
+          <ChatActionButtons
+            token={token}
+            userId={userId}
+            ticketId={ticketId}
+          />
+          <TransactionDetails />
           {showClosedModal && (
             <dialog open className="modal">
               <div className="modal-box">
                 <h3 className="font-bold text-lg">Ticket Closed</h3>
-                <p>You cannot send a message because the ticket status is closed.</p>
+                <p>
+                  You cannot send a message because the ticket status is closed.
+                </p>
                 <div className="modal-action">
-                  <button className="btn" onClick={() => setShowClosedModal(false)}>Close</button>
+                  <button
+                    className="btn"
+                    onClick={() => setShowClosedModal(false)}
+                  >
+                    Close
+                  </button>
                 </div>
               </div>
             </dialog>
@@ -2878,7 +2910,12 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
                 <h3 className="font-bold text-lg">You are banned</h3>
                 <p>You cannot send a message because you are banned.</p>
                 <div className="modal-action">
-                  <button className="btn" onClick={() => setshowBannedModal(false)}>Close</button>
+                  <button
+                    className="btn"
+                    onClick={() => setshowBannedModal(false)}
+                  >
+                    Close
+                  </button>
                 </div>
               </div>
             </dialog>

@@ -29,11 +29,11 @@ export const createVouch = async (vouchedBy: string, vouchedTo: string, message:
   });
   const settings = await fetchSettings()
 
-  const discordLogs = settings?.discordLogs === false;
+  const discordLogs = settings?.discordLogs === true;
   if(discordLogs){
     await sendVouchNotification({ vouchedBy, vouchedTo, message });
   } else {
-    console.log("Discord logs are disabled in settings");
+    console.log("Vouch: Discord logs are disabled in settings");
   }
 
   return createdVouch;

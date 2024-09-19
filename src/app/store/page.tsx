@@ -2,9 +2,6 @@
 import Footer from "@/components/Footer";
 import IndexNav from "@/components/index/IndexNav";
 import ServiceTabsWithCountryCheck from "@/components/index/ServiceTabsWithCountryCheck";
-
-import Script from "next/script";
-
 const Store = () => {
   return (
     <div className="h-screen" suppressHydrationWarning>
