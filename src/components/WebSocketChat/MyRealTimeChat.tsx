@@ -2661,7 +2661,7 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
       const ex = await isExchange(ticketId);
       console.log("isExchange result:", ex);
       setExchange(ex);
-      
+
     } catch (error) {
       console.error("Error in checking ticket type:", error);
     }
@@ -2678,7 +2678,7 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
         })
         .catch((error) => console.log(error));
     }
-    
+
   }, [Exchange, ticketId]);
 
   useEffect(() => {
@@ -2738,7 +2738,7 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
         ws.current?.close();
       };
     }
-    
+
   }, [ticketId, userId, token, fetchComments, isexchange]);
 
   useEffect(() => {
@@ -2809,17 +2809,16 @@ const Chat: React.FC<ChatProps> = ({ ticketId, token }) => {
   return (
     <div className="flex bg-base-200 flex-col h-[90vh] z-20">
       <div className="flex-1 overflow-y-auto p-4 mt-12">
-      {Exchange && ExchangeTicket && (
-  <div>
-    <ExchangeTicketCard ticket={ExchangeTicket} />
-  </div>
-)}
+        {Exchange && ExchangeTicket && (
+          <div>
+            <ExchangeTicketCard ticket={ExchangeTicket} />
+          </div>
+        )}
 
         {comments.map((comment) => (
           <div
-            className={`chat ${
-              comment.userId === userId ? "chat-end" : "chat-start"
-            }`}
+            className={`chat ${comment.userId === userId ? "chat-end" : "chat-start"
+              }`}
             key={comment.id}
           >
             <div className="chat-image avatar">
