@@ -5,21 +5,51 @@ import { useAuth } from '@clerk/nextjs';
 import React, { useRef, useState } from 'react';
 import { GrContact } from "react-icons/gr";
 
+type settings = {
+  sitename: string;
+  announcement: string;
+  offer: string;
+  logo: string;
+  theme: string;
+  discordLogs: boolean;
+  exchangeSystem: boolean;
+  storeSystem: boolean;
+  ticketSystem: boolean;
+};
 
 const TicketModal = () => {
   const [banned, setBanned] = useState<boolean>(false); 
   const modalRef = useRef<HTMLDialogElement>(null);
   const bannedModalRef = useRef<HTMLDialogElement>(null); 
+  const ticketdisabled = useRef<HTMLDialogElement>(null); 
+
   const { userId } = useAuth();
+  const [Settings, setSettings] = useState<settings | null>(null);
+
 
 
   const handleOpenModal = async () => {
+    const FetchSiteSettings = async () => {
+      try {
+        const response = await fetch('/api/settings');
+        const data: settings = await response.json();
+        setSettings(data);
+      } catch (error) {
+        console.error("Failed to fetch Site Settings:", error);
+
+      }
+    };
+    FetchSiteSettings()
     try {
       if (!userId) throw new Error('User is not authenticated');
       const userBanned = await isBanned(userId);
       setBanned(userBanned);
       if (userBanned) {
         bannedModalRef.current?.showModal();
+      }
+      else if(!Settings?.storeSystem){
+        ticketdisabled.current?.showModal();
+
       } else {
         modalRef.current?.showModal();
       }
@@ -81,6 +111,18 @@ const TicketModal = () => {
           <p>You cannot create a ticket because you are banned.</p>
           <div className="modal-action">
             <button type="button" className="btn" onClick={() => bannedModalRef.current?.close()}>
+              Close
+            </button>
+          </div>
+        </div>
+      </dialog>
+
+      <dialog id="banned_modal" className="modal" ref={ticketdisabled}>
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Ticket System is currently disabled.</h3>
+          <p>Ticket System is currently disabled by the Administrator, Please Contact us on discord for more information.</p>
+          <div className="modal-action">
+            <button type="button" className="btn" onClick={() => ticketdisabled.current?.close()}>
               Close
             </button>
           </div>
