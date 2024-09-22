@@ -38,3 +38,9 @@ next-env.d.ts
 
 note.txt
 /public/temp/
+src/app/admincp/discord/backup.txt
+src/app/admincp/roles/backup.txt
+src/app/admincp/settings/backup.txt
+src/app/admincp/store/backup.txt
+src/app/admincp/users/backup.txt
+src/app/c/\[token]/backup.txt

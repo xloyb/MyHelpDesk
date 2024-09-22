@@ -66,7 +66,7 @@ useEffect(() => {
   FetchSiteSettings()
   
 }, []);
-console.log("!Settings?.storeSystem",!Settings?.storeSystem)
+// console.log("!Settings?.storeSystem",!Settings?.storeSystem)
 
 // if(!Settings?.storeSystem){
 //   return null;
