@@ -8,7 +8,10 @@ type SettingsType = {
   offer: string;
   logo: string;
   theme: string;
-  discordLogs: boolean; // New setting for Discord Logs
+  discordLogs: boolean; 
+  exchangeSystem:  boolean;
+  storeSystem:  boolean;
+  ticketSystem:  boolean;
 };
 
 const Settings = () => {
@@ -121,6 +124,45 @@ const Settings = () => {
           />
         </div>
       </div>
+      <div className="divider mt-2"></div>
+      <div className="text-xl font-semibold inline-block">Activate</div>
+    <div className='stat-desc text-xs'>You can choose which features to activate in the MyHelpDesk multipurpose panel from this section.</div>
+    <div className="divider mt-2"></div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+     
+
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-2">Enable / Disable Exchange System</label>
+          <input
+            type="checkbox"
+            name="exchangeSystem"
+            checked={settings.exchangeSystem}
+            onChange={handleChange}
+            className="toggle toggle-primary"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-2">Enable / Disable Store System</label>
+          <input
+            type="checkbox"
+            name="storeSystem"
+            checked={settings.storeSystem}
+            onChange={handleChange}
+            className="toggle toggle-primary"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-2">Enable / Disable Ticketing System</label>
+          <input
+            type="checkbox"
+            name="ticketSystem"
+            checked={settings.ticketSystem}
+            onChange={handleChange}
+            className="toggle toggle-primary"
+          />
+        </div>
+</div>
 
       <button onClick={handleSave} className="btn btn-primary w-full">
         Save Settings

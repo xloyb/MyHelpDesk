@@ -487,12 +487,44 @@ interface Transaction {
   vout: Array<{ scriptpubkey_address: string; value: number }>;
 }
 
+type settings = {
+  sitename: string;
+  announcement: string;
+  offer: string;
+  logo: string;
+  theme: string;
+  discordLogs: boolean; 
+  exchangeSystem:  boolean;
+  storeSystem:  boolean;
+  ticketSystem:  boolean;
+};
+
+
 const TransactionDetails: React.FC<TransactionDetailsProps> = () => {
   const [transactionId, setTransactionId] = useState<string>('');
   const [coinType, setCoinType] = useState<string>('BTC');
   const [transaction, setTransaction] = useState<Transaction | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [Settings, setSettings] = useState<settings | null>(null);
 
+
+
+  const FetchSiteSettings = async () => {
+    try {
+      const response = await fetch('/api/settings');
+      const data: settings = await response.json();
+      setSettings(data);
+    } catch (error) {
+      console.error("Failed to fetch Site Settings:", error);
+      
+    }
+  };
+
+FetchSiteSettings()
+
+if(!Settings?.exchangeSystem){
+  return null;
+}
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
