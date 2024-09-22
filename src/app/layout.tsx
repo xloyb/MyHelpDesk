@@ -23,7 +23,7 @@ export default function RootLayout({
     <Script src="https://shoppy.gg/api/embed.js"/>
       <body className={inter.className}>
         {children} 
-        <Whatsapp/>
+        {/* <Whatsapp/> */}
       </body>
     </html>
     </ClerkProvider>
