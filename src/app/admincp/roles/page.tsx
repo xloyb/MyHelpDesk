@@ -7,6 +7,7 @@ import ChatNavbar from "@/components/ChatNavbar";
 import styles from "@/app/main.module.css";
 import { useAuth } from "@clerk/nextjs";
 import ManageRoles from "@/components/RolesTable";
+import Layout1 from "@/app/ChatLayout/layout";
 
 const AdminCPRoles = () => {
   const { userId } = useAuth();
@@ -35,15 +36,8 @@ const AdminCPRoles = () => {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.menu}>
-        <Sidebar />
-      </div>
-      <div className={styles.content}>
-        <div className="h-screen bg-base-200 overflow-hidden sticky top-0 overflow-y-auto">
-          <ChatNavbar />
-          <div className="overflow-y-auto">
-            {isAdminMember ? (
+   <Layout1>
+     {isAdminMember ? (
                 <>
 
               <ManageRoles />
@@ -51,10 +45,7 @@ const AdminCPRoles = () => {
             ) : (
               <p>You do not have access to this section.</p>
             )}
-          </div>
-        </div>
-      </div>
-    </div>
+   </Layout1>
   );
 };
 
