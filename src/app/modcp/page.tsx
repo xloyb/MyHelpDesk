@@ -9,6 +9,7 @@ import Sidebar from "@/components/Sidebar";
 import ChatNavbar from "@/components/ChatNavbar";
 import { useAuth } from "@clerk/nextjs";
 import StatsComponent from "@/components/mod/stats";
+import Layout1 from "../ChatLayout/layout";
 
 const ModCP = () => {
   const { userId } = useAuth();
@@ -64,15 +65,8 @@ const ModCP = () => {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.menu}>
-        <Sidebar />
-      </div>
-      <div className={styles.content}>
-      <div className="h-screen overflow-hidden sticky top-0 overflow-x-hidden bg-base-200">
-          <ChatNavbar />
-          <div className="h-screen bg-base-200 sticky top-0 overflow-x-auto">
-            {isTeamMember ? (
+   <Layout1>
+    {isTeamMember ? (
               <>
               <StatsComponent/>
                 <TicketsTable
@@ -83,10 +77,7 @@ const ModCP = () => {
             ) : (
               <p>You do not have access to this section.</p>
             )}
-          </div>
-        </div>
-      </div>
-    </div>
+   </Layout1>
   );
 };
 
