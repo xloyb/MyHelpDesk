@@ -113,6 +113,7 @@ import { getTicketIdByToken } from "@/lib/ticket";
 import { useAuth } from "@clerk/nextjs";
 import DeniedAccessMotherFucker from "@/components/CustomPages/403";
 import NotFoundBitch from "@/components/CustomPages/404";
+import Layout1 from "@/app/ChatLayout/layout";
 
 const Chat = dynamic(() => import("@/components/Chat"), { ssr: false });
 
@@ -169,15 +170,8 @@ const ClientChatPage = ({ token }: { token: string }) => {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.menu}>
-        <Sidebar />
-      </div>
-      <div className={styles.content}>
-        <div className="h-screen bg-base-200 overflow-hidden sticky top-0 overflow-x-hidden">
-          <ChatNavbar />
-
-          {isValidToken ? (
+   <Layout1>
+     {isValidToken ? (
             accessGranted ? (
               ticketId ? (
                 <RealTimeChat ticketId={ticketId} token={token as string} />
@@ -190,9 +184,7 @@ const ClientChatPage = ({ token }: { token: string }) => {
           ) : (
             <NotFoundBitch />
           )}
-        </div>
-      </div>
-    </div>
+   </Layout1>
   );
 };
 
