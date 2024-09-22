@@ -9,6 +9,7 @@ import Services from "@/components/admincp/Store";
 import AuthorizedCountries from "@/components/admincp/AuthorizedCountries";
 import ManageCategories from "@/components/admincp/ManageCategories";
 import CountryTable from "@/components/admincp/ManageCountries";
+import Layout1 from "@/app/ChatLayout/layout";
 
 const AdminCPRoles = () => {
   const { userId } = useAuth();
@@ -36,15 +37,8 @@ const AdminCPRoles = () => {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.menu}>
-        <Sidebar />
-      </div>
-      <div className={styles.content}>
-        <div className="h-screen bg-base-200 overflow-hidden sticky top-0 overflow-y-auto">
-          <ChatNavbar />
-          <div className="overflow-y-auto">
-            {isAdminMember ? (
+   <Layout1>
+    {isAdminMember ? (
               <>
               {/* <AuthorizedCountries/> */}
               <ManageCategories/>
@@ -54,10 +48,7 @@ const AdminCPRoles = () => {
             ) : (
               <p>You do not have access to this section.</p>
             )}
-          </div>
-        </div>
-      </div>
-    </div>
+   </Layout1>
   );
 };
 
