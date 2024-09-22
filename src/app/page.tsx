@@ -40,10 +40,10 @@ type settings = {
   offer: string;
   logo: string;
   theme: string;
-  discordLogs: boolean; 
-  exchangeSystem:  boolean;
-  storeSystem:  boolean;
-  ticketSystem:  boolean;
+  discordLogs: boolean;
+  exchangeSystem: boolean;
+  storeSystem: boolean;
+  ticketSystem: boolean;
 };
 
 const Homepage = () => {
@@ -55,34 +55,38 @@ const Homepage = () => {
       setSettings(data);
     } catch (error) {
       console.error("Failed to fetch Site Settings:", error);
-      
+
     }
   };
 
-// FetchSiteSettings()
+  // FetchSiteSettings()
 
 
-useEffect(() => {
-  FetchSiteSettings()
-  
-}, []);
-// console.log("!Settings?.storeSystem",!Settings?.storeSystem)
+  useEffect(() => {
+    FetchSiteSettings()
 
-// if(!Settings?.storeSystem){
-//   return null;
-// }
+  }, []);
+  // console.log("!Settings?.storeSystem",!Settings?.storeSystem)
+
+  // if(!Settings?.storeSystem){
+  //   return null;
+  // }
   return (
-    <div className='h-screen' suppressHydrationWarning>
-      <div className="bg-base-200">
+    <div className="h-screen flex flex-col" suppressHydrationWarning>
+      <div className="flex-grow bg-base-200">
         <IndexNav />
 
         <Hero />
         {/* <Services /> */}
-        {Settings?.storeSystem && <ServiceTabsWithCountryCheck/>}
-        
-        <Footer/>
+        {Settings?.storeSystem && <ServiceTabsWithCountryCheck />}
+      </div>
+
+      <div className="sticky bottom-0 w-full">
+        <Footer />
       </div>
     </div>
+
+
   );
 };
 
