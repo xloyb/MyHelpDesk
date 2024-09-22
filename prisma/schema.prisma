@@ -141,6 +141,9 @@ model Settings {
   logo         String
   theme        String
   discordLogs  Boolean
+  exchangeSystem  Boolean
+  storeSystem  Boolean
+  ticketSystem  Boolean
 }
 
 model Category {
