@@ -16,11 +16,37 @@ interface Crypto {
   image: string;
 }
 
+interface settings {
+  sitename: string ;
+  logo: string;
+  discordLogs: boolean; 
+  exchangeSystem:  boolean | null;
+  storeSystem:  boolean;
+  ticketSystem:  boolean;
+}
+
 const CryptoTracker: React.FC = () => {
   const [data, setData] = useState<Crypto[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [Settings, setSettings] = useState<settings | null>(null);
+
 
   useEffect(() => {
+
+    const FetchSiteSettings = async () => {
+      try {
+        const response = await fetch('/api/settings');
+        const data: settings = await response.json();
+        setSettings(data);
+      } catch (error) {
+        console.error("Failed to fetch Site Settings:", error);
+
+      }
+    };
+    FetchSiteSettings()
+
+    
+
     const fetchData = async () => {
       try {
         const response = await axios.get(
@@ -41,6 +67,12 @@ const CryptoTracker: React.FC = () => {
   const filteredData = data.filter((crypto) => {
     return crypto.name.toLowerCase().includes(searchQuery.toLowerCase());
   });
+
+
+  if(!Settings?.exchangeSystem){
+    return null;
+  }
+
 
   return (
     <>
