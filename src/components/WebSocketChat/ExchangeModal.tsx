@@ -9,7 +9,11 @@ const paymentOptions = [
     'btc', 'eth', 'litecoin', 'dogecoin', 'BNB', 'Paypal', 'Skrill', 'Pyeoneer', 'CrediCrad'
 ];
 
-const ExchangeModal = () => {
+interface ExchangeModalProps {
+  exchangeSystem: boolean;
+}
+
+const ExchangeModal: React.FC<ExchangeModalProps> = ({ exchangeSystem }) => {
   const [banned, setBanned] = useState<boolean>(false); 
   const [payment, setpayment] = useState<string>('');
   const [desiredExchange, setDesiredExchange] = useState<string>('');
@@ -22,6 +26,11 @@ const ExchangeModal = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
   const bannedModalRef = useRef<HTMLDialogElement>(null); 
   const { userId } = useAuth();
+
+  if(!exchangeSystem){
+    return null;
+  }
+ console.log("exchangeSystem",exchangeSystem)
 
   const handleOpenModal = async () => {
     try {

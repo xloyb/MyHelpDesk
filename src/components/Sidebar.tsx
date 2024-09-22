@@ -104,6 +104,10 @@ import ExchangeModal from './WebSocketChat/ExchangeModal';
 interface settings {
   sitename: string ;
   logo: string;
+  discordLogs: boolean; 
+  exchangeSystem:  boolean | null;
+  storeSystem:  boolean;
+  ticketSystem:  boolean;
 }
 
 const Sidebar = () => {
@@ -158,7 +162,7 @@ const Sidebar = () => {
             </li>
             {/* Sidebar content here */}
             <ShowMoreTicketsList tickets={tickets} />
-            <ExchangeModal/>
+            <ExchangeModal exchangeSystem={Settings?.exchangeSystem ?? false} />
             <TicketModal />
           </ul>
         </div>
