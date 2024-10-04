@@ -44,3 +44,5 @@ src/app/admincp/settings/backup.txt
 src/app/admincp/store/backup.txt
 src/app/admincp/users/backup.txt
 src/app/c/\[token]/backup.txt
+
+public/DELETE_AFTER_SETUP/hidden.sql
