@@ -10,10 +10,10 @@
   
 | ![Image 1](https://github.com/mydevify/MyHelpDesk/blob/main/public/showcase/Home_Dark.PNG?raw=true) | ![Image 2](https://github.com/mydevify/MyHelpDesk/blob/main/public/showcase/Home_Light.PNG?raw=true) |
 |-------------------------|-------------------------|
-| ![Image 3](https://github.com/mydevify/MyHelpDesk/blob/main/public/showcase/Ticket_Drak.PNG?raw=true)| ![Image 4](https://github.com/mydevify/MyHelpDesk/blob/main/public/showcase/Ticket_Light.PNG?raw=true) |
-| ![Image 5](https://github.com/mydevify/MyHelpDesk/blob/main/public/showcase/c_Dark.PNG?raw=true)| ![Image 6](https://github.com/mydevify/MyHelpDesk/blob/main/public/showcase/c_Light.PNG?raw=true) |
-| ![Image 7](https://github.com/mydevify/MyHelpDesk/blob/main/public/showcase/Store_Dark.PNG?raw=true)| ![Image 8](https://github.com/mydevify/MyHelpDesk/blob/main/public/showcase/Store_Light.PNG.PNG?raw=true) |
-| ![Image 9](https://github.com/mydevify/MyHelpDesk/blob/main/public/showcase/ACP_Dark.PNG?raw=true)| ![Image 10](https://github.com/mydevify/MyHelpDesk/blob/main/public/showcase/ACP_Light.PNG?raw=true) |
+| ![Image 3](https://github.com/xloyb/MyHelpDesk/blob/main/public/showcase/Ticket_Drak.PNG?raw=true)| ![Image 4](https://github.com/xloyb/MyHelpDesk/blob/main/public/showcase/Ticket_Light.PNG?raw=true) |
+| ![Image 5](https://github.com/xloyb/MyHelpDesk/blob/main/public/showcase/c_Dark.PNG?raw=true)| ![Image 6](https://github.com/xloyb/MyHelpDesk/blob/main/public/showcase/c_Light.PNG?raw=true) |
+| ![Image 7](https://github.com/xloyb/MyHelpDesk/blob/main/public/showcase/Store_Dark.PNG?raw=true)| ![Image 8](https://github.com/xloyb/MyHelpDesk/blob/main/public/showcase/Store_Light.PNG.PNG?raw=true) |
+| ![Image 9](https://github.com/xloyb/MyHelpDesk/blob/main/public/showcase/ACP_Dark.PNG?raw=true)| ![Image 10](https://github.com/xloyb/MyHelpDesk/blob/main/public/showcase/ACP_Light.PNG?raw=true) |
 
 ---
 
